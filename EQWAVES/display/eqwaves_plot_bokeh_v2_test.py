@@ -240,7 +240,7 @@ class EqWavesDisplay:
         ]
 
         # Create a Legend and set its properties
-        legend = Legend(items=legend_items, title="Click to show/hide", label_text_font_size="10pt",
+        legend = Legend(items=legend_items, title="Click to show/hide (p >= 0.5)", label_text_font_size="10pt",
                         title_text_font_size="11pt",
                         location=(0, 0.5), background_fill_alpha=0.75)
         legend.click_policy = "hide"  # Allow toggling visibility on click

@@ -105,7 +105,6 @@ class MOGProcess:
 
         hr_list = [12, 18]
         fc_times = np.arange(0, 174, 24)
-        print(fc_times)
 
         # Create a list of tuples for all combinations of hr and mem
         tasks = [(date, hr, fc, digit2_mem) for hr in hr_list for fc in fc_times for digit2_mem in
@@ -187,7 +186,6 @@ class MOGProcess:
         # Equalise attributes
         iris.util.equalise_attributes(cubes)
         # Merge was failing because of some stupid cell_methods mismatch (Iris is evil!)
-        print(len(cubes))
         cubes = iris.cube.CubeList(cubes).merge_cube()
 
         return self.regrid2obs(cubes)

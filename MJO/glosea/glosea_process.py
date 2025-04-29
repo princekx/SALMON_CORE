@@ -21,6 +21,9 @@ class GLOProcess:
         self.config_values_analysis = config_values_analysis
         self.config_values = config_values
         self.num_prev_days = 201
+
+
+
         self.nforecasts = 30
         self.parent_dir = '/home/users/prince.xavier/MJO/SALMON/MJO'
 
@@ -179,6 +182,7 @@ class GLOProcess:
         # get all members
         command = '%s/%s_*_%s_*.pp' % (os.path.join(self.config_values['glosea_raw_dir'],
                                                     suite_dic[prod], date_label), prod, date_label)
+        print(command)
         files = glob.glob(command)
         members = list(set([file.split('_')[-1].split('.')[0] for file in files]))
         members.sort()

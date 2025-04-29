@@ -151,6 +151,7 @@ class AnalysisProcess:
         self.create_query_file(local_query_file1, filemoose, fct)
 
         if not self.check_retrieval_complete(outfile, remote_data_dir):
+            print('HERE')
             self.retrieve_missing_data(local_query_file1, moosedir, outfile, remote_data_dir)
         else:
             print(f'{os.path.join(remote_data_dir, outfile)} exists. Skip...')
@@ -171,7 +172,13 @@ class AnalysisProcess:
 
     def retrieve_missing_data(self, local_query_file1, moosedir, outfile, remote_data_dir):
 
-        command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {os.path.join(remote_data_dir, outfile)}'
+        outfile_path = os.path.join(remote_data_dir, outfile)
+        # delete the file
+        print(f'Deleting empty file if exists : {outfile_path}')
+        if os.path.exists(outfile_path):
+            os.remove(outfile_path)
+
+        command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {outfile_path}'
         logger.info('Executing command: %s', command)
 
         try:
