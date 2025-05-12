@@ -8,5 +8,5 @@ setup(
     license='',
     author='prince.xavier',
     author_email='prince.xavier@metoffice.gov.uk',
-    description='Southeast Asia Large Scale Monitor'
+    description='Southeast Asia Large Scale Monitoring'
 )

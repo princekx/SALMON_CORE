@@ -197,10 +197,6 @@ class ColdSurgeDisplay:
             title = f'Ensemble mean P, UV850 [CS:{cs_prob[t]}%, CES:{ces_prob[t]}%]'
             subtitle = f'Forecast start: {date_label}, Lead: T+{(t)}d Valid for 24H up to {valid_date_label}'
 
-            plot = figure(height=height, width=width, title=None,
-                          tools=["pan, reset, save, box_zoom, wheel_zoom, hover"],
-                          )
-
             hover = HoverTool(
                 tooltips=[
                     ("Latitude", "@latitude"),
@@ -209,6 +205,12 @@ class ColdSurgeDisplay:
                 ],
                 mode='mouse'  # Set the mode to display the hover tooltip
             )
+
+            plot = figure(height=height, width=width, title=None,
+                          tools=["pan, reset, save, box_zoom, wheel_zoom, hover"],
+                          )
+
+
 
             cmap = GnBu9#.copy()
             cbar_title = 'Precipitation (mm/day)'

@@ -27,7 +27,11 @@ class MOGProcess:
         self.parent_dir = '/home/users/prince.xavier/MJO/SALMON/MJO'
 
     def get_all_members(self, hr):
-        if hr == 12:
+        if hr == 0:
+            return [str('%02d' % mem) for mem in range(18)]
+        elif hr == 6:
+            return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
+        elif hr == 12:
             return [str('%02d' % mem) for mem in range(18)]
         elif hr == 18:
             return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
@@ -103,7 +107,7 @@ class MOGProcess:
     def retrieve_mogreps_data(self, date, parallel=True):
         print('Retrieving data for date:', date)
 
-        hr_list = [12, 18]
+        hr_list = [0, 12]
         fc_times = np.arange(0, 174, 24)
 
         # Create a list of tuples for all combinations of hr and mem

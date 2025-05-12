@@ -125,6 +125,10 @@ class AnalysisProcess:
             logger.error(f'{file_moose} not returned. Check file on moose')
             sys.exit()
 
+    def remove_um_version(self, cube, field, filename):
+        """Callback to remove the 'um_version' attribute."""
+        cube.attributes.pop('um_version', None)
+
     def process_analysis_cubes(self, date):
         analysis_dates = sorted([date - datetime.timedelta(hours=i * 6)
                                  for i in range(self.ntimes_analysis)])
@@ -148,7 +152,8 @@ class AnalysisProcess:
                                         f'{var}_analysis_{date_label}.nc')
             if not os.path.exists(outfile_name):
                 print(f'Generating {outfile_name}')
-                cube = iris.load_cube(analysis_data_files, var).regrid(self.ref_grid, iris.analysis.Linear())
+                cube = iris.load_cube(analysis_data_files, var,
+                                      callback=self.remove_um_version).regrid(self.ref_grid, iris.analysis.Linear())
                 iris.save(cube, outfile_name)
 
             else:

@@ -52,8 +52,14 @@ class AnalysisProcess:
         reg_cube = my_cubes.regrid(base_cube, iris.analysis.Linear())
         return reg_cube
 
+    def remove_um_version(self, cube, field, filename):
+        """Callback to remove the 'um_version' attribute."""
+        if len(cube.coord('forecast_period').points) > 1:
+            cube = cube.collapsed('forecast_period', iris.analysis.MEAN)
+        cube.attributes.pop('um_version', None)
+
     def load_and_process_cube(self, files, constraint, time_coord_name):
-        cube = iris.load_cube(files, constraint)
+        cube = iris.load_cube(files, constraint, callback=self.remove_um_version)
         if len(cube.coord('forecast_period').points) > 1:
             cube = cube.collapsed(time_coord_name, iris.analysis.MEAN)
         return cube
