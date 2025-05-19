@@ -1,0 +1,14 @@
+#!/bin/bash
+
+model="mogreps"
+areas=("mjo" "coldsurge" "eqwaves")
+
+for area in "${areas[@]}"; do
+    source="/data/users/prince.xavier/SALMON/processed_SEA_data/$model/$area/plot_ens/"
+    dest="/gws/nopw/j04/seasia/public/realtime/SALMON/$area/$model/plot_ens/"
+
+    echo "rsync -av $source pxavier@xfer-vm-01.jasmin.ac.uk:$dest"
+    rsync -av "$source" pxavier@xfer-vm-01.jasmin.ac.uk:"$dest"
+done
+
+#rsync -av SALMON.html pxavier@xfer-vm-01.jasmin.ac.uk:/gws/nopw/j04/seasia/public/realtime/SALMON/
