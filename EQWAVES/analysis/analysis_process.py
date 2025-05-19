@@ -115,8 +115,16 @@ class AnalysisProcess:
             self.create_query_file(local_query_file1, file_moose, fct)
 
             outfile_path = os.path.join(remote_data_dir, outfile)
-            if os.path.exists(outfile_path) and os.path.getsize(outfile_path) > 0:
+
+            if os.path.getsize(outfile_path) == 0:
+                # delete the file
+                print(os.path.getsize(outfile_path))
+                print(f'Deleting empty file {outfile_path}')
+                os.remove(outfile_path)
+
+            if os.path.exists(outfile_path):
                 logger.info(f'{outfile_path} exists. Skipping retrieval.')
+
             else:
                 command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moose_dir} {outfile_path}'
                 logger.info(command)

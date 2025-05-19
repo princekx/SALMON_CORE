@@ -182,7 +182,11 @@ class AnalysisProcess:
         # delete the file
         print(f'Deleting empty file if exists : {outfile_path}')
         if os.path.exists(outfile_path):
-            os.remove(outfile_path)
+            if os.path.getsize(outfile_path) == 0:
+                # delete the file
+                print(os.path.getsize(outfile_path))
+                print(f'Deleting empty file {outfile_path}')
+                os.remove(outfile_path)
 
         command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {outfile_path}'
         logger.info('Executing command: %s', command)

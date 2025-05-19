@@ -63,6 +63,12 @@ class MOGProcess:
         outfile_status = os.path.exists(outfile_path) and os.path.getsize(outfile_path) > 0
 
         if not outfile_status:
+            if os.path.getsize(outfile_path) == 0:
+                # delete the file
+                print(os.path.getsize(outfile_path))
+                print(f'Deleting empty file {outfile_path}')
+                os.remove(outfile_path)
+
             print('EXECCCC')
             command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {os.path.join(remote_data_dir, outfile)}'
             logger.info('Executing command: %s', command)

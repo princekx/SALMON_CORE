@@ -159,6 +159,7 @@ class MOGProcess:
 
         # build cube
         dim_coords_and_dims = [(time_coord, 0)]
+        print(len(dim_coords_and_dims))
 
         for coord in analysis_cube.dim_coords[1:]:
             dim_coords_and_dims.append((coord, analysis_cube.coord_dims(coord)[0]))
@@ -200,9 +201,10 @@ class MOGProcess:
 
         forecast_files = [os.path.join(remote_data_dir, f'qg{str_hr}T{fct:03d}.pp') for fct in self.fc_times]
         forecast_files = [file for file in forecast_files if os.path.exists(file)]
-        # print(forecast_files)
+
         for var in ['x_wind', 'y_wind', 'geopotential_height', 'precipitation_amount']:
             outfile_name = os.path.join(outfile_dir, f'{var}_combined_{date_label}Z_{mem_label}.nc')
+            print('outfile_name', outfile_name)
             if not os.path.exists(outfile_name):
                 # Read forecast data
                 # Read the analysis data here
@@ -211,6 +213,7 @@ class MOGProcess:
                 print(f'analysis_combined_file: {analysis_combined_file}')
 
                 analysis_cube = iris.load_cube(analysis_combined_file)
+                print(forecast_files)
                 forecast_cube = self.read_forecasts(date, forecast_files, var)
 
                 if var == 'precipitation_amount':
@@ -331,22 +334,21 @@ class MOGProcess:
 
         outfile = f'qg{str_hr}T{fct}.pp'
         outfile_path = os.path.join(remote_data_dir, outfile)
-        if os.path.exists(outfile_path):
-            logger.info(f'{outfile_path} exists. Skipping retrieval.')
-            print(f'{outfile_path} exists. Skipping retrieval.')
 
+        outfile_status = os.path.exists(outfile_path)
+
+        if outfile_status:
+            print(outfile_status)
             if os.path.getsize(outfile_path) == 0:
                 # delete the file
                 print(os.path.getsize(outfile_path))
                 print(f'Deleting empty file {outfile_path}')
                 os.remove(outfile_path)
 
-                # now retrieve again
-                self.run_retrieval(date, str_hr, mem, fct, moose_dir, outfile_path)
-            else:
-                pass
-        else:
+        if not outfile_status:
             self.run_retrieval(date, str_hr, mem, fct, moose_dir, outfile_path)
+        else:
+            logger.info(f'{outfile_path} exists. Skipping retrieval.')
 
         # except subprocess.CalledProcessError as e:
         #    logger.error(f'{file_moose} not returned. Check file on moose. Error: {e}')
