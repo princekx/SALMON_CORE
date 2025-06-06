@@ -13,7 +13,7 @@ mogreps:
   mogreps_dummy_queryfiles_dir: /data/scratch/prince.xavier/SALMON/temp
   mogreps_moose_dir: moose:/opfc/atm/mogreps-g/prods/
   mogreps_raw_dir: /data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket
-  mogreps_combined_queryfile: /home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query
+  mogreps_combined_queryfile: /home/users/prince.xavier/MJO/SALMON/RETRIEVALS/mogreps_combined.query
   mjo:
     mogreps_mjo_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo
     mogreps_mjo_archive_dir: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/
@@ -24,6 +24,9 @@ mogreps:
   eqwaves:
     mogreps_eqwaves_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/
     mogreps_eqwaves_plot_ens: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/
+  indices:
+    mogreps_indices_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/indices/
+    mogreps_indices_plot_ens: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/indices/plot_ens/
   #bsiso:
   #  mogreps_bsiso_processed_dir: /data/scratch/prince.xavier/SEA_monitoring/processed_SEA_data/mogreps/MJO
   #  mogreps_bsiso_archive_dir: /project/MJO_GCSS/SEA_monitoring/processed_BSISO_data/mogreps/bsiso_new/

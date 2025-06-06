@@ -213,7 +213,7 @@ class MOGProcess:
                 print(f'analysis_combined_file: {analysis_combined_file}')
 
                 analysis_cube = iris.load_cube(analysis_combined_file)
-                print(forecast_files)
+
                 forecast_cube = self.read_forecasts(date, forecast_files, var)
 
                 if var == 'precipitation_amount':
@@ -225,6 +225,9 @@ class MOGProcess:
 
                 # regrid to the reference grid
                 forecast_cube = forecast_cube.regrid(self.ref_grid, iris.analysis.Linear())
+
+                print(var)
+                print(analysis_cube.shape, forecast_cube.shape)
 
                 # Combining analysis and forecasts
                 combined_cube = self.concat_analysis_forecast(date, analysis_cube, forecast_cube)
@@ -270,12 +273,12 @@ class MOGProcess:
     def read_forecasts(self, date, forecast_files, var):
         forecast_cubes = []
         for forecast_file in forecast_files:
-            forecast_cube = iris.load_cube(forecast_file, var)
-
             if var == 'precipitation_amount':
+                forecast_cube = iris.load_cube(forecast_file, var)
                 if len(forecast_cube.shape) == 3:
                     forecast_cube = forecast_cube.collapsed('time', iris.analysis.MEAN)
             else:
+                forecast_cube = iris.load_cube(forecast_file, iris.Constraint(pressure=[200, 850]) & var)
                 if len(forecast_cube.shape) == 4:
                     forecast_cube = forecast_cube.collapsed('time', iris.analysis.MEAN)
 
@@ -335,9 +338,7 @@ class MOGProcess:
         outfile = f'qg{str_hr}T{fct}.pp'
         outfile_path = os.path.join(remote_data_dir, outfile)
 
-        outfile_status = os.path.exists(outfile_path)
-
-        if outfile_status:
+        if os.path.exists(outfile_path):
             print(outfile_status)
             if os.path.getsize(outfile_path) == 0:
                 # delete the file
@@ -345,7 +346,7 @@ class MOGProcess:
                 print(f'Deleting empty file {outfile_path}')
                 os.remove(outfile_path)
 
-        if not outfile_status:
+        if not os.path.exists(outfile_path):
             self.run_retrieval(date, str_hr, mem, fct, moose_dir, outfile_path)
         else:
             logger.info(f'{outfile_path} exists. Skipping retrieval.')

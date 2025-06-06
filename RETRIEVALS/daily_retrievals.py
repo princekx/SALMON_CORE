@@ -1,4 +1,4 @@
-import datetime
+from _datetime import datetime
 import os
 import subprocess
 import sys
@@ -8,6 +8,7 @@ import logging
 import warnings
 import time
 import yaml
+import argparse
 # Set the global warning filter to ignore all warnings
 warnings.simplefilter("ignore")
 
@@ -15,34 +16,125 @@ warnings.simplefilter("ignore")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Get the absolute path of the project root (one level up from MJO)
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+print(PROJECT_ROOT)
+# Path to the config file
+CONFIG_FILE = os.path.join(PROJECT_ROOT, "salmon_config.yaml")
+print(CONFIG_FILE)
+
+sys.path.insert(0, os.path.abspath(os.getcwd()))
+
+def read_inputs_from_command_line():
+    """
+    Parse command-line arguments for date, hour, area, and model.
+
+    This function reads and validates the command-line arguments passed to the script.
+    It expects a date in 'YYYY-MM-DD' format, an optional hour in 'HH' format (default: '00'),
+    a valid area, and a valid model.
+
+    Returns:
+        dict: A dictionary containing the parsed date, hour, area, and model.
+
+    Exits:
+        If arguments are missing, invalid, or in the wrong format, the function prints
+        usage instructions and exits the script.
+    """
+    parser = argparse.ArgumentParser(description="Process date, hour, area, and model inputs.")
+
+    parser.add_argument('-d', '--date', type=str, required=True, help='Date in YYYY-MM-DD format')
+    parser.add_argument('-t', '--time', type=str, required=False, default='00', help='Optional hour in HH format (default: 00)', choices=['00', '06', '12', '18'])
+    parser.add_argument('-a', '--area', type=str, required=True, choices=['mjo', 'coldsurge', 'eqwaves', 'indices', 'bsiso'],
+                        help='Area of interest')
+    parser.add_argument('-m', '--model', type=str, required=True, choices=['mogreps', 'glosea'], help='Model selection')
+
+    args = parser.parse_args()
+
+    # Validate date format
+    try:
+        date_obj = datetime.strptime(args.date, '%Y-%m-%d')
+    except ValueError as e:
+        print(f"Error: {e}. Please provide the date in YYYY-MM-DD format.")
+        parser.print_help()
+        sys.exit(1)
+
+
+    # Validate hour if provided
+    if not args.time.isdigit() or not (0 <= int(args.time) <= 23):
+        print(f"Error: Invalid hour '{args.time}'. Please provide an hour from ['00', '06', '12', '18']")
+        parser.print_help()
+        sys.exit(1)
+
+    hour = int(args.time)  # Convert to integer
+    date_obj = date_obj.replace(hour=hour)
+    print(date_obj)
+
+    return {
+        'date': date_obj,
+        'area': args.area.lower(),
+        'model': args.model.lower()
+    }
+
+
+
+def print_dict(config_values):
+    if config_values:
+        for option, value in config_values.items():
+            print(f'{option}: {value}')
+
+
+def create_directories(config_values):
+    """
+    Reads a config.ini file, extracts directory paths, and creates the directories if they don't exist.
+
+    Args:
+        config_file (str): Path to the configuration file.
+    """
+
+    for key, path in config_values.items():
+        # Skip paths that contain "moose" or have a "." (likely a file)
+        if "moose" in path or "." in os.path.basename(path):
+            print(f"Skipping: {path}")
+            continue
+
+        # Create directory if it doesn't exist
+        if not os.path.exists(path):
+            os.makedirs(path)
+            print(f"Created: {path}")
+        else:
+            print(f"Already exists: {path}")
+
+
+def load_config(model=None, section=None):
+    # Load the YAML file
+    config_values = {}
+    with open(CONFIG_FILE, "r") as file:
+        config = yaml.safe_load(file)
+        # Get options in the 'analysis' section and store in the dictionary
+        for option, value in config[model].items():
+            if isinstance(value, dict):
+                for op, val in value.items():
+                    config_values[op] = val
+            else:
+                config_values[option] = value
+    print(config_values.keys())
+
+    # Create the directories in the salmon_config.yaml file unless exist
+    create_directories(config_values)
+
+    return config_values
+
+
+if __name__ == '__main__':
+    inputs = read_inputs_from_command_line()
+
+    date = inputs['date']
+    model = inputs['model']
+    area = inputs['area']
+
+"""
 class RetrieveData:
 
-    def __init__(self, model):
-        self.config_values = {}
-        # Navigate to the parent directory
-        self.parent_dir = '/home/h03/hadpx/MJO/Monitoring_new/'
-
-        # Specify the path to the config file in the parent directory
-        with open(os.path.join(self.parent_dir, 'salmon_config.yaml'), 'r') as f:
-            config = yaml.safe_load(f)
-
-        config = config[model]
-        # Flatten the dictionary
-        self.config_values = self.flatten_dict(config)
-
-    def print_dict(self, dict_obj):
-        for k, v in dict_obj.items():
-            print(f'{k}: {v}')
-    def flatten_dict(self, d, parent_key='', sep='_'):
-        items = []
-        for k, v in d.items():
-            #new_key = f"{parent_key}{sep}{k}" if parent_key else k
-            new_key = k
-            if isinstance(v, dict):
-                items.extend(self.flatten_dict(v, new_key, sep=sep).items())
-            else:
-                items.append((new_key, v))
-        return dict(items)
 
     def analysis_data_for_all(self, date):
         '''
@@ -319,3 +411,4 @@ if __name__ == '__main__':
     reader = RetrieveData('glosea')
     reader.glosea_data_for_all(date, prod='prodf')
     reader.glosea_data_for_all(date, prod='prodm')
+"""

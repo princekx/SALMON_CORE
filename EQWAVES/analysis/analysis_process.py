@@ -109,29 +109,27 @@ class AnalysisProcess:
 
         outfile = f'qg{str_hr}T{fct}.pp'
 
-        try:
-            local_query_file1 = os.path.join(self.config_values['analysis_dummy_queryfiles_dir'],
-                                             f'eqw_localquery_{uuid.uuid1()}')
-            self.create_query_file(local_query_file1, file_moose, fct)
+        local_query_file1 = os.path.join(self.config_values['analysis_dummy_queryfiles_dir'],
+                                         f'eqw_localquery_{uuid.uuid1()}')
+        self.create_query_file(local_query_file1, file_moose, fct)
 
-            outfile_path = os.path.join(remote_data_dir, outfile)
+        outfile_path = os.path.join(remote_data_dir, outfile)
 
+        if os.path.exists(outfile_path):
             if os.path.getsize(outfile_path) == 0:
                 # delete the file
                 print(os.path.getsize(outfile_path))
                 print(f'Deleting empty file {outfile_path}')
                 os.remove(outfile_path)
+                print('HERE')
+                sys.exit()
 
-            if os.path.exists(outfile_path):
-                logger.info(f'{outfile_path} exists. Skipping retrieval.')
-
-            else:
-                command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moose_dir} {outfile_path}'
-                logger.info(command)
-                subprocess.run(command, shell=True, check=True)
-        except subprocess.CalledProcessError:
-            logger.error(f'{file_moose} not returned. Check file on moose')
-            sys.exit()
+        if not os.path.exists(outfile_path):
+            command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moose_dir} {outfile_path}'
+            logger.info(command)
+            subprocess.run(command, shell=True, check=True)
+        else:
+            logger.info(f'{outfile_path} exists. Skipping retrieval.')
 
     def remove_um_version(self, cube, field, filename):
         """Callback to remove the 'um_version' attribute."""
@@ -154,14 +152,26 @@ class AnalysisProcess:
                                for an_date in analysis_dates]
         print(f'Reading {len(analysis_data_files)} analysis files')
 
+
+
+
         for var in ['x_wind', 'y_wind', 'geopotential_height', 'precipitation_amount']:
         #for var in ['x_wind', 'y_wind', 'geopotential_height']:
             outfile_name = os.path.join(self.config_values['analysis_eqwaves_processed_dir'],
                                         f'{var}_analysis_{date_label}.nc')
+            print(outfile_name)
+
             if not os.path.exists(outfile_name):
                 print(f'Generating {outfile_name}')
-                cube = iris.load_cube(analysis_data_files, var,
-                                      callback=self.remove_um_version).regrid(self.ref_grid, iris.analysis.Linear())
+                if var == 'precipitation_amount':
+                    cube = iris.load_cube(analysis_data_files, var,
+                                          callback=self.remove_um_version).regrid(self.ref_grid, iris.analysis.Linear())
+                else:
+                    cube = iris.load_cube(analysis_data_files, iris.Constraint(pressure=[200, 850]) & var,
+                                          callback=self.remove_um_version).regrid(self.ref_grid,
+                                                                                  iris.analysis.Linear())
+                print(cube)
+
                 iris.save(cube, outfile_name)
 
             else:

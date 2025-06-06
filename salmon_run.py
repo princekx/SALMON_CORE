@@ -33,7 +33,7 @@ def read_inputs_from_command_line():
 
     parser.add_argument('-d', '--date', type=str, required=True, help='Date in YYYY-MM-DD format')
     parser.add_argument('-t', '--time', type=str, required=False, default='00', help='Optional hour in HH format (default: 00)', choices=['00', '06', '12', '18'])
-    parser.add_argument('-a', '--area', type=str, required=True, choices=['mjo', 'coldsurge', 'eqwaves', 'bsiso'],
+    parser.add_argument('-a', '--area', type=str, required=True, choices=['mjo', 'coldsurge', 'eqwaves', 'indices', 'bsiso'],
                         help='Area of interest')
     parser.add_argument('-m', '--model', type=str, required=True, choices=['mogreps', 'glosea'], help='Model selection')
 
@@ -252,3 +252,47 @@ if __name__ == '__main__':
             # Generate plots for forecast ensemble probability
             reader = eqwaves_plot_bokeh.EqWavesDisplay(model, config_values_analysis, config_values)
             reader.bokeh_plot_forecast_ensemble_probability_multiwave(date)
+
+    if area == 'indices':
+        from INDICES.mogreps import mogreps_process as indices_mogreps_process
+        #from INDICES.glosea import glosea_process as indices_glosea_process
+        #from INDICES.display import indices_plot_bokeh
+
+        if model == 'mogreps':
+            # All ensemble members
+            members = [str('%03d' % mem) for mem in range(36)]
+            print(members)
+
+            config_values = load_config(model=model)
+            print(config_values)
+
+            reader = indices_mogreps_process.MOGProcess(config_values)
+            print(reader.config_values)
+            # This retrieves 35 members
+            status1 = reader.retrieve_mogreps_data(date, parallel=True)
+            #print(status1)
+
+            #status2 = reader.process_forecast_data(date, members)
+
+            #reader = coldsurge_plot_bokeh.ColdSurgeDisplay(model, config_values)
+            #reader.bokeh_plot_forecast_ensemble_mean(date)
+            #reader.bokeh_plot_forecast_probability_precip(date)
+        '''
+        if model == 'glosea':
+            config_values = load_config(model=model)
+            print(config_values)
+
+            reader = cs_glosea_process.GLOProcess(config_values)
+            print(reader.config_values)
+
+            status1 = reader.retrieve_glosea_data(date)
+            print(status1)
+
+            # combine all members
+            members = [str('%03d' % mem) for mem in range(4)]
+            status2 = reader.combine_members(date, members)
+
+            reader = coldsurge_plot_bokeh.ColdSurgeDisplay(model, config_values)
+            reader.bokeh_plot_forecast_ensemble_mean(date)
+            reader.bokeh_plot_forecast_probability_precip(date)
+        '''

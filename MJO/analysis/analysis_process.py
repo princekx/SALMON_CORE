@@ -188,14 +188,17 @@ class AnalysisProcess:
                 print(f'Deleting empty file {outfile_path}')
                 os.remove(outfile_path)
 
-        command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {outfile_path}'
-        logger.info('Executing command: %s', command)
+        if not os.path.exists(outfile_path):
+            command = f'/opt/moose-client-wrapper/bin/moo select --fill-gaps {local_query_file1} {moosedir} {outfile_path}'
+            logger.info('Executing command: %s', command)
 
-        try:
-            subprocess.run(command, shell=True, check=True)
-            logger.info('Data retrieval successful.')
-        except subprocess.CalledProcessError as e:
-            logger.error('Error during data retrieval: %s', e)# Replace the fctime and filemoose in query file
+            try:
+                subprocess.run(command, shell=True, check=True)
+                logger.info('Data retrieval successful.')
+            except subprocess.CalledProcessError as e:
+                logger.error('Error during data retrieval: %s', e)# Replace the fctime and filemoose in query file
+        else:
+            logger.info(f'{outfile_path} exists. Skipping retrieval.')
 
     def combine_201_days_analysis_data(self, date, parallel=True):
 
