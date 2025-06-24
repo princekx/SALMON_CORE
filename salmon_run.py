@@ -256,7 +256,7 @@ if __name__ == '__main__':
     if area == 'indices':
         from INDICES.mogreps import mogreps_process as indices_mogreps_process
         #from INDICES.glosea import glosea_process as indices_glosea_process
-        #from INDICES.display import indices_plot_bokeh
+        from INDICES.display import indices_plot_bokeh
 
         if model == 'mogreps':
             # All ensemble members
@@ -269,13 +269,11 @@ if __name__ == '__main__':
             reader = indices_mogreps_process.MOGProcess(config_values)
             print(reader.config_values)
             # This retrieves 35 members
-            status1 = reader.retrieve_mogreps_data(date, parallel=True)
+            #status1 = reader.retrieve_mogreps_data(date, parallel=True)
             #print(status1)
 
-            #status2 = reader.process_forecast_data(date, members)
-
-            #reader = coldsurge_plot_bokeh.ColdSurgeDisplay(model, config_values)
-            #reader.bokeh_plot_forecast_ensemble_mean(date)
+            reader = indices_plot_bokeh.ColdSurgeDisplay(model, config_values)
+            reader.bokeh_plot_forecast_ensemble_mean(date)
             #reader.bokeh_plot_forecast_probability_precip(date)
         '''
         if model == 'glosea':

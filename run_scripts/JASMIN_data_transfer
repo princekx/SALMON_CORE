@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /home/users/prince.xavier/.bashrc
+
 model="mogreps"
 areas=("mjo" "coldsurge" "eqwaves")
 

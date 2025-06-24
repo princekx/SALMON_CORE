@@ -75,8 +75,6 @@ def read_inputs_from_command_line():
         'model': args.model.lower()
     }
 
-
-
 def print_dict(config_values):
     if config_values:
         for option, value in config_values.items():
@@ -131,6 +129,17 @@ if __name__ == '__main__':
     date = inputs['date']
     model = inputs['model']
     area = inputs['area']
+
+
+    if area == 'analysis':
+        if model == 'mjo':
+            config_values = load_config(model=model, section=area)
+            moosedir = os.path.join(config_values['analysis_moose_dir'], f'{str(date.year)}.pp')
+
+            fc_times = [0]  # just the analysis data
+            hr_list = ['00', '12']
+
+            print(config_values)
 
 """
 class RetrieveData:
