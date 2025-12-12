@@ -1,0 +1,18 @@
+begin
+  stash=2205
+  lbproc=0
+  pp_file="filemoose"
+end
+begin
+  stash=5226
+  lbproc=128
+  lbft=fctime
+  pp_file="filemoose"
+end
+begin
+  stash=(15201, 15202)
+  blev=(200.0, 850.0)
+  lbft=fctime
+  pp_file="filemoose"
+end
+

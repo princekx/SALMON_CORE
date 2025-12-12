@@ -83,8 +83,8 @@ class ColdSurgeDisplay:
 
         color_bar = ColorBar(color_mapper=color_mapper, label_standoff=12,
                              border_line_color=None, location=(0, 0),
-                             orientation='horizontal', title=cbar_title)
-        plot.add_layout(color_bar, 'below')
+                             orientation='vertical', title=cbar_title)
+        plot.add_layout(color_bar, 'right')
         return plot
 
 
@@ -150,7 +150,7 @@ class ColdSurgeDisplay:
         return file_name
 
 
-    def bokeh_plot_forecast_ensemble_mean(self, date, plot_width=500):
+    def bokeh_plot_forecast_ensemble_mean(self, date, plot_width=700):
 
         precip_file_name = self.get_file_name(date, 'precip')
         u850_file_name = self.get_file_name(date, 'u850')
@@ -187,7 +187,7 @@ class ColdSurgeDisplay:
         # Plot setup
         width = plot_width
         aspect = (max(lons) - min(lons)) / (max(lats) - min(lats))
-        height = int(width / (0.75 * aspect))
+        height = int(width / (1. * aspect))
         print(width, height)
 
         for t in np.arange(ntimes):
@@ -249,7 +249,7 @@ class ColdSurgeDisplay:
 
 
     def bokeh_plot_forecast_probability_precip(self, date, precip_thresholds=[10, 20, 30],
-                                  plot_width=500):
+                                  plot_width=700):
         '''
         Plots the probability maps of precip and winds for given thresholds
         :param forecast_date_time:
@@ -287,7 +287,7 @@ class ColdSurgeDisplay:
         # Plot setup
         width = plot_width
         aspect = (max(lons) - min(lons)) / (max(lats) - min(lats))
-        height = int(width / (0.75 * aspect))
+        height = int(width / (1 * aspect))
 
         print(width, height)
 

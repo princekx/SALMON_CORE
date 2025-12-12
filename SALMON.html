@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,742 +5,794 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALMON - SEAsia Large Scale Monitoring Dashboard</title>
-
-    <!-- Add Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Add Flatpickr CSS for calendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
-        body {
-            padding: 5px;
+        body { 
+            padding: 0; 
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
-
-        iframe {
-            width: 100%;
-            height: 1000px;
-            border: 0px solid #ddd;
-            margin-top: 20px;
-            margin-left: 0px;
-        }
-
-        .container {
-            margin-top: 20px;
-        }
-
-        h1 {
-            width: 100%;
-            color: #ffffff;
+        
+        .header {
             background-color: #007bff;
-            padding: 20px;
-            font-weight: bold;
-            border-radius: 5px;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 10px;
+            width: 220px;
+            height: calc(100vh - 80px);
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-y: auto;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar .nav {
+            flex-direction: column;
+        }
+        
+        .sidebar .nav-item {
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .sidebar .nav-link {
+            color: #333;
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+            color: white;
+            border-left-color: #0056b3;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            margin-top: 70px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 20px;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .tab-content {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        iframe { 
+            width: 100%; 
+            height: 1000px; 
+            border: none; 
+            margin-top: 20px; 
+        }
+        
         h2, h3 {
             color: #007bff;
             border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
-            padding-top: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
         }
-
-        h3 {
-            font-size: 16px; /* Adjust the font size as needed */
+        
+        h3 { 
+            font-size: 16px; 
         }
-        select.form-control {
-            width: 100%;
+        
+        select.form-control { 
+            width: 100%; 
         }
-         .iframe-container {
-        display: flex;
-        width: 50%;
-        flex-direction: row;
-    }
-
-
+        
+        .control-group {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        /* Calendar styling */
+        .flatpickr-day.disabled {
+            color: #ccc !important;
+            cursor: not-allowed !important;
+        }
+        
+        .flatpickr-input {
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                top: 0;
+                left: 0;
+                margin: 10px;
+            }
+            
+            .main-content {
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>SALMON - SEAsia Large Scale Monitoring</h1>
-        </div>
-    </div>
+<!-- Header -->
+<div class="header">
+    <h1>SALMON - SEAsia Large Scale Monitoring</h1>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Bootstrap Tabs -->
-            <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="mjoTab" data-toggle="tab" href="#mjo" role="tab" aria-controls="mjo"
-                       aria-selected="true">MJO</a>
-                </li>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+    <ul class="nav nav-pills" id="dashboardTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#mjo">MJO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#coldsurge">Cold Surge</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#eqwaves">Equatorial Waves</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#monsoonIndices">Monsoon Indices</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#convLines">Convergence Lines</a>
+        </li>
+    </ul>
+</div>
 
-                <li class="nav-item">
-                    <a class="nav-link" id="coldsurgeTab" data-toggle="tab" href="#coldsurge" role="tab"
-                       aria-controls="coldsurge" aria-selected="false">Cold Surge</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" id="eqwTab" data-toggle="tab" href="#eqwaves" role="tab"
-                       aria-controls="eqwaves" aria-selected="false">Equatorial Waves</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" id="bsisoTab" data-toggle="tab" href="#bsiso" role="tab" aria-controls="bsiso"
-                       aria-selected="false">BSISO</a>
-                </li>
-
-            </ul>
-
-            <div class="tab-content" id="dashboardTabsContent">
-                <!-- MJO Tab -->
-                <div class="tab-pane fade show active" id="mjo" role="tabpanel" aria-labelledby="mjoTab">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2>MOGREPS</h2>
-                            <!-- Embed the MOGREPS plot using an iframe -->
-                            <label for="mogrepsDropdown">Select MOGREPS Date:</label>
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="nextMogrepsBtn">Prev</button>
-                                </div>
-                                <select id="mogrepsDropdown" class="form-control"></select>
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="prevMogrepsBtn">Next</button>
-                                </div>
+<!-- Main Content Area -->
+<div class="main-content">
+    <div class="tab-content" id="dashboardTabsContent">
+        <!-- MJO Tab -->
+        <div class="tab-pane fade show active" id="mjo">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>MOGREPS</h2>
+                    <div class="control-group">
+                        <label>Select Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="mogrepsDatePicker" class="form-control" placeholder="Select date..." readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="mogrepsDatePrevBtn">-</button>
+                                <button class="btn btn-primary" id="mogrepsDateNextBtn">+</button>
                             </div>
-                            <iframe id="mogrepsIframe" frameborder="0"></iframe>
-                            <!-- Add dates dynamically using JavaScript for MOGREPS -->
-                        </div>
-                        <div class="col-md-6">
-                            <h2>GLOSEA</h2>
-                            <!-- Embed the GLOSEA plot using an iframe -->
-                            <label for="gloseaDropdown">Select GLOSEA Date:</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="nextGloseaBtn">Prev</button>
-                                </div>
-                                <select id="gloseaDropdown" class="form-control"></select>
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="prevGloseaBtn">Next</button>
-                                </div>
-                            </div>
-                            <iframe id="gloseaIframe" frameborder="0"></iframe>
-                            <!-- Add dates dynamically using JavaScript for GLOSEA -->
                         </div>
                     </div>
-                    <!-- Line of text under the two panels -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p style="margin-top: -500px;"> This is a line of text under the two panels in the MJO tab.</p>
+                    <iframe id="mogrepsIframe"></iframe>
+                </div>
+                <div class="col-md-6">
+                    <h2>GLOSEA</h2>
+                    <div class="control-group">
+                        <label>Select Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="gloseaDatePicker" class="form-control" placeholder="Select date..." readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="gloseaDatePrevBtn">-</button>
+                                <button class="btn btn-primary" id="gloseaDateNextBtn">+</button>
+                            </div>
                         </div>
+                    </div>
+                    <iframe id="gloseaIframe"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cold Surge Tab -->
+        <div class="tab-pane fade" id="coldsurge">
+            <h2>Cold Surge</h2>
+            <div class="control-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Select Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="coldSurgeDatePicker" class="form-control" placeholder="Select date..." readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="coldSurgeDatePrevBtn">-</button>
+                                <button class="btn btn-primary" id="coldSurgeDateNextBtn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Select Lead Time:</label>
+                        <div class="input-group">
+                            <select id="leadTimeDropdown" class="form-control"></select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="decrementLeadTimeBtn">-</button>
+                                <button class="btn btn-primary" id="incrementLeadTimeBtn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Select Precip. Threshold:</label>
+                        <select id="thresholdDropdown" class="form-control">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
                     </div>
                 </div>
+            </div>
+            <h3>MOGREPS</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <iframe id="mogrepsEnsMeanIframe" style="height: 600px;"></iframe>
+                </div>
+                <div class="col-md-6">
+                    <iframe id="mogrepsProbMapsIframe" style="height: 600px;"></iframe>
+                </div>
+            </div>
+            <h3 style="margin-top: 20px;">GLOSEA</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <iframe id="gloseaEnsMeanIframe" style="height: 600px;"></iframe>
+                </div>
+                <div class="col-md-6">
+                    <iframe id="gloseaProbMapsIframe" style="height: 600px;"></iframe>
+                </div>
+            </div>
+        </div>
 
-                <!-- BSISO Tab -->
-                <div class="tab-pane fade" id="bsiso" role="tabpanel" aria-labelledby="bsisoTab">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2>MOGREPS</h2>
-                            <!-- Embed the MOGREPS plot using an iframe -->
-                            <label for="bsisoMogrepsDropdown">Select MOGREPS Date:</label>
-                            <div class="input-group mb-3">
-
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="nextBsisoMogrepsBtn">Prev</button>
-                                </div>
-                                <select id="bsisoMogrepsDropdown" class="form-control"></select>
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="prevBsisoMogrepsBtn">Next</button>
-                                </div>
+        <!-- Equatorial Waves Tab -->
+        <div class="tab-pane fade" id="eqwaves">
+            <h2>Equatorial Waves</h2>
+            <div class="control-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Select Date:</label>
+                        <select id="eqwDateDropdown" class="form-control"></select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Select Lead Time:</label>
+                        <div class="input-group">
+                            <select id="eqwLeadTimeDropdown" class="form-control"></select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="eqwDecrementLeadTimeBtn">-</button>
+                                <button class="btn btn-primary" id="eqwIncrementLeadTimeBtn">+</button>
                             </div>
-                            <iframe id="bsisoMogrepsIframe" frameborder="0"></iframe>
-                            <!-- Add dates dynamically using JavaScript for MOGREPS -->
-                        </div>
-                        <div class="col-md-6">
-                            <h2>GLOSEA</h2>
-                            <!-- Embed the GLOSEA plot using an iframe -->
-                            <label for="bsisoGloseaDropdown">Select GLOSEA Date:</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="nextBsisoGloseaBtn">Prev</button>
-                                </div>
-                                <select id="bsisoGloseaDropdown" class="form-control"></select>
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" type="button" id="prevBsisoGloseaBtn">Next</button>
-                                </div>
-                            </div>
-                            <iframe id="bsisoGloseaIframe" frameborder="0"></iframe>
-                            <!-- Add dates dynamically using JavaScript for GLOSEA -->
                         </div>
                     </div>
-                    <!-- Line of text under the two panels -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p style="margin-top: -450px;"> BSISO 1 indices based on Lee et al (2013). These indicate the
-                                large scale northward propagating modes alone. Grey are the analysis
-                                values and blue are the forecasts. Thick blue lines are the ensemble mean. Inset panels
-                                indicate the composite precipitation anomaly (ranging from -10 to 10 mm day-1) for each phase
-                                for reference on the 8 phases of BSISO. Indices within the unit circle indicate weaker BSISO
-                                and its amplitude is stronger as we go away from the centre.
-                                The following steps are involved in the computation of these indices:
-                                1) Removal of the first three harmonics in climatological annual cycle
-                                2) Removal of the effect of ENSO signal through subtracting last 120-day mean
-                                3) Normalization by area averaged temporal standard deviation over the Asian region
-                                4) Multi-variate EOF analysis using daily OLR and U850 anomalies
-                                5) Projection of model output (or observed data) onto the BSISO EOFs
-                                For more info and codes, visit https://iprc.soest.hawaii.edu/users/jylee/bsiso/
-                            </p>
-                        </div>
+                    <div class="col-md-4">
+                        <label>Select Pressure Level:</label>
+                        <select id="eqwWavePressureDropdown" class="form-control">
+                            <option value="850">850 hPa</option>
+                            <option value="200">200 hPa</option>
+                        </select>
                     </div>
                 </div>
+            </div>
+            <h3>MOGREPS</h3>
+            <iframe id="eqwMogrepsEnsMeanIframe" style="min-height: 600px;"></iframe>
+            <p style="margin-top: 20px;">Figure shows ensemble probability maps...</p>
+        </div>
 
-                <!-- Cold Surge Tab -->
-                <div class="tab-pane fade" id="coldsurge" role="tabpanel" aria-labelledby="coldsurgeTab">
-                    <!-- Cold Surge content goes here -->
-                    <!-- Add the link to the Cold Surges tab -->
-                    <!-- Embed the cold surge display page using an iframe -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Cold Surge </h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="dateDropdown">Select Date:</label>
-                            <select id="dateDropdown" class="form-control"></select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="leadTimeDropdown">Select Lead Time:</label>
-                            <div class="input-group">
-                                <select id="leadTimeDropdown" class="form-control">
-                                    <option value="24">1 day (24h)</option>
-                                    <option value="48">2 days (48h)</option>
-                                    <option value="72">3 days (72h)</option>
-                                    <option value="96">4 days (96h)</option>
-                                    <option value="120">5 days (120h)</option>
-                                    <option value="144">6 days (144h)</option>
-                                    <option value="168">7 days (168h)</option>
-                                    <option value="192">8 days (192h)</option>
-                                    <option value="216">9 days (216h)</option>
-                                    <option value="240">10 days (240h)</option>
-                                    <option value="264">11 days (264h)</option>
-                                    <option value="288">12 days (288h)</option>
-                                    <option value="312">13 days (312h)</option>
-                                    <option value="336">14 days (336h)</option>
-                                    <!-- Other lead time options -->
-                                </select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="decrementLeadTimeBtn">-</button>
-                                    <button class="btn btn-primary" type="button" id="incrementLeadTimeBtn">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="thresholdDropdown">Select Precip. Threshold:</label>
-                            <select id="thresholdDropdown" class="form-control">
-                                <!-- Other threshold options -->
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                            </select>
-                        </div>
-                    </div>
-                    <h3 style="margin-top: 5px;">MOGREPS</h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <iframe id="mogrepsEnsMeanIframe" margin-top=10px frameborder="0" width="600px" height="20px"></iframe>
-                        </div>
-                        <div class="col-md-6">
-                            <iframe id="mogrepsProbMapsIframe" margin-top=10px frameborder="0" width="600px" height="20px"></iframe>
-                        </div>
-                    </div>
-                    <h3 style="margin-top: -490px;">GLOSEA</h3>
-                    <div class="row"> <!-- Remove negative margin-top -->
-                        <div class="col-md-6">
-                            <iframe id="gloseaEnsMeanIframe" margin-top=1px frameborder="0" width=600px></iframe>
-                        </div>
-                        <div class="col-md-6">
-                            <iframe id="gloseaProbMapsIframe" margin-top=1px frameborder="0" width=600px></iframe>
-                        </div>
+        <!-- Monsoon Indices Tab -->
+        <div class="tab-pane fade" id="monsoonIndices">
+            <h2>Monsoon Indices</h2>
+            <div class="control-group">
+                <label>Select Date:</label>
+                <div class="input-group" style="max-width: 500px;">
+                    <input type="text" id="monsoonIndicesDatePicker" class="form-control" placeholder="Select date..." readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="monsoonIndicesDatePrevBtn">-</button>
+                        <button class="btn btn-primary" id="monsoonIndicesDateNextBtn">+</button>
                     </div>
                 </div>
+            </div>
+            <iframe id="monsoonIndicesIframe"></iframe>
+            <p style="margin-top: 20px;">This method calculates the following indices...</p>
+        </div>
 
-
-                <!-- Equatorial waves Tab -->
-                <div class="tab-pane fade" id="eqwaves" role="tabpanel" aria-labelledby="eqwTab">
-                    <!-- Equatorial waves content goes here -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Equatorial Waves </h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="eqwDateDropdown">Select Date:</label>
-                            <select id="eqwDateDropdown" class="form-control"></select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="eqwLeadTimeDropdown">Select Lead Time:</label>
-                            <div class="input-group">
-                                <select id="eqwLeadTimeDropdown" class="form-control"></select>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="eqwDecrementLeadTimeBtn">-</button>
-                                    <button class="btn btn-primary" type="button" id="eqwIncrementLeadTimeBtn">+</button>
-                                </div>
+        <!-- Convergence Lines Tab -->
+        <div class="tab-pane fade" id="convLines">
+            <h2>Convergence Lines</h2>
+            <div class="control-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Select Date:</label>
+                        <div class="input-group">
+                            <input type="text" id="convLinesDatePicker" class="form-control" placeholder="Select date..." readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="convLinesDatePrevBtn">-</button>
+                                <button class="btn btn-primary" id="convLinesDateNextBtn">+</button>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label for="eqwWavePressureDropdown">Select Pressure Level:</label>
-                            <div class="input-group">
-                                <select id="eqwWavePressureDropdown" class="form-control">
-                                    <option value="850">850 hPa</option>
-                                    <option value="200">200 hPa</option>
-                                </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Select Lead Time:</label>
+                        <div class="input-group">
+                            <select id="convLinesLeadTimeDropdown" class="form-control"></select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="convLinesDecrementLeadTimeBtn">-</button>
+                                <button class="btn btn-primary" id="convLinesIncrementLeadTimeBtn">+</button>
                             </div>
-                        </div>
-
-                    </div>
-                    <h3 style="margin-top: 5px;">MOGREPS</h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <iframe id="eqwMogrepsEnsMeanIframe" style="margin-top: 10px; width: 100%; min-height: 600px; border: none;"></iframe>
-                        </div>
-                    </div>
-                    <!-- Line of text under the two panels -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p style="margin-top: -50px;"> Figure shows the maps of ensemble (18 members) probability of rainfall exceeding 5 mm/day (shaded). <br>
-                                                            Contours are the upper tercile (p=0.66) value of the following fields for each wave. <br>
-                                                            <table border='1'>
-                                                                <tr><th>Parameter</th><th>Threshold Value</th></tr>
-                                                                <tr><td>Precip</td><td>5 mm/day</td></tr>
-                                                                <tr><td>Kelvin_850 divergence</td><td>-1e-06 s-1</td></tr>
-                                                                <tr><td>WMRG_850 divergence</td><td>-1e-06 s-1</td></tr>
-                                                                <tr><td>R1_850 vorticity</td><td>5e-06 s-1</td></tr>
-                                                                <tr><td>R2_850 vorticity</td><td>3e-06 s-1</td></tr>
-                                                              </table>
-
-                                                        </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <iframe id="convLinesIframe"></iframe>
+            <p style="margin-top: 20px;">
+                Figure shows the ensemble probability of convergence lines detected using the Weller et al. (2017) method.
+                The algorithm identifies convergence lines based on wind field analysis at 850 hPa level.
+                Shaded areas indicate the probability (0-1) that a convergence line is present at that location across ensemble members.
+            </p>
         </div>
     </div>
 </div>
 
-<!-- Add Bootstrap JS and jQuery for dropdown functionality -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Add Flatpickr JS for calendar -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-        //////////////////////// MJO section /////////////////////////////////////////////////////
-        // JavaScript to dynamically populate dropdowns and update iframe sources
-        const mogrepsDropdown = document.getElementById('mogrepsDropdown');
-        const gloseaDropdown = document.getElementById('gloseaDropdown');
-        const mogrepsIframe = document.getElementById('mogrepsIframe');
-        const gloseaIframe = document.getElementById('gloseaIframe');
-        const prevMogrepsBtn = document.getElementById('prevMogrepsBtn');
-        const nextMogrepsBtn = document.getElementById('nextMogrepsBtn');
-        const prevGloseaBtn = document.getElementById('prevGloseaBtn');
-        const nextGloseaBtn = document.getElementById('nextGloseaBtn');
+// Utility functions
+const createDropdown = (id) => document.getElementById(id);
+const createIframe = (id) => document.getElementById(id);
 
-        // Function to update iframe sources based on selected date for MOGREPS
-        function updateMogrepsPlot() {
-            const selectedDate = mogrepsDropdown.value;
-            const mogrepsIframeSrc = `mjo/mogreps/plot_ens/MOGREPS_${selectedDate}.html`;
-            mogrepsIframe.src = mogrepsIframeSrc;
+const navigateDropdown = (dropdown, direction) => {
+    const newIndex = dropdown.selectedIndex + direction;
+    if (newIndex >= 0 && newIndex < dropdown.options.length) {
+        dropdown.selectedIndex = newIndex;
+        dropdown.dispatchEvent(new Event('change'));
+    }
+};
+
+const populateDropdown = (dropdown, dates, reverse = true) => {
+    const orderedDates = reverse ? dates.reverse() : dates;
+    orderedDates.forEach(date => {
+        dropdown.appendChild(new Option(date, date));
+    });
+};
+
+const fetchAndPopulate = (url, dropdown, callback) => {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            populateDropdown(dropdown, data);
+            if (callback) callback();
+        })
+        .catch(error => console.error(`Error fetching data from ${url}:`, error));
+};
+
+// Helper function to parse date from YYYYMMDD format
+const parseDate = (dateStr) => {
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+    return new Date(year, parseInt(month) - 1, day);
+};
+
+// Helper function to format date to YYYYMMDD
+const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+};
+
+// MJO Section with Calendar
+const mjoSetup = () => {
+    const mogrepsDatePicker = document.getElementById('mogrepsDatePicker');
+    const gloseaDatePicker = document.getElementById('gloseaDatePicker');
+    const mogrepsIframe = createIframe('mogrepsIframe');
+    const gloseaIframe = createIframe('gloseaIframe');
+
+    let mogrepsAvailableDates = [];
+    let gloseaAvailableDates = [];
+    let mogrepsFlatpickrInstance = null;
+    let gloseaFlatpickrInstance = null;
+
+    const updateMogreps = (dateStr) => {
+        mogrepsIframe.src = `mjo/mogreps/plot_ens/MOGREPS_${dateStr}.html`;
+    };
+
+    const updateGlosea = (dateStr) => {
+        gloseaIframe.src = `mjo/glosea/plot_ens/GLOSEA_${dateStr}.html`;
+    };
+
+    // Navigate MOGREPS date
+    const navigateMogrepsDate = (direction) => {
+        if (!mogrepsFlatpickrInstance || !mogrepsFlatpickrInstance.selectedDates[0]) return;
+        
+        const currentDate = mogrepsFlatpickrInstance.selectedDates[0];
+        const currentDateStr = formatDate(currentDate);
+        const currentIndex = mogrepsAvailableDates.indexOf(currentDateStr);
+        
+        if (currentIndex === -1) return;
+        
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < mogrepsAvailableDates.length) {
+            const newDate = parseDate(mogrepsAvailableDates[newIndex]);
+            mogrepsFlatpickrInstance.setDate(newDate);
+            updateMogreps(mogrepsAvailableDates[newIndex]);
         }
+    };
 
-        // Function to update iframe sources based on selected date for GLOSEA
-        function updateGloseaPlot() {
-            const selectedDate = gloseaDropdown.value;
-            const gloseaIframeSrc = `mjo/glosea/plot_ens/GLOSEA_${selectedDate}.html`;
-            gloseaIframe.src = gloseaIframeSrc;
+    // Navigate Glosea date
+    const navigateGloseaDate = (direction) => {
+        if (!gloseaFlatpickrInstance || !gloseaFlatpickrInstance.selectedDates[0]) return;
+        
+        const currentDate = gloseaFlatpickrInstance.selectedDates[0];
+        const currentDateStr = formatDate(currentDate);
+        const currentIndex = gloseaAvailableDates.indexOf(currentDateStr);
+        
+        if (currentIndex === -1) return;
+        
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < gloseaAvailableDates.length) {
+            const newDate = parseDate(gloseaAvailableDates[newIndex]);
+            gloseaFlatpickrInstance.setDate(newDate);
+            updateGlosea(gloseaAvailableDates[newIndex]);
         }
+    };
 
-        // Function to populate dropdown with dates from JSON file for MOGREPS
-        function populateMogrepsDropdown(dates) {
-
-            // Reverse the order of dates
-            const reversedDates = dates.reverse();
-
-            reversedDates.forEach(date => {
-                const option = document.createElement('option');
-                option.value = date;
-                option.text = date;
-                mogrepsDropdown.appendChild(option);
+    // Fetch MOGREPS dates and setup calendar
+    fetch('mjo/mogreps/plot_ens/mogreps_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            mogrepsAvailableDates = data;
+            const enabledDates = data.map(d => parseDate(d));
+            
+            mogrepsFlatpickrInstance = flatpickr(mogrepsDatePicker, {
+                enable: enabledDates,
+                dateFormat: "Y-m-d",
+                defaultDate: enabledDates[enabledDates.length - 1], // Most recent date
+                onChange: function(selectedDates, dateStr, instance) {
+                    const formattedDate = formatDate(selectedDates[0]);
+                    updateMogreps(formattedDate);
+                }
             });
-        }
 
-        // Function to populate dropdown with dates from JSON file for GLOSEA
-        function populateGloseaDropdown(dates) {
+            // Load initial plot
+            updateMogreps(data[data.length - 1]);
+        })
+        .catch(error => console.error('Error fetching MOGREPS dates:', error));
 
-            // Reverse the order of dates
-            const reversedDates = dates.reverse();
-
-            reversedDates.forEach(date => {
-                const option = document.createElement('option');
-                option.value = date;
-                option.text = date;
-                gloseaDropdown.appendChild(option);
+    // Fetch GLOSEA dates and setup calendar
+    fetch('mjo/glosea/plot_ens/glosea_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            gloseaAvailableDates = data;
+            const enabledDates = data.map(d => parseDate(d));
+            
+            gloseaFlatpickrInstance = flatpickr(gloseaDatePicker, {
+                enable: enabledDates,
+                dateFormat: "Y-m-d",
+                defaultDate: enabledDates[enabledDates.length - 1], // Most recent date
+                onChange: function(selectedDates, dateStr, instance) {
+                    const formattedDate = formatDate(selectedDates[0]);
+                    updateGlosea(formattedDate);
+                }
             });
+
+            // Load initial plot
+            updateGlosea(data[data.length - 1]);
+        })
+        .catch(error => console.error('Error fetching GLOSEA dates:', error));
+
+    // Add event listeners for navigation buttons
+    document.getElementById('mogrepsDatePrevBtn').addEventListener('click', () => navigateMogrepsDate(-1));
+    document.getElementById('mogrepsDateNextBtn').addEventListener('click', () => navigateMogrepsDate(1));
+    document.getElementById('gloseaDatePrevBtn').addEventListener('click', () => navigateGloseaDate(-1));
+    document.getElementById('gloseaDateNextBtn').addEventListener('click', () => navigateGloseaDate(1));
+};
+
+// Cold Surge Section
+const coldSurgeSetup = () => {
+    const datePicker = document.getElementById('coldSurgeDatePicker');
+    const leadTimeDropdown = createDropdown('leadTimeDropdown');
+    const thresholdDropdown = createDropdown('thresholdDropdown');
+    
+    let availableDates = [];
+    let flatpickrInstance = null;
+    
+    // Generate lead time options
+    for (let hours = 24; hours <= 336; hours += 24) {
+        leadTimeDropdown.appendChild(new Option(`${hours/24} day(s) (${hours}h)`, hours));
+    }
+
+    const updatePlots = () => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const date = formatDate(flatpickrInstance.selectedDates[0]);
+        const leadTime = leadTimeDropdown.value;
+        const threshold = thresholdDropdown.value;
+
+        createIframe('mogrepsEnsMeanIframe').src = `coldsurge/mogreps/plot_ens/${date}/Cold_surge_EnsMean_${date}_T${leadTime}h.html`;
+        createIframe('mogrepsProbMapsIframe').src = `coldsurge/mogreps/plot_ens/${date}/Cold_surge_ProbMaps_${date}_T${leadTime}h_Pr${threshold}.html`;
+        createIframe('gloseaEnsMeanIframe').src = `coldsurge/glosea/plot_ens/${date}/Cold_surge_EnsMean_${date}_T${leadTime}h.html`;
+        createIframe('gloseaProbMapsIframe').src = `coldsurge/glosea/plot_ens/${date}/Cold_surge_ProbMaps_${date}_T${leadTime}h_Pr${threshold}.html`;
+    };
+
+    // Navigate date
+    const navigateDate = (direction) => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const currentDate = flatpickrInstance.selectedDates[0];
+        const currentDateStr = formatDate(currentDate);
+        const currentIndex = availableDates.indexOf(currentDateStr);
+        
+        if (currentIndex === -1) return;
+        
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < availableDates.length) {
+            const newDate = parseDate(availableDates[newIndex]);
+            flatpickrInstance.setDate(newDate);
+            updatePlots();
         }
+    };
 
-        // Fetch dates from JSON file for MOGREPS
-        fetch('mjo/mogreps/plot_ens/mogreps_dates.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('MOGREPS Dates:', data); // Print the data to the console
-                populateMogrepsDropdown(data);
-                mogrepsDropdown.addEventListener('change', updateMogrepsPlot);
-                updateMogrepsPlot(); // Initial update based on default selected dates
-            })
-            .catch(error => console.error('Error fetching MOGREPS dates:', error));
-
-        // Fetch dates from JSON file for GLOSEA
-        fetch('mjo/glosea/plot_ens/glosea_dates.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('GLOSEA Dates:', data); // Print the data to the console
-                populateGloseaDropdown(data);
-                gloseaDropdown.addEventListener('change', updateGloseaPlot);
-                updateGloseaPlot(); // Initial update based on default selected dates
-            })
-            .catch(error => console.error('Error fetching GLOSEA dates:', error));
-
-        // Initial update based on default selected dates
-        updateMogrepsPlot();
-        updateGloseaPlot();
-
-        // Event listeners for "Next" and "Previous" buttons
-        prevMogrepsBtn.addEventListener('click', () => {
-            if (mogrepsDropdown.selectedIndex > 0) {
-                mogrepsDropdown.selectedIndex -= 1;
-                updateMogrepsPlot();
-            }
-        });
-
-        nextMogrepsBtn.addEventListener('click', () => {
-            if (mogrepsDropdown.selectedIndex < mogrepsDropdown.options.length - 1) {
-                mogrepsDropdown.selectedIndex += 1;
-                updateMogrepsPlot();
-            }
-        });
-
-        prevGloseaBtn.addEventListener('click', () => {
-            if (gloseaDropdown.selectedIndex > 0) {
-                gloseaDropdown.selectedIndex -= 1;
-                updateGloseaPlot();
-            }
-        });
-
-        nextGloseaBtn.addEventListener('click', () => {
-            if (gloseaDropdown.selectedIndex < gloseaDropdown.options.length - 1) {
-                gloseaDropdown.selectedIndex += 1;
-                updateGloseaPlot();
-            }
-        });
-
-        //////////////////////////// BSISO section /////////////////////////////////////////////////////
-        // JavaScript to dynamically populate dropdowns and update iframe sources
-        const bsisoMogrepsDropdown = document.getElementById('bsisoMogrepsDropdown');
-        const bsisoGloseaDropdown = document.getElementById('bsisoGloseaDropdown');
-        const bsisoMogrepsIframe = document.getElementById('bsisoMogrepsIframe');
-        const bsisoGloseaIframe = document.getElementById('bsisoGloseaIframe');
-        const prevBsisoMogrepsBtn = document.getElementById('prevBsisoMogrepsBtn');
-        const nextBsisoMogrepsBtn = document.getElementById('nextBsisoMogrepsBtn');
-        const prevBsisoGloseaBtn = document.getElementById('prevBsisoGloseaBtn');
-        const nextBsisoGloseaBtn = document.getElementById('nextBsisoGloseaBtn');
-
-        // Function to update iframe sources based on selected date for MOGREPS
-        function updateBsisoMogrepsPlot() {
-            const selectedDate = bsisoMogrepsDropdown.value;
-            const bsisoMogrepsIframeSrc = `bsiso/mogreps/plot_ens/${selectedDate}/BSISO_Index_${selectedDate}_EnsMean_1.html`;
-            bsisoMogrepsIframe.src = bsisoMogrepsIframeSrc;
-        }
-
-        // Function to update iframe sources based on selected date for GLOSEA
-        function updateBsisoGloseaPlot() {
-            const selectedDate = bsisoGloseaDropdown.value;
-            const bsisoGloseaIframeSrc = `bsiso/glosea/plot_ens/${selectedDate}/BSISO_Index_${selectedDate}_EnsMean_1.html`;
-            bsisoGloseaIframe.src = bsisoGloseaIframeSrc;
-        }
-
-        // Function to populate dropdown with dates from JSON file for MOGREPS
-        function populateBsisoMogrepsDropdown(dates) {
-
-            // Reverse the order of dates
-            const reversedDates = dates.reverse();
-
-            reversedDates.forEach(date => {
-                const option = document.createElement('option');
-                option.value = date;
-                option.text = date;
-                bsisoMogrepsDropdown.appendChild(option);
+    // Fetch dates and setup calendar
+    fetch('coldsurge/mogreps/plot_ens/mogreps_ProbMaps_plot_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            availableDates = data;
+            const enabledDates = data.map(d => parseDate(d));
+            
+            flatpickrInstance = flatpickr(datePicker, {
+                enable: enabledDates,
+                dateFormat: "Y-m-d",
+                defaultDate: enabledDates[enabledDates.length - 1], // Most recent date
+                onChange: function(selectedDates, dateStr, instance) {
+                    updatePlots();
+                }
             });
+
+            // Load initial plot
+            updatePlots();
+        })
+        .catch(error => console.error('Error fetching Cold Surge dates:', error));
+
+    leadTimeDropdown.addEventListener('change', updatePlots);
+    thresholdDropdown.addEventListener('change', updatePlots);
+
+    // Date navigation buttons
+    document.getElementById('coldSurgeDatePrevBtn').addEventListener('click', () => navigateDate(-1));
+    document.getElementById('coldSurgeDateNextBtn').addEventListener('click', () => navigateDate(1));
+
+    // Lead time navigation buttons
+    document.getElementById('incrementLeadTimeBtn').addEventListener('click', () => {
+        if (leadTimeDropdown.selectedIndex < leadTimeDropdown.options.length - 1) {
+            leadTimeDropdown.selectedIndex++;
+            updatePlots();
         }
+    });
 
-        // Function to populate dropdown with dates from JSON file for GLOSEA
-        function populateBsisoGloseaDropdown(dates) {
+    document.getElementById('decrementLeadTimeBtn').addEventListener('click', () => {
+        if (leadTimeDropdown.selectedIndex > 0) {
+            leadTimeDropdown.selectedIndex--;
+            updatePlots();
+        }
+    });
+};
 
-            // Reverse the order of dates
-            const reversedDates = dates.reverse();
+// Equatorial Waves Section
+const eqWavesSetup = () => {
+    const dateDropdown = createDropdown('eqwDateDropdown');
+    const leadTimeDropdown = createDropdown('eqwLeadTimeDropdown');
+    const pressureDropdown = createDropdown('eqwWavePressureDropdown');
+    const iframe = createIframe('eqwMogrepsEnsMeanIframe');
 
-            reversedDates.forEach(date => {
-                const option = document.createElement('option');
-                option.value = date;
-                option.text = date;
-                bsisoGloseaDropdown.appendChild(option);
+    // Generate lead time options
+    for (let hours = -96; hours <= 168; hours += 6) {
+        leadTimeDropdown.appendChild(new Option(`${Math.abs(hours)} hours (${hours}h)`, hours));
+    }
+    leadTimeDropdown.value = '6';
+
+    const updatePlot = () => {
+        const date = dateDropdown.value.slice(0, -1);
+        const leadTime = leadTimeDropdown.value;
+        const pressure = pressureDropdown.value;
+        iframe.src = `eqwaves/mogreps/plot_ens/${date}/AllWaves_${pressure}_EnsProb_${dateDropdown.value}_T${leadTime}h.html`;
+    };
+
+    fetch('eqwaves/mogreps/plot_ens/mogreps_eqw_ens_plot_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            data.reverse().forEach(date => {
+                dateDropdown.appendChild(new Option(date + 'Z', date + 'Z'));
             });
-        }
-
-        // Fetch dates from JSON file for MOGREPS
-        fetch('bsiso/mogreps/plot_ens/mogreps_dates.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('BSISO MOGREPS Dates:', data); // Print the data to the console
-                populateBsisoMogrepsDropdown(data);
-                bsisoMogrepsDropdown.addEventListener('change', updateBsisoMogrepsPlot);
-                updateBsisoMogrepsPlot(); // Initial update based on default selected dates
-            })
-            .catch(error => console.error('Error fetching BSISO MOGREPS dates:', error));
-
-        // Fetch dates from JSON file for GLOSEA
-        fetch('bsiso/glosea/plot_ens/glosea_dates.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('BSISO GLOSEA Dates:', data); // Print the data to the console
-                populateBsisoGloseaDropdown(data);
-                bsisoGloseaDropdown.addEventListener('change', updateBsisoGloseaPlot);
-                updateBsisoGloseaPlot(); // Initial update based on default selected dates
-            })
-            .catch(error => console.error('Error fetching BSISO GLOSEA dates:', error));
-
-        // Initial update based on default selected dates
-        updateBsisoMogrepsPlot();
-        updateBsisoGloseaPlot();
-
-        // Event listeners for "Next" and "Previous" buttons
-        prevBsisoMogrepsBtn.addEventListener('click', () => {
-            if (bsisoMogrepsDropdown.selectedIndex > 0) {
-                bsisoMogrepsDropdown.selectedIndex -= 1;
-                updateBsisoMogrepsPlot();
-            }
+            updatePlot();
         });
 
-        nextBsisoMogrepsBtn.addEventListener('click', () => {
-            if (bsisoMogrepsDropdown.selectedIndex < bsisoMogrepsDropdown.options.length - 1) {
-                bsisoMogrepsDropdown.selectedIndex += 1;
-                updateBsisoMogrepsPlot();
-            }
-        });
+    dateDropdown.addEventListener('change', updatePlot);
+    leadTimeDropdown.addEventListener('change', updatePlot);
+    pressureDropdown.addEventListener('change', updatePlot);
 
-        prevBsisoGloseaBtn.addEventListener('click', () => {
-            if (bsisoGloseaDropdown.selectedIndex > 0) {
-                bsisoGloseaDropdown.selectedIndex -= 1;
-                updateBsisoGloseaPlot();
-            }
-        });
+    document.getElementById('eqwIncrementLeadTimeBtn').addEventListener('click', () => navigateDropdown(leadTimeDropdown, 1));
+    document.getElementById('eqwDecrementLeadTimeBtn').addEventListener('click', () => navigateDropdown(leadTimeDropdown, -1));
+};
 
-        nextBsisoGloseaBtn.addEventListener('click', () => {
-            if (bsisoGloseaDropdown.selectedIndex < bsisoGloseaDropdown.options.length - 1) {
-                bsisoGloseaDropdown.selectedIndex += 1;
-                updateBsisoGloseaPlot();
-            }
-        });
+// Monsoon Indices Section
+const monsoonIndicesSetup = () => {
+    const datePicker = document.getElementById('monsoonIndicesDatePicker');
+    const iframe = createIframe('monsoonIndicesIframe');
+    
+    let availableDates = [];
+    let flatpickrInstance = null;
 
-        //////////////////////////// Cold Surge section ///////////////////////////////////////////////
-        const dateDropdown = document.getElementById('dateDropdown');
-        const leadTimeDropdown = document.getElementById('leadTimeDropdown');
-        const thresholdDropdown = document.getElementById('thresholdDropdown');
-        const mogrepsEnsMeanIframe = document.getElementById('mogrepsEnsMeanIframe');
-        const mogrepsProbMapsIframe = document.getElementById('mogrepsProbMapsIframe');
-        const gloseaEnsMeanIframe = document.getElementById('gloseaEnsMeanIframe');
-        const gloseaProbMapsIframe = document.getElementById('gloseaProbMapsIframe');
-        const incrementLeadTimeBtn = document.getElementById('incrementLeadTimeBtn');
-        const decrementLeadTimeBtn = document.getElementById('decrementLeadTimeBtn');
+    const updatePlot = () => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const date = formatDate(flatpickrInstance.selectedDates[0]);
+        iframe.src = `indices/mogreps/plot_ens/${date}/Monsoon_indices_${date}.html`;
+    };
 
-        // Function to update iframes based on dropdown selections
-        function updateIframes() {
-            const selectedDate = dateDropdown.value;
-            const leadTime = leadTimeDropdown.value;
-            const threshold = thresholdDropdown.value;
-
-            const mogrepsEnsMeanIframeSrc = `coldsurge/mogreps/plot_ens/${selectedDate}/Cold_surge_EnsMean_${selectedDate}_T${leadTime}h.html`;
-            const mogrepsProbMapsIframeSrc = `coldsurge/mogreps/plot_ens/${selectedDate}/Cold_surge_ProbMaps_${selectedDate}_T${leadTime}h_Pr${threshold}.html`;
-
-            const gloseaEnsMeanIframeSrc = `coldsurge/glosea/plot_ens/${selectedDate}/Cold_surge_EnsMean_${selectedDate}_T${leadTime}h.html`;
-            const gloseaProbMapsIframeSrc = `coldsurge/glosea/plot_ens/${selectedDate}/Cold_surge_ProbMaps_${selectedDate}_T${leadTime}h_Pr${threshold}.html`;
-
-
-            mogrepsEnsMeanIframe.src = mogrepsEnsMeanIframeSrc;
-            mogrepsProbMapsIframe.src = mogrepsProbMapsIframeSrc;
-
-            gloseaEnsMeanIframe.src = gloseaEnsMeanIframeSrc;
-            gloseaProbMapsIframe.src = gloseaProbMapsIframeSrc;
+    // Navigate date
+    const navigateDate = (direction) => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const currentDate = flatpickrInstance.selectedDates[0];
+        const currentDateStr = formatDate(currentDate);
+        const currentIndex = availableDates.indexOf(currentDateStr);
+        
+        if (currentIndex === -1) return;
+        
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < availableDates.length) {
+            const newDate = parseDate(availableDates[newIndex]);
+            flatpickrInstance.setDate(newDate);
+            updatePlot();
         }
+    };
 
-        // Function to update Prob maps based on dropdown selections
-        function updateProbMap() {
-            const selectedDate = dateDropdown.value;
-            const leadTime = leadTimeDropdown.value;
-            const threshold = thresholdDropdown.value;
+    // Fetch dates and setup calendar
+    fetch('indices/mogreps/plot_ens/mogreps_indices_plot_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            availableDates = data;
+            const enabledDates = data.map(d => parseDate(d));
+            
+            flatpickrInstance = flatpickr(datePicker, {
+                enable: enabledDates,
+                dateFormat: "Y-m-d",
+                defaultDate: enabledDates[enabledDates.length - 1], // Most recent date
+                onChange: function(selectedDates, dateStr, instance) {
+                    updatePlot();
+                }
+            });
 
-            const mogrepsProbMapsIframeSrc = `coldsurge/mogreps/plot_ens/${selectedDate}/Cold_surge_ProbMaps_${selectedDate}_T${leadTime}h_Pr${threshold}.html`;
-            const gloseaProbMapsIframeSrc = `coldsurge/glosea/plot_ens/${selectedDate}/Cold_surge_ProbMaps_${selectedDate}_T${leadTime}h_Pr${threshold}.html`;
+            // Load initial plot
+            updatePlot();
+        })
+        .catch(error => console.error('Error fetching Monsoon Indices dates:', error));
 
-            mogrepsProbMapsIframe.src = mogrepsProbMapsIframeSrc;
-            gloseaProbMapsIframe.src = gloseaProbMapsIframeSrc;
+    // Date navigation buttons
+    document.getElementById('monsoonIndicesDatePrevBtn').addEventListener('click', () => navigateDate(-1));
+    document.getElementById('monsoonIndicesDateNextBtn').addEventListener('click', () => navigateDate(1));
+};
+
+// Convergence Lines Section
+const convLinesSetup = () => {
+    const datePicker = document.getElementById('convLinesDatePicker');
+    const leadTimeDropdown = createDropdown('convLinesLeadTimeDropdown');
+    const iframe = createIframe('convLinesIframe');
+    
+    let availableDates = [];
+    let flatpickrInstance = null;
+
+    // Generate lead time options (24-hour intervals, 24 to 336 hours)
+    for (let hours = 24; hours <= 336; hours += 24) {
+        const days = hours / 24;
+        leadTimeDropdown.appendChild(new Option(`Day ${days} (T+${hours}h)`, hours));
+    }
+    leadTimeDropdown.value = '24';
+
+    const updatePlot = () => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const date = formatDate(flatpickrInstance.selectedDates[0]);
+        const leadTime = leadTimeDropdown.value;
+        iframe.src = `convlines/mogreps/plot_ens/${date}/ConvLines_ProbMaps_${date}_T${leadTime}h.html`;
+    };
+
+    // Navigate date
+    const navigateDate = (direction) => {
+        if (!flatpickrInstance || !flatpickrInstance.selectedDates[0]) return;
+        
+        const currentDate = flatpickrInstance.selectedDates[0];
+        const currentDateStr = formatDate(currentDate);
+        const currentIndex = availableDates.indexOf(currentDateStr);
+        
+        if (currentIndex === -1) return;
+        
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < availableDates.length) {
+            const newDate = parseDate(availableDates[newIndex]);
+            flatpickrInstance.setDate(newDate);
+            updatePlot();
         }
+    };
 
-        fetch('coldsurge/mogreps/plot_ens/mogreps_ProbMaps_plot_dates.json')
-            .then(response => response.json())
-            .then(data => {
-                // Reverse the order of dates
-                data.reverse().forEach(date => {
-                    const option = document.createElement('option');
-                    option.value = date;
-                    option.text = date;
-                    dateDropdown.appendChild(option);
-                    updateIframes();
-                });
-            })
-            .catch(error => console.error('Error fetching dates:', error));
+    // Fetch dates and setup calendar
+    fetch('convlines/mogreps/plot_ens/mogreps_convlines_plot_dates.json')
+        .then(response => response.json())
+        .then(data => {
+            availableDates = data;
+            const enabledDates = data.map(d => parseDate(d));
+            
+            flatpickrInstance = flatpickr(datePicker, {
+                enable: enabledDates,
+                dateFormat: "Y-m-d",
+                defaultDate: enabledDates[enabledDates.length - 1], // Most recent date
+                onChange: function(selectedDates, dateStr, instance) {
+                    updatePlot();
+                }
+            });
 
-        // Function to increment lead time
-        function incrementLeadTime() {
-            let currentLeadTime = parseInt(leadTimeDropdown.value);
-            leadTimeDropdown.value = currentLeadTime + 24;
-            updateIframes();
+            // Load initial plot
+            updatePlot();
+        })
+        .catch(error => console.error('Error fetching Convergence Lines dates:', error));
+    
+    leadTimeDropdown.addEventListener('change', updatePlot);
+
+    // Date navigation buttons
+    document.getElementById('convLinesDatePrevBtn').addEventListener('click', () => navigateDate(-1));
+    document.getElementById('convLinesDateNextBtn').addEventListener('click', () => navigateDate(1));
+    
+    // Lead time navigation buttons
+    document.getElementById('convLinesIncrementLeadTimeBtn').addEventListener('click', () => {
+        if (leadTimeDropdown.selectedIndex < leadTimeDropdown.options.length - 1) {
+            leadTimeDropdown.selectedIndex++;
+            updatePlot();
         }
-
-        // Function to decrement lead time
-        function decrementLeadTime() {
-            let currentLeadTime = parseInt(leadTimeDropdown.value);
-            if (currentLeadTime > 0) {
-                leadTimeDropdown.value = currentLeadTime - 24;
-                updateIframes();
-            }
+    });
+    
+    document.getElementById('convLinesDecrementLeadTimeBtn').addEventListener('click', () => {
+        if (leadTimeDropdown.selectedIndex > 0) {
+            leadTimeDropdown.selectedIndex--;
+            updatePlot();
         }
+    });
+};
 
-        // Event listener for dropdown changes
-        dateDropdown.addEventListener('change', updateIframes);
-        leadTimeDropdown.addEventListener('change', updateIframes);
-        thresholdDropdown.addEventListener('change', updateProbMap);
-        // Event listeners for increment and decrement buttons
-        incrementLeadTimeBtn.addEventListener('click', incrementLeadTime);
-        decrementLeadTimeBtn.addEventListener('click', decrementLeadTime);
-
-        // Initial update based on default selected values
-        updateIframes();
-
-
-        //////////////////////////// EqWaves section ///////WOBBLY LIFE!/////////////////////////////////
-        // Constants for Equatorial Waves section
-        // Constants for Equatorial Waves section
-        const eqwDateDropdown = document.getElementById('eqwDateDropdown');
-        const eqwLeadTimeDropdown = document.getElementById('eqwLeadTimeDropdown');
-        const eqwWavePressureDropdown = document.getElementById('eqwWavePressureDropdown');
-        const eqwMogrepsEnsMeanIframe = document.getElementById('eqwMogrepsEnsMeanIframe');
-        const eqwIncrementLeadTimeBtn = document.getElementById('eqwIncrementLeadTimeBtn');
-        const eqwDecrementLeadTimeBtn = document.getElementById('eqwDecrementLeadTimeBtn');
-
-        // Function to update the plot iframe source based on dropdown selections
-        function updateEqWavesPlot() {
-            const selectedDate = eqwDateDropdown.value;
-            // Remove the trailing 'Z'
-            selectDate = selectedDate.slice(0, -1);
-            const leadTime = eqwLeadTimeDropdown.value;
-            const pressureLevel = eqwWavePressureDropdown.value;
-
-            const src = `eqwaves/mogreps/plot_ens/${selectDate}/AllWaves_${pressureLevel}_EnsProb_${selectedDate}_T${leadTime}h.html`;
-            eqwMogrepsEnsMeanIframe.src = src;
-        }
-
-        // Function to generate lead time options
-        function generateLeadTimeOptions(defaultLeadTime) {
-            const leadTimeDropdown = eqwLeadTimeDropdown;
-            leadTimeDropdown.innerHTML = ''; // Clear existing options
-
-            const minLeadTime = -96;
-            const maxLeadTime = 168;
-            const step = 6;
-
-            for (let leadTime = minLeadTime; leadTime <= maxLeadTime; leadTime += step) {
-                const optionText = `${Math.abs(leadTime)} hours (${leadTime}h)`;
-                const optionValue = leadTime.toString();
-                const option = new Option(optionText, optionValue);
-                leadTimeDropdown.appendChild(option);
-            }
-
-             // Set default selected value
-            if (defaultLeadTime !== undefined) {
-                eqwLeadTimeDropdown.value = defaultLeadTime.toString();
-            }
-        }
-
-        // Function to fetch dates from JSON file and populate date dropdown
-        function populateDateDropdown() {
-            fetch('eqwaves/mogreps/plot_ens/mogreps_eqw_ens_plot_dates.json')
-                .then(response => response.json())
-                .then(data => {
-                    // Reverse the order of dates if needed
-                    data.reverse().forEach(date => {
-                    date += 'Z';
-                        const option = new Option(date, date);
-                        eqwDateDropdown.appendChild(option);
-                    });
-
-                    // Update lead time options and plot based on default selections
-                    const defaultLeadTime = 6;
-                    generateLeadTimeOptions(defaultLeadTime);
-                    updateEqWavesPlot();
-                })
-                .catch(error => console.error('Error fetching dates:', error));
-        }
-
-        // Event listener for dropdown changes
-        eqwDateDropdown.addEventListener('change', updateEqWavesPlot);
-        eqwLeadTimeDropdown.addEventListener('change', updateEqWavesPlot);
-        eqwWavePressureDropdown.addEventListener('change', updateEqWavesPlot);
-
-        // Event listeners for increment and decrement buttons
-        eqwIncrementLeadTimeBtn.addEventListener('click', function() {
-            const currentIndex = eqwLeadTimeDropdown.selectedIndex;
-            if (currentIndex < eqwLeadTimeDropdown.options.length - 1) {
-                eqwLeadTimeDropdown.selectedIndex = currentIndex + 1;
-                updateEqWavesPlot();
-            }
-        });
-
-        eqwDecrementLeadTimeBtn.addEventListener('click', function() {
-            const currentIndex = eqwLeadTimeDropdown.selectedIndex;
-            if (currentIndex > 0) {
-                eqwLeadTimeDropdown.selectedIndex = currentIndex - 1;
-                updateEqWavesPlot();
-            }
-        });
-
-        // Initialize date dropdown options and plot on page load
-        populateDateDropdown();
-
-        // Function to resize the iframe to fit its content
-        function resizeIframeToFitContent() {
-            const iframe = document.getElementById('eqwMogrepsEnsMeanIframe');
-            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-        }
-
-        // Event listener to resize iframe when content loads or changes
-        document.getElementById('eqwMogrepsEnsMeanIframe').addEventListener('load', resizeIframeToFitContent);
-
+// Initialize all sections
+document.addEventListener('DOMContentLoaded', () => {
+    mjoSetup();
+    coldSurgeSetup();
+    eqWavesSetup();
+    monsoonIndicesSetup();
+    convLinesSetup();
+});
 </script>
 
 </body>
-
 </html>

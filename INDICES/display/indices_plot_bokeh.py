@@ -242,7 +242,7 @@ class ColdSurgeDisplay:
         p = figure(title=f"{titles[index_name]}: Forecast start: {date.strftime('%Y-%m-%d')}",
                    x_axis_label='Forecast valid on',
                    y_axis_label=f'{index_name.upper()} values',
-                   width=600, height=400, x_range=(forecast_periods[0], forecast_periods[-1]),
+                   width=500, height=400, x_range=(forecast_periods[0], forecast_periods[-1]),
                    y_range=(min(np.min(min_vals), thresholds[index_name]) - 1,
                             max(np.max(max_vals), thresholds[index_name]) + 1), )
 

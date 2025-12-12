@@ -27,6 +27,10 @@ mogreps:
   indices:
     mogreps_indices_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/indices/
     mogreps_indices_plot_ens: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/indices/plot_ens/
+  convlines:
+    mogreps_convlines_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/convlines
+    mogreps_convlines_plot_ens: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/convlines/plot_ens/
+  
   #bsiso:
   #  mogreps_bsiso_processed_dir: /data/scratch/prince.xavier/SEA_monitoring/processed_SEA_data/mogreps/MJO
   #  mogreps_bsiso_archive_dir: /project/MJO_GCSS/SEA_monitoring/processed_BSISO_data/mogreps/bsiso_new/
@@ -34,7 +38,7 @@ mogreps:
 
 glosea:
   glosea_dummy_queryfiles_dir: /data/scratch/prince.xavier/SALMON/temp
-  glosea_combined_queryfile: /home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/glosea_combined.query
+  glosea_combined_queryfile: /home/users/prince.xavier/MJO/SALMON/RETRIEVALS/glosea_combined.query
   glosea_raw_dir: /data/scratch/prince.xavier/SALMON/raw_data/glosea/glosea_bucket
   mjo:
     glosea_mjo_processed_dir: /data/scratch/prince.xavier/SALMON/processed_SEA_data/glosea/mjo

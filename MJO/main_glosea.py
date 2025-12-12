@@ -1,4 +1,4 @@
-#!/usr/bin/env /net/project/ukmo/scitools/opt_scitools/conda/deployments/default-current/bin/python
+#!/usr/bin/env /data/apps/sss/environments/default-current/bin/python
 from datetime import datetime
 import sys
 sys.path.append('/home/h03/hadpx/MJO/SALMON/MJO')

@@ -13,6 +13,16 @@ from display import bokeh_display
 
 # Function to read date from command line and create a datetime object
 def read_date_from_command_line():
+    """
+    Reads a date string from the command line arguments and converts it to a datetime object.
+
+    Expects the script to be called with a single argument representing the date in 'YYYY-MM-DD' format.
+    If the argument is missing or the format is incorrect, prints usage instructions or an error message.
+
+    Returns:
+        datetime.datetime: The parsed datetime object if successful.
+        None: If the argument is missing or the format is incorrect.
+    """
     if len(sys.argv) != 2:
         print("Usage: python script.py <date>")
         print("Date format should be YYYY-MM-DD")
@@ -28,6 +38,20 @@ def read_date_from_command_line():
     return date_obj
 
 def do_analysis(date):
+    """
+    Perform analysis for a given date by retrieving and combining analysis data.
+
+    This function initializes an AnalysisProcess object, checks the retrieval status
+    of analysis data for the previous 201 days (optionally in parallel), and then
+    combines the analysis data for those days. The status of the combination process
+    is printed to the console.
+
+    Args:
+        date (str or datetime): The date for which the analysis should be performed.
+
+    Returns:
+        None
+    """
     #
     # Usage:
     reader = analysis_process.AnalysisProcess('analysis')
@@ -41,6 +65,26 @@ def do_analysis(date):
     #    #sys.exit()
 
 def do_mogreps(date):
+    """
+    Processes MOGREPS ensemble data for a given date, including retrieval, combination, MJO calculation, and visualization.
+
+    Args:
+        date (str): The date for which to process MOGREPS data, typically in 'YYYYMMDD' format.
+
+    Workflow:
+        1. Initializes a MOGREPS data processor.
+        2. Retrieves MOGREPS ensemble data for the specified date.
+        3. Combines 201 days of analysis and forecast data for all ensemble members.
+        4. Runs parallel MJO (Madden-Julian Oscillation) calculations on the processed data.
+        5. Generates and displays a Bokeh plot of the RMM (Real-time Multivariate MJO) indices.
+
+    Prints:
+        - Configuration values, retrieval status, member list, combination status, MJO process status.
+
+    Note:
+        - The function assumes the existence of `mogreps_process`, `mjo_utils`, and `bokeh_display` modules.
+        - Error handling and waiting mechanisms are present but commented out.
+    """
     reader = mogreps_process.MOGProcess('mogreps')
     print(reader.config_values)
     # This retrieves 35 members

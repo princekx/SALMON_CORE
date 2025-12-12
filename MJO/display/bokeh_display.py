@@ -94,7 +94,7 @@ class MJODisplay:
             ("Label", "@label"),
             ("Member", "@member")
         ], mode='mouse')
-        plot = figure(height=500, width=500, tools=["pan, reset, save, wheel_zoom, box_zoom", hover],
+        plot = figure(height=600, width=600, tools=["pan, reset, save, wheel_zoom, box_zoom", hover],
                       x_range=[-4, 4], y_range=[-4, 4])
 
         plot.title.text = title

@@ -52,7 +52,7 @@ class EqWavesDisplay:
         # Map outline
         self.map_outline_json_file = os.path.join(self.parent_dir,
                                                   'display', 'custom.geo.json')
-        self.plot_width = 1100
+        self.plot_width = 1300
 
     def prepare_calendar(self, cube):
         # Setting up the dates on data

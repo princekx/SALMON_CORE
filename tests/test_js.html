@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>In-Browser NetCDF Contours</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/netcdfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marchingsquares@1.3.0/build/marchingsquares.min.js"></script>
+  <style>
+    body { margin: 0; }
+    #map { height: 90vh; }
+    #upload { padding: 1rem; }
+  </style>
+</head>
+<body>
+
+<div id="upload">
+  <input type="file" id="fileInput" />
+</div>
+<div id="map"></div>
+
+<script>
+  const map = L.map('map').setView([0, 0], 2);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  document.getElementById('fileInput').addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const buffer = await file.arrayBuffer();
+    const reader = new netcdfjs.NetCDFReader(buffer);
+
+    const lats = reader.getDataVariable('lat') || reader.getDataVariable('latitude');
+    const lons = reader.getDataVariable('lon') || reader.getDataVariable('longitude');
+    const varName = reader.variables.find(v => v.name !== 'lat' && v.name !== 'lon').name;
+    const values = reader.getDataVariable(varName); // 2D or flat array
+
+    // Reshape data to 2D grid (assumes [lat, lon] order)
+    const nx = lons.length;
+    const ny = lats.length;
+    const grid = [];
+    for (let j = 0; j < ny; j++) {
+      const row = [];
+      for (let i = 0; i < nx; i++) {
+        row.push(values[j * nx + i]);
+      }
+      grid.push(row);
+    }
+
+    // Generate contours using marching squares
+    const level = 200; // Choose threshold value
+    const contours = MarchingSquaresJS.isoContours(grid, level);
+
+    // Convert contour polygons to GeoJSON
+    const features = contours.map(c => ({
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: c.map(([x, y]) => {
+          const lon = lons[Math.round(x)];
+          const lat = lats[Math.round(y)];
+          return [lon, lat];
+        })
+      },
+      properties: { level }
+    }));
+
+    const geojson = {
+      type: 'FeatureCollection',
+      features
+    };
+
+    // Add to Leaflet
+    L.geoJSON(geojson, {
+      style: { color: '#0074D9', weight: 2 }
+    }).addTo(map);
+
+    map.fitBounds(L.geoJSON(geojson).getBounds());
+  });
+</script>
+
+</body>
+</html>

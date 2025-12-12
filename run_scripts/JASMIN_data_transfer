@@ -3,7 +3,7 @@
 source /home/users/prince.xavier/.bashrc
 
 model="mogreps"
-areas=("mjo" "coldsurge" "eqwaves")
+areas=("mjo" "coldsurge" "eqwaves" "indices")
 
 for area in "${areas[@]}"; do
     source="/data/users/prince.xavier/SALMON/processed_SEA_data/$model/$area/plot_ens/"
@@ -13,4 +13,17 @@ for area in "${areas[@]}"; do
     rsync -av "$source" pxavier@xfer-vm-01.jasmin.ac.uk:"$dest"
 done
 
+# Transfer MJO RMM files
+source_rmm="/data/users/prince.xavier/SALMON/processed_SEA_data/$model/mjo/rmms/202512*"
+dest_rmm="/gws/nopw/j04/seasia/public/realtime/SALMON/mjo/$model/rmms/"
+echo "scp -r  $source_rmm pxavier@xfer-vm-01.jasmin.ac.uk:$dest_rmm"
+scp -r "$source_rmm" pxavier@xfer-vm-01.jasmin.ac.uk:"$dest_rmm"
+
+# Transfer mjo files from glosea
+source_glosea="/data/users/prince.xavier/SALMON/processed_SEA_data/glosea/mjo/plot_ens/"
+dest_glosea="/gws/nopw/j04/seasia/public/realtime/SALMON/mjo/glosea/plot_ens/"
+echo "rsync -av $source_glosea pxavier@xfer-vm-01.jasmin.ac.uk:$dest_glosea"
+rsync -av "$source_glosea" pxavier@xfer-vm-01.jasmin.ac.uk:"$dest_glosea"
+
+# Transfer SALMON.html
 #rsync -av SALMON.html pxavier@xfer-vm-01.jasmin.ac.uk:/gws/nopw/j04/seasia/public/realtime/SALMON/

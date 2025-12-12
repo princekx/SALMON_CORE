@@ -13,5 +13,8 @@ fi
 
 echo "Using date: $date"
 
-# Run MJO
+# Run MJO for mogreps
 /home/users/prince.xavier/MJO/SALMON/salmon_run.py -d $date -a mjo -m mogreps
+
+# run MJO for glosea
+/home/users/prince.xavier/MJO/SALMON/salmon_run.py -d $date -a mjo -m glosea

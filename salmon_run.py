@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/apps/sss/environments/default-2024_11_26/bin/python
+#!/usr/bin/env /data/apps/sss/environments/default-current/bin/python
 from datetime import datetime
 import sys, os
 import time
@@ -33,7 +33,7 @@ def read_inputs_from_command_line():
 
     parser.add_argument('-d', '--date', type=str, required=True, help='Date in YYYY-MM-DD format')
     parser.add_argument('-t', '--time', type=str, required=False, default='00', help='Optional hour in HH format (default: 00)', choices=['00', '06', '12', '18'])
-    parser.add_argument('-a', '--area', type=str, required=True, choices=['mjo', 'coldsurge', 'eqwaves', 'indices', 'bsiso'],
+    parser.add_argument('-a', '--area', type=str, required=True, choices=['mjo', 'coldsurge', 'eqwaves', 'indices', 'bsiso', 'convlines'],
                         help='Area of interest')
     parser.add_argument('-m', '--model', type=str, required=True, choices=['mogreps', 'glosea'], help='Model selection')
 
@@ -95,6 +95,30 @@ def create_directories(config_values):
 
 
 def load_config(model=None, section=None):
+    """
+    Loads configuration values from a YAML file for a specified model and section.
+
+    This function reads the configuration from a YAML file defined by CONFIG_FILE,
+    extracts options for the given model, and flattens any nested dictionaries into
+    a single dictionary of configuration values. It also ensures that any directories
+    specified in the configuration are created if they do not already exist.
+
+    Args:
+        model (str, optional): The key corresponding to the model in the YAML file whose
+            configuration should be loaded. Defaults to None.
+        section (str, optional): Unused parameter, reserved for future use. Defaults to None.
+
+    Returns:
+        dict: A dictionary containing the configuration values for the specified model.
+
+    Side Effects:
+        - Prints the keys of the loaded configuration values.
+        - Calls `create_directories` to create directories specified in the configuration.
+
+    Raises:
+        FileNotFoundError: If the YAML configuration file does not exist.
+        KeyError: If the specified model is not found in the configuration file.
+    """
     # Load the YAML file
     config_values = {}
     with open(CONFIG_FILE, "r") as file:
@@ -269,8 +293,8 @@ if __name__ == '__main__':
             reader = indices_mogreps_process.MOGProcess(config_values)
             print(reader.config_values)
             # This retrieves 35 members
-            #status1 = reader.retrieve_mogreps_data(date, parallel=True)
-            #print(status1)
+            status1 = reader.retrieve_mogreps_data(date, parallel=True)
+            print(status1)
 
             reader = indices_plot_bokeh.ColdSurgeDisplay(model, config_values)
             reader.bokeh_plot_forecast_ensemble_mean(date)
@@ -294,3 +318,15 @@ if __name__ == '__main__':
             reader.bokeh_plot_forecast_ensemble_mean(date)
             reader.bokeh_plot_forecast_probability_precip(date)
         '''
+    if area == 'convlines':
+        from CONVLINES.mogreps import convlines_compute
+        from CONVLINES.display import convlines_plot_bokeh
+
+        if model == 'mogreps':
+            config_values = load_config(model=model)
+            0
+            reader = convlines_compute.MOGProcess(config_values)
+            reader.compute_conv_lines(date)
+
+            reader = convlines_plot_bokeh.ConvLinesDisplay(model, config_values)
+            reader.bokeh_plot_convlines_prob_map(date)

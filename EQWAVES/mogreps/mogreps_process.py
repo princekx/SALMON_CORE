@@ -339,10 +339,8 @@ class MOGProcess:
         outfile_path = os.path.join(remote_data_dir, outfile)
 
         if os.path.exists(outfile_path):
-            print(outfile_status)
             if os.path.getsize(outfile_path) == 0:
-                # delete the file
-                print(os.path.getsize(outfile_path))
+                # delete the file if it is empty
                 print(f'Deleting empty file {outfile_path}')
                 os.remove(outfile_path)
 

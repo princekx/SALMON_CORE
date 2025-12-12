@@ -1,0 +1,2348 @@
+/home/users/prince.xavier/MJO/SALMON
+/home/users/prince.xavier/MJO/SALMON/salmon_config.yaml
+2025-04-30 00:00:00
+dict_keys(['analysis_raw_dir', 'analysis_moose_dir', 'analysis_dummy_queryfiles_dir', 'analysis_combined_queryfile', 'analysis_mjo_processed_dir', 'analysis_mjo_rmm_archive_dir', 'analysis_eqwaves_processed_dir'])
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket
+Skipping: moose:/opfc/atm/global/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: /home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves
+{'analysis_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket', 'analysis_moose_dir': 'moose:/opfc/atm/global/prods/', 'analysis_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'analysis_combined_queryfile': '/home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query', 'analysis_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/', 'analysis_mjo_rmm_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/', 'analysis_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves'}
+{'analysis_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket', 'analysis_moose_dir': 'moose:/opfc/atm/global/prods/', 'analysis_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'analysis_combined_queryfile': '/home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query', 'analysis_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/', 'analysis_mjo_rmm_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/', 'analysis_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves'}
+Missing dates: 201
+Retrieving data for date: 2025-03-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250301/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250301/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250227/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250227/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250228/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250228/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250226/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250226/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250225/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250225/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-19 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250219/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250219/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-20 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250220/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250220/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-18 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250218/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250218/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250216/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250216/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250214/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250214/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-13 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250213/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250213/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-07 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250207/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250207/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250416/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250416/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-02 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241202/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241202/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-23 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250223/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250223/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-03 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241203/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241203/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250211/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250211/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-10 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250210/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250210/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-04 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250204/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250204/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250415/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250415/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241129/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241129/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250205/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250205/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-09 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250209/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250209/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250201/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250201/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250212/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250212/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241125/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241125/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-31 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250131/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250131/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250315/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250315/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241128/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241128/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250417/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250417/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250208/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250208/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241124/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241124/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250129/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250129/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250127/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250127/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-30 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250130/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250130/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250128/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250128/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250126/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250126/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250124/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250124/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250122/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250122/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250125/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250125/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250121/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250121/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-20 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250120/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250120/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250408/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250408/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241117/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241117/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250406/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250406/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241116/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241116/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-18 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250118/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250118/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250115/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250115/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250215/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250215/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241114/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241114/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250114/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250114/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250116/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250116/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250117/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250117/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-03 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250103/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250103/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250427/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250427/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-10 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250110/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250110/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-31 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241231/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241231/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-02 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250102/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250102/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-30 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241230/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241230/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-18 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250318/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250318/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-20 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241220/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241220/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-04 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250404/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250404/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-19 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241219/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241219/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250101/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250101/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-13 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250113/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250113/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250314/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250314/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241021/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241021/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-23 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250423/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250423/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241226/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241226/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241022/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241022/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250428/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250428/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241214/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241214/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-18 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250418/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250418/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-13 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241213/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241213/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-02 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250402/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250402/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241212/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241212/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250401/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250401/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241111/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241111/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-09 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250109/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250109/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250111/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250111/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250106/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250106/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250425/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250425/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241211/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241211/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250311/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250311/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-10 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241210/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241210/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250329/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250329/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-09 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241209/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241209/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-10 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250310/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250310/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241208/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241208/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250426/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250426/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-07 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241207/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241207/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-07 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250307/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250307/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241206/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241206/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-11 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250411/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250411/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241127/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241127/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-02 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250302/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250302/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241126/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241126/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250222/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250222/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241115/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241115/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-03 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250403/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250403/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241112/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241112/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-31 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250331/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250331/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-09 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241109/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241109/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-07 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250107/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250107/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-19 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250119/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250119/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-10 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241110/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241110/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250108/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250108/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241106/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241106/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250206/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250206/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-07 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241107/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241107/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-02 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250202/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250202/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241105/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241105/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250105/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250105/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-04 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250104/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250104/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250325/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250325/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241108/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241108/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250326/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250326/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241225/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241225/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250421/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250421/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241224/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241224/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-01-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250112/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250112/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-31 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241031/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241031/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250321/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250321/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-30 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241030/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241030/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-19 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250319/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250319/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241029/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241029/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-23 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250323/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250323/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241028/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241028/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-20 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250320/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250320/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-25 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241025/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241025/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250322/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250322/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-26 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241026/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241026/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250324/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250324/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241027/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241027/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250327/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250327/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-28 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241228/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241228/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241024/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241024/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250414/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250414/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-27 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241227/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241227/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-23 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241023/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241023/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250412/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250412/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241229/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241229/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-11-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241101/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241101/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-30 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250430/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250430/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241222/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241222/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-24 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250424/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250424/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241221/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241221/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250317/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250317/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241217/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241217/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-22 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250422/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250422/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241216/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241216/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250316/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250316/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241215/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241215/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-29 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250429/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250429/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-23 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241223/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241223/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-20 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241020/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241020/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250405/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250405/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-18 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241218/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241218/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-17 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241017/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241017/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-08 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250308/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250308/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-16 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241016/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241016/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-06 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250306/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250306/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-15 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241015/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241015/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-04-19 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250419/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250419/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241205/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241205/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-04 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250304/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250304/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-14 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241014/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241014/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-03 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250303/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250303/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-12 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241012/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241012/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-03-05 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250305/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250305/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-10-13 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241013/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241013/qg12T003.pp exists. Skip...
+Retrieving data for date: 2025-02-21 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250221/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20250221/qg12T003.pp exists. Skip...
+Retrieving data for date: 2024-12-01 00:00:00
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241201/qg00T003.pp exists. Skip...
+Retrieving hr: 0
+/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket/20241201/qg12T003.pp exists. Skip...
+All jobs completed successfully.
+Combining 201 days of analysis as parallel tasks.
+Processing olr...
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/olr/olr_mean_nrt_20250430.nc
+Processing u200...
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/u200/u200_mean_nrt_20250430.nc
+Processing u850...
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/u850/u850_mean_nrt_20250430.nc
+### select, command-id=2014409710, estimated-cost=44845200byte(s), files=1, media=0
+### select, command-id=2014409717, estimated-cost=12936912byte(s), files=1, media=0
+### select, command-id=2014409714, estimated-cost=12937392byte(s), files=1, media=0
+### select, command-id=2014409716, estimated-cost=12951952byte(s), files=1, media=0
+### select, command-id=2014409715, estimated-cost=44809040byte(s), files=1, media=0
+### select, command-id=2014409723, estimated-cost=44825200byte(s), files=1, media=0
+### select, command-id=2014409721, estimated-cost=12951152byte(s), files=1, media=0
+### select, command-id=2014409722, estimated-cost=12923312byte(s), files=1, media=0
+### select, command-id=2014409724, estimated-cost=44889520byte(s), files=1, media=0
+### select, command-id=2014409725, estimated-cost=12937872byte(s), files=1, media=0
+### select, command-id=2014409726, estimated-cost=12941072byte(s), files=1, media=0
+### select, command-id=2014409728, estimated-cost=44801840byte(s), files=1, media=0
+### select, command-id=2014409720, estimated-cost=44857040byte(s), files=1, media=0
+### select, command-id=2014409731, estimated-cost=12939792byte(s), files=1, media=0
+### select, command-id=2014409729, estimated-cost=12948912byte(s), files=1, media=0
+### select, command-id=2014409730, estimated-cost=44793680byte(s), files=1, media=0
+### select, command-id=2014409734, estimated-cost=12949232byte(s), files=1, media=0
+### select, command-id=2014409738, estimated-cost=44943920byte(s), files=1, media=0
+### select, command-id=2014409737, estimated-cost=12945072byte(s), files=1, media=0
+### select, command-id=2014409735, estimated-cost=12944272byte(s), files=1, media=0
+### select, command-id=2014409736, estimated-cost=44834160byte(s), files=1, media=0
+### select, command-id=2014409739, estimated-cost=44743760byte(s), files=1, media=0
+### select, command-id=2014409744, estimated-cost=12943312byte(s), files=1, media=0
+### select, command-id=2014409740, estimated-cost=12946512byte(s), files=1, media=0
+### select, command-id=2014409746, estimated-cost=12945552byte(s), files=1, media=0
+### select, command-id=2014409741, estimated-cost=44826480byte(s), files=1, media=0
+### select, command-id=2014409743, estimated-cost=44855440byte(s), files=1, media=0
+### select, command-id=2014409747, estimated-cost=12948912byte(s), files=1, media=0
+### select, command-id=2014409749, estimated-cost=44779280byte(s), files=1, media=0
+### select, command-id=2014409748, estimated-cost=12947152byte(s), files=1, media=0
+### select, command-id=2014409750, estimated-cost=44850960byte(s), files=1, media=0
+### select, command-id=2014409751, estimated-cost=12941072byte(s), files=1, media=0
+### select, command-id=2014409760, estimated-cost=44915280byte(s), files=1, media=0
+### select, command-id=2014409763, estimated-cost=44837520byte(s), files=1, media=0
+### select, command-id=2014409771, estimated-cost=44858320byte(s), files=1, media=0
+### select, command-id=2014409774, estimated-cost=44804880byte(s), files=1, media=0
+### select, command-id=2014409780, estimated-cost=44832400byte(s), files=1, media=0
+### select, command-id=2014409783, estimated-cost=44895920byte(s), files=1, media=0
+### select, command-id=2014409785, estimated-cost=44795760byte(s), files=1, media=0
+### select, command-id=2014409786, estimated-cost=28946640byte(s), files=1, media=0
+### select, command-id=2014409787, estimated-cost=29007600byte(s), files=1, media=0
+### select, command-id=2014409788, estimated-cost=44871920byte(s), files=1, media=0
+### select, command-id=2014409790, estimated-cost=28979760byte(s), files=1, media=0
+### select, command-id=2014409791, estimated-cost=44845200byte(s), files=1, media=0
+### select, command-id=2014409794, estimated-cost=28967760byte(s), files=1, media=0
+### select, command-id=2014409797, estimated-cost=28949360byte(s), files=1, media=0
+### select, command-id=2014409799, estimated-cost=28959600byte(s), files=1, media=0
+### select, command-id=2014409802, estimated-cost=28962000byte(s), files=1, media=0
+### select, command-id=2014409800, estimated-cost=28978480byte(s), files=1, media=0
+### select, command-id=2014409805, estimated-cost=28974800byte(s), files=1, media=0
+### select, command-id=2014409809, estimated-cost=28996720byte(s), files=1, media=0
+### select, command-id=2014409812, estimated-cost=28966640byte(s), files=1, media=0
+### select, command-id=2014409817, estimated-cost=28968240byte(s), files=1, media=0
+### select, command-id=2014409810, estimated-cost=28980880byte(s), files=1, media=0
+### select, command-id=2014409816, estimated-cost=28982640byte(s), files=1, media=0
+### select, command-id=2014409815, estimated-cost=29022320byte(s), files=1, media=0
+### select, command-id=2014409818, estimated-cost=28995600byte(s), files=1, media=0
+### select, command-id=2014409819, estimated-cost=29024400byte(s), files=1, media=0
+### select, command-id=2014409823, estimated-cost=28998160byte(s), files=1, media=0
+### select, command-id=2014409820, estimated-cost=28983280byte(s), files=1, media=0
+### select, command-id=2014409822, estimated-cost=28961200byte(s), files=1, media=0
+### select, command-id=2014409824, estimated-cost=28956560byte(s), files=1, media=0
+### select, command-id=2014409826, estimated-cost=28968080byte(s), files=1, media=0
+### select, command-id=2014409827, estimated-cost=28996400byte(s), files=1, media=0
+### select, command-id=2014409829, estimated-cost=29016240byte(s), files=1, media=0
+### select, command-id=2014409831, estimated-cost=28955920byte(s), files=1, media=0
+### select, command-id=2014409834, estimated-cost=28976080byte(s), files=1, media=0
+### select, command-id=2014409838, estimated-cost=28997520byte(s), files=1, media=0
+### select, command-id=2014409840, estimated-cost=28963120byte(s), files=1, media=0
+### select, command-id=2014409842, estimated-cost=28946640byte(s), files=1, media=0
+### select, command-id=2014409843, estimated-cost=28983280byte(s), files=1, media=0
+### select, command-id=2014409844, estimated-cost=28974000byte(s), files=1, media=0
+### select, command-id=2014409852, estimated-cost=29008240byte(s), files=1, media=0
+### select, command-id=2014409851, estimated-cost=28976880byte(s), files=1, media=0
+### select, command-id=2014409864, estimated-cost=28939120byte(s), files=1, media=0
+### select, command-id=2014409865, estimated-cost=28957520byte(s), files=1, media=0
+### select, command-id=2014409866, estimated-cost=29000400byte(s), files=1, media=0
+### select, command-id=2014409872, estimated-cost=28939760byte(s), files=1, media=0
+### select, command-id=2014409885, estimated-cost=28994800byte(s), files=1, media=0
+### select, command-id=2014409878, estimated-cost=28909200byte(s), files=1, media=0
+### select, command-id=2014409888, estimated-cost=28961200byte(s), files=1, media=0
+### select, command-id=2014409895, estimated-cost=28985360byte(s), files=1, media=0
+### select, command-id=2014409889, estimated-cost=28990640byte(s), files=1, media=0
+### select, command-id=2014409892, estimated-cost=28959760byte(s), files=1, media=0
+### select, command-id=2014409896, estimated-cost=28955920byte(s), files=1, media=0
+### select, command-id=2014409907, estimated-cost=29013360byte(s), files=1, media=0
+### select, command-id=2014409913, estimated-cost=24743504byte(s), files=1, media=0
+### select, command-id=2014409912, estimated-cost=28957360byte(s), files=1, media=0
+### select, command-id=2014409909, estimated-cost=28936400byte(s), files=1, media=0
+### select, command-id=2014409911, estimated-cost=29021040byte(s), files=1, media=0
+### select, command-id=2014409910, estimated-cost=28966480byte(s), files=1, media=0
+### select, command-id=2014409919, estimated-cost=28970960byte(s), files=1, media=0
+### select, command-id=2014409917, estimated-cost=28982480byte(s), files=1, media=0
+### select, command-id=2014409921, estimated-cost=28975600byte(s), files=1, media=0
+### select, command-id=2014409923, estimated-cost=24862224byte(s), files=1, media=0
+### select, command-id=2014409924, estimated-cost=28999120byte(s), files=1, media=0
+### select, command-id=2014409925, estimated-cost=24733104byte(s), files=1, media=0
+### select, command-id=2014409928, estimated-cost=24742064byte(s), files=1, media=0
+### select, command-id=2014409926, estimated-cost=24845744byte(s), files=1, media=0
+### select, command-id=2014409916, estimated-cost=28930000byte(s), files=1, media=0
+### select, command-id=2014409932, estimated-cost=24915024byte(s), files=1, media=0
+### select, command-id=2014409933, estimated-cost=24806544byte(s), files=1, media=0
+### select, command-id=2014409934, estimated-cost=24888464byte(s), files=1, media=0
+### select, command-id=2014409936, estimated-cost=24791184byte(s), files=1, media=0
+### select, command-id=2014409937, estimated-cost=24853904byte(s), files=1, media=0
+### select, command-id=2014409938, estimated-cost=24786544byte(s), files=1, media=0
+### select, command-id=2014409946, estimated-cost=24865104byte(s), files=1, media=0
+### select, command-id=2014409952, estimated-cost=24796784byte(s), files=1, media=0
+### select, command-id=2014409956, estimated-cost=24844304byte(s), files=1, media=0
+### select, command-id=2014409947, estimated-cost=24820304byte(s), files=1, media=0
+### select, command-id=2014409960, estimated-cost=24868944byte(s), files=1, media=0
+### select, command-id=2014409961, estimated-cost=24805104byte(s), files=1, media=0
+### select, command-id=2014409965, estimated-cost=24800304byte(s), files=1, media=0
+### select, command-id=2014409974, estimated-cost=24862864byte(s), files=1, media=0
+### select, command-id=2014409977, estimated-cost=24834064byte(s), files=1, media=0
+### select, command-id=2014409981, estimated-cost=24777424byte(s), files=1, media=0
+### select, command-id=2014409980, estimated-cost=24843504byte(s), files=1, media=0
+### select, command-id=2014409988, estimated-cost=24834864byte(s), files=1, media=0
+### select, command-id=2014409985, estimated-cost=24891664byte(s), files=1, media=0
+### select, command-id=2014409989, estimated-cost=24874224byte(s), files=1, media=0
+### select, command-id=2014409991, estimated-cost=24863024byte(s), files=1, media=0
+### select, command-id=2014409994, estimated-cost=24780624byte(s), files=1, media=0
+### select, command-id=2014410000, estimated-cost=24785744byte(s), files=1, media=0
+### select, command-id=2014410003, estimated-cost=24841904byte(s), files=1, media=0
+### select, command-id=2014410008, estimated-cost=24836144byte(s), files=1, media=0
+### select, command-id=2014410005, estimated-cost=24868464byte(s), files=1, media=0
+### select, command-id=2014410011, estimated-cost=24868304byte(s), files=1, media=0
+### select, command-id=2014410010, estimated-cost=24862544byte(s), files=1, media=0
+### select, command-id=2014410015, estimated-cost=24822064byte(s), files=1, media=0
+### select, command-id=2014410019, estimated-cost=24806864byte(s), files=1, media=0
+### select, command-id=2014410018, estimated-cost=24827504byte(s), files=1, media=0
+### select, command-id=2014410022, estimated-cost=12887792byte(s), files=1, media=0
+### select, command-id=2014410023, estimated-cost=12905552byte(s), files=1, media=0
+### select, command-id=2014410027, estimated-cost=12902512byte(s), files=1, media=0
+### select, command-id=2014410035, estimated-cost=12892112byte(s), files=1, media=0
+### select, command-id=2014410032, estimated-cost=12900112byte(s), files=1, media=0
+### select, command-id=2014410034, estimated-cost=12906032byte(s), files=1, media=0
+### select, command-id=2014410038, estimated-cost=12902352byte(s), files=1, media=0
+### select, command-id=2014410040, estimated-cost=12900912byte(s), files=1, media=0
+### select, command-id=2014410042, estimated-cost=12904912byte(s), files=1, media=0
+### select, command-id=2014410043, estimated-cost=12907952byte(s), files=1, media=0
+### select, command-id=2014410048, estimated-cost=12896112byte(s), files=1, media=0
+### select, command-id=2014410049, estimated-cost=12906352byte(s), files=1, media=0
+### select, command-id=2014410050, estimated-cost=12908752byte(s), files=1, media=0
+### select, command-id=2014410052, estimated-cost=12901232byte(s), files=1, media=0
+### select, command-id=2014410051, estimated-cost=12916272byte(s), files=1, media=0
+### select, command-id=2014410053, estimated-cost=12902352byte(s), files=1, media=0
+### select, command-id=2014410057, estimated-cost=12911632byte(s), files=1, media=0
+### select, command-id=2014410058, estimated-cost=12878512byte(s), files=1, media=0
+### select, command-id=2014410081, estimated-cost=44750640byte(s), files=1, media=0
+### select, command-id=2014410086, estimated-cost=44750320byte(s), files=1, media=0
+### select, command-id=2014410100, estimated-cost=44767280byte(s), files=1, media=0
+### select, command-id=2014410102, estimated-cost=44746000byte(s), files=1, media=0
+### select, command-id=2014410105, estimated-cost=44734800byte(s), files=1, media=0
+### select, command-id=2014410108, estimated-cost=44757040byte(s), files=1, media=0
+### select, command-id=2014410111, estimated-cost=44743120byte(s), files=1, media=0
+### select, command-id=2014410113, estimated-cost=44785200byte(s), files=1, media=0
+### select, command-id=2014410115, estimated-cost=44770160byte(s), files=1, media=0
+### select, command-id=2014410119, estimated-cost=44735280byte(s), files=1, media=0
+### select, command-id=2014410120, estimated-cost=44783600byte(s), files=1, media=0
+### select, command-id=2014410121, estimated-cost=44806160byte(s), files=1, media=0
+### select, command-id=2014410127, estimated-cost=44763280byte(s), files=1, media=0
+### select, command-id=2014410130, estimated-cost=44762000byte(s), files=1, media=0
+### select, command-id=2014410129, estimated-cost=44798480byte(s), files=1, media=0
+### select, command-id=2014410133, estimated-cost=44742320byte(s), files=1, media=0
+### select, command-id=2014410138, estimated-cost=44899440byte(s), files=1, media=0
+### select, command-id=2014410137, estimated-cost=44708880byte(s), files=1, media=0
+### select, command-id=2014410141, estimated-cost=44955120byte(s), files=1, media=0
+### select, command-id=2014410139, estimated-cost=44663440byte(s), files=1, media=0
+### select, command-id=2014410145, estimated-cost=45002000byte(s), files=1, media=0
+### select, command-id=2014410146, estimated-cost=44927760byte(s), files=1, media=0
+### select, command-id=2014410144, estimated-cost=44901040byte(s), files=1, media=0
+### select, command-id=2014410149, estimated-cost=44962640byte(s), files=1, media=0
+### select, command-id=2014410147, estimated-cost=44918320byte(s), files=1, media=0
+### select, command-id=2014410150, estimated-cost=44928240byte(s), files=1, media=0
+### select, command-id=2014410151, estimated-cost=44910800byte(s), files=1, media=0
+### select, command-id=2014410148, estimated-cost=44887600byte(s), files=1, media=0
+### select, command-id=2014410154, estimated-cost=44932080byte(s), files=1, media=0
+### select, command-id=2014410155, estimated-cost=44868240byte(s), files=1, media=0
+### select, command-id=2014410156, estimated-cost=44985200byte(s), files=1, media=0
+### select, command-id=2014410159, estimated-cost=44966160byte(s), files=1, media=0
+### select, command-id=2014410163, estimated-cost=44876560byte(s), files=1, media=0
+### select, command-id=2014410165, estimated-cost=44869360byte(s), files=1, media=0
+### select, command-id=2014410168, estimated-cost=44904080byte(s), files=1, media=0
+### select, command-id=2014410174, estimated-cost=44815920byte(s), files=1, media=0
+### select, command-id=2014410173, estimated-cost=28978800byte(s), files=1, media=0
+### select, command-id=2014410178, estimated-cost=28974160byte(s), files=1, media=0
+### select, command-id=2014410176, estimated-cost=28952080byte(s), files=1, media=0
+### select, command-id=2014410179, estimated-cost=28953040byte(s), files=1, media=0
+### select, command-id=2014410193, estimated-cost=28966480byte(s), files=1, media=0
+### select, command-id=2014410192, estimated-cost=28988080byte(s), files=1, media=0
+### select, command-id=2014410194, estimated-cost=28956080byte(s), files=1, media=0
+### select, command-id=2014410196, estimated-cost=28980880byte(s), files=1, media=0
+### select, command-id=2014410217, estimated-cost=28972240byte(s), files=1, media=0
+### select, command-id=2014410224, estimated-cost=28961840byte(s), files=1, media=0
+### select, command-id=2014410227, estimated-cost=28956080byte(s), files=1, media=0
+### select, command-id=2014410225, estimated-cost=28957040byte(s), files=1, media=0
+### select, command-id=2014410232, estimated-cost=28962320byte(s), files=1, media=0
+### select, command-id=2014410239, estimated-cost=28994320byte(s), files=1, media=0
+### select, command-id=2014410242, estimated-cost=28947600byte(s), files=1, media=0
+### select, command-id=2014410246, estimated-cost=28941520byte(s), files=1, media=0
+### select, command-id=2014410247, estimated-cost=28918480byte(s), files=1, media=0
+### select, command-id=2014410250, estimated-cost=28962320byte(s), files=1, media=0
+### select, command-id=2014410251, estimated-cost=28949040byte(s), files=1, media=0
+### select, command-id=2014410257, estimated-cost=28926640byte(s), files=1, media=0
+### select, command-id=2014410261, estimated-cost=28903920byte(s), files=1, media=0
+### select, command-id=2014410259, estimated-cost=28922640byte(s), files=1, media=0
+### select, command-id=2014410262, estimated-cost=28922960byte(s), files=1, media=0
+### select, command-id=2014410264, estimated-cost=28961520byte(s), files=1, media=0
+### select, command-id=2014410267, estimated-cost=28918320byte(s), files=1, media=0
+### select, command-id=2014410269, estimated-cost=28926480byte(s), files=1, media=0
+### select, command-id=2014410270, estimated-cost=28954320byte(s), files=1, media=0
+### select, command-id=2014410275, estimated-cost=28954800byte(s), files=1, media=0
+### select, command-id=2014410274, estimated-cost=28960240byte(s), files=1, media=0
+### select, command-id=2014410276, estimated-cost=28942320byte(s), files=1, media=0
+### select, command-id=2014410278, estimated-cost=28909200byte(s), files=1, media=0
+### select, command-id=2014410281, estimated-cost=28905360byte(s), files=1, media=0
+### select, command-id=2014410283, estimated-cost=28959600byte(s), files=1, media=0
+### select, command-id=2014410284, estimated-cost=28913840byte(s), files=1, media=0
+### select, command-id=2014410282, estimated-cost=28889840byte(s), files=1, media=0
+### select, command-id=2014410280, estimated-cost=28942800byte(s), files=1, media=0
+### select, command-id=2014410287, estimated-cost=28963440byte(s), files=1, media=0
+### select, command-id=2014410290, estimated-cost=28862640byte(s), files=1, media=0
+### select, command-id=2014410293, estimated-cost=28948400byte(s), files=1, media=0
+### select, command-id=2014410295, estimated-cost=28892400byte(s), files=1, media=0
+### select, command-id=2014410299, estimated-cost=28937040byte(s), files=1, media=0
+### select, command-id=2014410303, estimated-cost=28962480byte(s), files=1, media=0
+### select, command-id=2014410310, estimated-cost=28953680byte(s), files=1, media=0
+### select, command-id=2014410309, estimated-cost=28896080byte(s), files=1, media=0
+### select, command-id=2014410328, estimated-cost=28993840byte(s), files=1, media=0
+### select, command-id=2014410332, estimated-cost=28961040byte(s), files=1, media=0
+### select, command-id=2014410341, estimated-cost=28927760byte(s), files=1, media=0
+### select, command-id=2014410344, estimated-cost=28954960byte(s), files=1, media=0
+### select, command-id=2014410345, estimated-cost=28956080byte(s), files=1, media=0
+### select, command-id=2014410346, estimated-cost=28956560byte(s), files=1, media=0
+### select, command-id=2014410358, estimated-cost=28926640byte(s), files=1, media=0
+### select, command-id=2014410360, estimated-cost=28920880byte(s), files=1, media=0
+### select, command-id=2014410361, estimated-cost=24752304byte(s), files=1, media=0
+### select, command-id=2014410362, estimated-cost=24794384byte(s), files=1, media=0
+### select, command-id=2014410366, estimated-cost=28932400byte(s), files=1, media=0
+### select, command-id=2014410369, estimated-cost=28921200byte(s), files=1, media=0
+### select, command-id=2014410374, estimated-cost=24767184byte(s), files=1, media=0
+### select, command-id=2014410380, estimated-cost=24769744byte(s), files=1, media=0
+### select, command-id=2014410384, estimated-cost=24826064byte(s), files=1, media=0
+### select, command-id=2014410383, estimated-cost=24772784byte(s), files=1, media=0
+### select, command-id=2014410382, estimated-cost=24726704byte(s), files=1, media=0
+### select, command-id=2014410393, estimated-cost=24857424byte(s), files=1, media=0
+### select, command-id=2014410394, estimated-cost=24823664byte(s), files=1, media=0
+### select, command-id=2014410391, estimated-cost=24753584byte(s), files=1, media=0
+### select, command-id=2014410395, estimated-cost=24804144byte(s), files=1, media=0
+### select, command-id=2014410392, estimated-cost=24821744byte(s), files=1, media=0
+### select, command-id=2014410398, estimated-cost=24847824byte(s), files=1, media=0
+### select, command-id=2014410400, estimated-cost=24798864byte(s), files=1, media=0
+### select, command-id=2014410401, estimated-cost=24735824byte(s), files=1, media=0
+### select, command-id=2014410409, estimated-cost=24784144byte(s), files=1, media=0
+### select, command-id=2014410410, estimated-cost=24814544byte(s), files=1, media=0
+### select, command-id=2014410415, estimated-cost=24871184byte(s), files=1, media=0
+### select, command-id=2014410418, estimated-cost=24808464byte(s), files=1, media=0
+### select, command-id=2014410422, estimated-cost=24791824byte(s), files=1, media=0
+### select, command-id=2014410423, estimated-cost=24860944byte(s), files=1, media=0
+### select, command-id=2014410429, estimated-cost=24833264byte(s), files=1, media=0
+### select, command-id=2014410434, estimated-cost=24706864byte(s), files=1, media=0
+### select, command-id=2014410433, estimated-cost=24775984byte(s), files=1, media=0
+### select, command-id=2014410436, estimated-cost=24731344byte(s), files=1, media=0
+### select, command-id=2014410438, estimated-cost=24869264byte(s), files=1, media=0
+### select, command-id=2014410435, estimated-cost=24773744byte(s), files=1, media=0
+### select, command-id=2014410440, estimated-cost=24887984byte(s), files=1, media=0
+### select, command-id=2014410442, estimated-cost=24759824byte(s), files=1, media=0
+### select, command-id=2014410444, estimated-cost=24901744byte(s), files=1, media=0
+### select, command-id=2014410445, estimated-cost=24781744byte(s), files=1, media=0
+### select, command-id=2014410447, estimated-cost=24752624byte(s), files=1, media=0
+### select, command-id=2014410446, estimated-cost=24892784byte(s), files=1, media=0
+### select, command-id=2014410451, estimated-cost=24814864byte(s), files=1, media=0
+### select, command-id=2014410452, estimated-cost=24912944byte(s), files=1, media=0
+### select, command-id=2014410453, estimated-cost=24842224byte(s), files=1, media=0
+All tasks completed successfully.
+['000', '001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014', '015', '016', '017', '018', '019', '020', '021', '022', '023', '024', '025', '026', '027', '028', '029', '030', '031', '032', '033', '034', '035']
+dict_keys(['mogreps_dummy_queryfiles_dir', 'mogreps_moose_dir', 'mogreps_raw_dir', 'mogreps_combined_queryfile', 'mogreps_mjo_processed_dir', 'mogreps_mjo_archive_dir', 'mogreps_mjo_plot_ens', 'mogreps_cs_processed_dir', 'mogreps_cs_plot_ens', 'mogreps_eqwaves_processed_dir', 'mogreps_eqwaves_plot_ens'])
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: moose:/opfc/atm/mogreps-g/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket
+Skipping: /home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/
+Retrieving data for date: 2025-04-30 00:00:00
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+Retrieving hr: 0
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+Retrieving hr: 0
+Retrieving hr: 0
+Retrieving hr: 0
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+Retrieving hr: 0
+EXECCCC
+EXECCCC
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+Retrieving hr: 48
+In retrieve_fc_data_parallel()
+EXECCCC
+Retrieving hr: 0
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+Retrieving hr: 24
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+Retrieving hr: 48
+Retrieving hr: 48
+In retrieve_fc_data_parallel()
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+Retrieving hr: 48
+Retrieving hr: 48
+EXECCCC
+EXECCCC
+Retrieving hr: 48
+Retrieving hr: 48
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+In retrieve_fc_data_parallel()
+EXECCCC
+Retrieving hr: 120
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 0
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 24
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 48
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 72
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 96
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 120
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 144
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+In retrieve_fc_data_parallel()
+Retrieving hr: 168
+EXECCCC
+Concat 201 days of analysis and forecast data.
+Combining member: 029
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_029.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_029.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_029.nc
+Combining member: 003
+Combining member: 002
+Combining member: 007
+Combining member: 009
+Combining member: 013
+Combining member: 004
+Combining member: 008
+Combining member: 012
+Combining member: 000
+Combining member: 005
+Combining member: 025
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_025.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_025.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_025.nc
+Combining member: 020
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_020.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_020.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_020.nc
+Combining member: 034
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_034.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_034.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_034.nc
+Combining member: 031
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_031.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_031.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_031.nc
+Combining member: 006
+Combining member: 023
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_023.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_023.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_023.nc
+Combining member: 015
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_015.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_015.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_015.nc
+Combining member: 026
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_026.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_026.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_026.nc
+Combining member: 030
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_030.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_030.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_030.nc
+Combining member: 028
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_028.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_028.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_028.nc
+Combining member: 017
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_017.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_017.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_017.nc
+Combining member: 016
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_016.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_016.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_016.nc
+Combining member: 032
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_032.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_032.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_032.nc
+Combining member: 001
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_001.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_001.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_001.nc
+Combining member: 022
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_022.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_022.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_022.nc
+Combining member: 019
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_019.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_019.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_019.nc
+Combining member: 014
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_014.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_014.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_014.nc
+Combining member: 027
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_027.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_027.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_027.nc
+Combining member: 035
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_035.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_035.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_035.nc
+Combining member: 011
+Combining member: 024
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_024.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_024.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_024.nc
+Combining member: 010
+Combining member: 021
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_021.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_021.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_021.nc
+Combining member: 033
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_033.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_033.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_033.nc
+Combining member: 018
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_018.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_018.nc
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_018.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_013.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_000.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_008.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_012.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_003.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_011.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_007.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_010.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_005.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_009.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_004.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_034.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_034.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_034.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_034.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_034.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_034.nc
+Computing RMMs
+0.3583880055784328 0.1951485220672375 0.44646347235432976
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.034.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_020.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_020.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_020.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_020.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_020.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_020.nc
+Computing RMMs
+-0.02806231690584069 -0.23624628142846435 1.264308598334305
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.020.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_015.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_015.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_015.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_015.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_015.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_015.nc
+Computing RMMs
+0.216115275567395 0.2778896815763323 0.5059950428562731
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.015.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_022.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_022.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_022.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_022.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_022.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_022.nc
+Computing RMMs
+0.2524503547557696 0.5360550461944084 0.21149459904982212
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.022.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_002.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_035.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_035.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_035.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_035.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_035.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_035.nc
+Computing RMMs
+0.13156496499433798 0.2731099181467464 0.5953251168589159
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.035.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_019.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_019.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_019.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_019.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_019.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_019.nc
+Computing RMMs
+0.2774562922057915 0.26738725586265594 0.45515645193155274
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.019.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_030.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_030.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_030.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_030.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_030.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_030.nc
+Computing RMMs
+-0.006075317369929464 0.5353385798068081 0.4707367375631213
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.030.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_026.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_026.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_026.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_026.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_026.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_026.nc
+Computing RMMs
+-0.3327596032658685 0.5168015836047625 0.8159580196611059
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.026.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_006.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_018.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_018.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_018.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_018.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_018.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_018.nc
+Computing RMMs
+-0.04195144949224663 0.46867851757922685 0.5732729319130199
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.018.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_033.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_033.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_033.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_033.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_033.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_033.nc
+Computing RMMs
+0.321194047230129 0.42777518558021355 0.2510307671896572
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.033.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_016.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_016.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_016.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_016.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_016.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_016.nc
+Computing RMMs
+0.1607276484237433 -0.1139127344102977 0.9531850859865546
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.016.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_021.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_021.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_021.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_021.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_021.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_021.nc
+Computing RMMs
+0.047817431298136134 0.2555579145789055 0.6966246541229585
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.021.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_014.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_014.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_014.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_014.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_014.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_014.nc
+Computing RMMs
+-0.2661753796897622 0.565975515573069 0.7001998641166932
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.014.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_017.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_017.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_017.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_017.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_017.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_017.nc
+Computing RMMs
+0.014080449193884745 0.44597554043105403 0.5399440103750612
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.017.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_023.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_023.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_023.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_023.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_023.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_023.nc
+Computing RMMs
+0.16547821192115272 0.427987956563964 0.4065338315148832
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.023.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_032.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_032.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_032.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_032.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_032.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_032.nc
+Computing RMMs
+0.18867723102389738 0.3388022532264125 0.47252051574968995
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.032.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_025.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_025.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_025.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_025.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_025.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_025.nc
+Computing RMMs
+1.8684213685722881 -0.3056480001051576 -0.5627733684671307
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.025.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_024.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_024.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_024.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_024.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_024.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_024.nc
+Computing RMMs
+0.2727094868832345 0.6274979596824343 0.09979255343433142
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.024.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_029.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_029.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_029.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_029.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_029.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_029.nc
+Computing RMMs
+0.13251775257478152 0.37010846344513565 0.49737378398008303
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.029.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_028.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_028.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_028.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_028.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_028.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_028.nc
+Computing RMMs
+0.08472999978040772 0.18731191352194587 0.7279580866976466
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.028.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_027.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_027.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_027.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_027.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_027.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_027.nc
+Computing RMMs
+-0.38759391358797884 0.49091592084272445 0.8966779927452542
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.027.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_031.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_031.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_031.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_031.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_031.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_031.nc
+Computing RMMs
+-0.2246943044409597 0.4495443471988461 0.7751499572421137
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.031.txt
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_concat_nrt_20250430_001.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/olr/olr_120dm_40sn_nrt_20250430_001.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_concat_nrt_20250430_001.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u850/u850_120dm_40sn_nrt_20250430_001.nc
+Reading /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_concat_nrt_20250430_001.nc
+Forecast: 120 day smoothed data written to /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/u200/u200_120dm_40sn_nrt_20250430_001.nc
+Computing RMMs
+0.14490140161286025 0.34603956776058264 0.5090590306265568
+DataFrame has been successfully written to /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/20250430/createdPCs.15sn.20250430.fcast.001.txt
+All tasks in run_parallel_mjo_process completed successfully.
+{'mogreps_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'mogreps_moose_dir': 'moose:/opfc/atm/mogreps-g/prods/', 'mogreps_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket', 'mogreps_combined_queryfile': '/home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query', 'mogreps_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo', 'mogreps_mjo_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/', 'mogreps_mjo_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/', 'mogreps_cs_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/', 'mogreps_cs_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/plot_ens/', 'mogreps_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/', 'mogreps_eqwaves_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/'} HERE!!!
+{'mogreps_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'mogreps_moose_dir': 'moose:/opfc/atm/mogreps-g/prods/', 'mogreps_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket', 'mogreps_combined_queryfile': '/home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query', 'mogreps_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo', 'mogreps_mjo_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/', 'mogreps_mjo_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/', 'mogreps_cs_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/', 'mogreps_cs_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/plot_ens/', 'mogreps_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/', 'mogreps_eqwaves_plot_ens': '/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/'}
+23 RMM files found. Trying Bokeh plot.
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/mogreps_dates.json
+The /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/mogreps_dates.json file has been updated. New date added: 20250430
+Plotted /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/MOGREPS_20250430.html

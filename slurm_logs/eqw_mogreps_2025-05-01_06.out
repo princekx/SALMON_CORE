@@ -1,0 +1,1201 @@
+/home/users/prince.xavier/MJO/SALMON
+/home/users/prince.xavier/MJO/SALMON/salmon_config.yaml
+2025-05-01 06:00:00
+dict_keys(['analysis_raw_dir', 'analysis_moose_dir', 'analysis_dummy_queryfiles_dir', 'analysis_combined_queryfile', 'analysis_mjo_processed_dir', 'analysis_mjo_rmm_archive_dir', 'analysis_eqwaves_processed_dir'])
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket
+Skipping: moose:/opfc/atm/global/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: /home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves
+dict_keys(['mogreps_dummy_queryfiles_dir', 'mogreps_moose_dir', 'mogreps_raw_dir', 'mogreps_combined_queryfile', 'mogreps_mjo_processed_dir', 'mogreps_mjo_archive_dir', 'mogreps_mjo_plot_ens', 'mogreps_cs_processed_dir', 'mogreps_cs_plot_ens', 'mogreps_eqwaves_processed_dir', 'mogreps_eqwaves_plot_ens'])
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: moose:/opfc/atm/mogreps-g/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket
+Skipping: /home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/
+{'analysis_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket', 'analysis_moose_dir': 'moose:/opfc/atm/global/prods/', 'analysis_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'analysis_combined_queryfile': '/home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query', 'analysis_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/', 'analysis_mjo_rmm_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/', 'analysis_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves'}
+Reading 332 analysis files
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250501_06.nc exists. Skip.
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250501_06.nc exists. Skip.
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250501_06.nc exists. Skip.
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250501_06.nc exists. Skip.
+Retrieving date: 20250501_06, Member: 000, Forecast: 6
+Retrieving date: 20250501_06, Member: 001, Forecast: 6
+Retrieving date: 20250501_06, Member: 002, Forecast: 6
+Retrieving date: 20250501_06, Member: 003, Forecast: 6
+Retrieving date: 20250501_06, Member: 004, Forecast: 6
+Retrieving date: 20250501_06, Member: 005, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 6
+Retrieving date: 20250501_06, Member: 007, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 6
+Retrieving date: 20250501_06, Member: 009, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 6
+Retrieving date: 20250501_06, Member: 011, Forecast: 6
+Retrieving date: 20250501_06, Member: 012, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 6
+Retrieving date: 20250501_06, Member: 014, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 6
+Retrieving date: 20250501_06, Member: 016, Forecast: 6
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 6
+Retrieving date: 20250501_06, Member: 000, Forecast: 12
+Retrieving date: 20250501_06, Member: 001, Forecast: 12
+Retrieving date: 20250501_06, Member: 002, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T006.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 12
+Retrieving date: 20250501_06, Member: 004, Forecast: 12
+Retrieving date: 20250501_06, Member: 005, Forecast: 12
+Retrieving date: 20250501_06, Member: 006, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T006.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 12
+Retrieving date: 20250501_06, Member: 009, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 12
+Retrieving date: 20250501_06, Member: 011, Forecast: 12
+Retrieving date: 20250501_06, Member: 012, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 12
+Retrieving date: 20250501_06, Member: 014, Forecast: 12
+Retrieving date: 20250501_06, Member: 015, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 12
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 18
+Retrieving date: 20250501_06, Member: 001, Forecast: 18
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 18
+Retrieving date: 20250501_06, Member: 003, Forecast: 18
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 18
+Retrieving date: 20250501_06, Member: 005, Forecast: 18
+Retrieving date: 20250501_06, Member: 006, Forecast: 18
+Retrieving date: 20250501_06, Member: 007, Forecast: 18
+Retrieving date: 20250501_06, Member: 008, Forecast: 18
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T012.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 18
+Retrieving date: 20250501_06, Member: 010, Forecast: 18
+Retrieving date: 20250501_06, Member: 011, Forecast: 18
+Retrieving date: 20250501_06, Member: 012, Forecast: 18
+Retrieving date: 20250501_06, Member: 013, Forecast: 18
+Retrieving date: 20250501_06, Member: 014, Forecast: 18
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 18
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T012.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 18
+Retrieving date: 20250501_06, Member: 017, Forecast: 18
+Retrieving date: 20250501_06, Member: 000, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 24
+Retrieving date: 20250501_06, Member: 002, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 24
+Retrieving date: 20250501_06, Member: 004, Forecast: 24
+Retrieving date: 20250501_06, Member: 005, Forecast: 24
+Retrieving date: 20250501_06, Member: 006, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 24
+Retrieving date: 20250501_06, Member: 008, Forecast: 24
+Retrieving date: 20250501_06, Member: 009, Forecast: 24
+Retrieving date: 20250501_06, Member: 010, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 24
+Retrieving date: 20250501_06, Member: 015, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T018.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T018.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 24
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T024.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 30
+Retrieving date: 20250501_06, Member: 003, Forecast: 30
+Retrieving date: 20250501_06, Member: 004, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 30
+Retrieving date: 20250501_06, Member: 006, Forecast: 30
+Retrieving date: 20250501_06, Member: 007, Forecast: 30
+Retrieving date: 20250501_06, Member: 008, Forecast: 30
+Retrieving date: 20250501_06, Member: 009, Forecast: 30
+Retrieving date: 20250501_06, Member: 010, Forecast: 30
+Retrieving date: 20250501_06, Member: 011, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 30
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 30
+Retrieving date: 20250501_06, Member: 016, Forecast: 30
+Retrieving date: 20250501_06, Member: 017, Forecast: 30
+Retrieving date: 20250501_06, Member: 000, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 36
+Retrieving date: 20250501_06, Member: 002, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T024.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 36
+Retrieving date: 20250501_06, Member: 004, Forecast: 36
+Retrieving date: 20250501_06, Member: 005, Forecast: 36
+Retrieving date: 20250501_06, Member: 006, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 36
+Retrieving date: 20250501_06, Member: 010, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T030.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T030.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 36
+Retrieving date: 20250501_06, Member: 015, Forecast: 36
+Retrieving date: 20250501_06, Member: 016, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 36
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 42
+Retrieving date: 20250501_06, Member: 001, Forecast: 42
+Retrieving date: 20250501_06, Member: 002, Forecast: 42
+Retrieving date: 20250501_06, Member: 003, Forecast: 42
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 42
+Retrieving date: 20250501_06, Member: 005, Forecast: 42
+Retrieving date: 20250501_06, Member: 006, Forecast: 42
+Retrieving date: 20250501_06, Member: 007, Forecast: 42
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 42
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 42
+Retrieving date: 20250501_06, Member: 010, Forecast: 42
+Retrieving date: 20250501_06, Member: 011, Forecast: 42
+Retrieving date: 20250501_06, Member: 012, Forecast: 42
+Retrieving date: 20250501_06, Member: 013, Forecast: 42
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 42
+Retrieving date: 20250501_06, Member: 015, Forecast: 42
+Retrieving date: 20250501_06, Member: 016, Forecast: 42
+Retrieving date: 20250501_06, Member: 017, Forecast: 42
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 48
+Retrieving date: 20250501_06, Member: 001, Forecast: 48
+Retrieving date: 20250501_06, Member: 002, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T036.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T036.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 48
+Retrieving date: 20250501_06, Member: 006, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 48
+Retrieving date: 20250501_06, Member: 011, Forecast: 48
+Retrieving date: 20250501_06, Member: 012, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T042.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T042.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 48
+Retrieving date: 20250501_06, Member: 015, Forecast: 48
+Retrieving date: 20250501_06, Member: 016, Forecast: 48
+Retrieving date: 20250501_06, Member: 017, Forecast: 48
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 54
+Retrieving date: 20250501_06, Member: 001, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 54
+Retrieving date: 20250501_06, Member: 003, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 54
+Retrieving date: 20250501_06, Member: 005, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 54
+Retrieving date: 20250501_06, Member: 008, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 54
+Retrieving date: 20250501_06, Member: 010, Forecast: 54
+Retrieving date: 20250501_06, Member: 011, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 54
+Retrieving date: 20250501_06, Member: 015, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T048.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 54
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T048.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 60
+Retrieving date: 20250501_06, Member: 002, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 60
+Retrieving date: 20250501_06, Member: 008, Forecast: 60
+Retrieving date: 20250501_06, Member: 009, Forecast: 60
+Retrieving date: 20250501_06, Member: 010, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 60
+Retrieving date: 20250501_06, Member: 012, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T054.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 60
+Retrieving date: 20250501_06, Member: 014, Forecast: 60
+Retrieving date: 20250501_06, Member: 015, Forecast: 60
+Retrieving date: 20250501_06, Member: 016, Forecast: 60
+Retrieving date: 20250501_06, Member: 017, Forecast: 60
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T054.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 66
+Retrieving date: 20250501_06, Member: 001, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 66
+Retrieving date: 20250501_06, Member: 003, Forecast: 66
+Retrieving date: 20250501_06, Member: 004, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 66
+Retrieving date: 20250501_06, Member: 006, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 66
+Retrieving date: 20250501_06, Member: 008, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 66
+Retrieving date: 20250501_06, Member: 011, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T060.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T060.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 66
+Retrieving date: 20250501_06, Member: 015, Forecast: 66
+Retrieving date: 20250501_06, Member: 016, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 66
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 72
+Retrieving date: 20250501_06, Member: 002, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 72
+Retrieving date: 20250501_06, Member: 004, Forecast: 72
+Retrieving date: 20250501_06, Member: 005, Forecast: 72
+Retrieving date: 20250501_06, Member: 006, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 72
+Retrieving date: 20250501_06, Member: 008, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T066.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 72
+Retrieving date: 20250501_06, Member: 010, Forecast: 72
+Retrieving date: 20250501_06, Member: 011, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 72
+Retrieving date: 20250501_06, Member: 013, Forecast: 72
+Retrieving date: 20250501_06, Member: 014, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 72
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T066.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 78
+Retrieving date: 20250501_06, Member: 002, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 78
+Retrieving date: 20250501_06, Member: 004, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 78
+Retrieving date: 20250501_06, Member: 007, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 78
+Retrieving date: 20250501_06, Member: 012, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T072.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T072.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 78
+Retrieving date: 20250501_06, Member: 016, Forecast: 78
+Retrieving date: 20250501_06, Member: 017, Forecast: 78
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 84
+Retrieving date: 20250501_06, Member: 001, Forecast: 84
+Retrieving date: 20250501_06, Member: 002, Forecast: 84
+Retrieving date: 20250501_06, Member: 003, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 84
+Retrieving date: 20250501_06, Member: 005, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 84
+Retrieving date: 20250501_06, Member: 007, Forecast: 84
+Retrieving date: 20250501_06, Member: 008, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 84
+Retrieving date: 20250501_06, Member: 010, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 84
+Retrieving date: 20250501_06, Member: 012, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 84
+Retrieving date: 20250501_06, Member: 015, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 84
+Retrieving date: 20250501_06, Member: 017, Forecast: 84
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T078.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T078.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 90
+Retrieving date: 20250501_06, Member: 006, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 90
+Retrieving date: 20250501_06, Member: 008, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T084.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 90
+Retrieving date: 20250501_06, Member: 012, Forecast: 90
+Retrieving date: 20250501_06, Member: 013, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T084.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 90
+Retrieving date: 20250501_06, Member: 015, Forecast: 90
+Retrieving date: 20250501_06, Member: 016, Forecast: 90
+Retrieving date: 20250501_06, Member: 017, Forecast: 90
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 96
+Retrieving date: 20250501_06, Member: 002, Forecast: 96
+Retrieving date: 20250501_06, Member: 003, Forecast: 96
+Retrieving date: 20250501_06, Member: 004, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 96
+Retrieving date: 20250501_06, Member: 006, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 96
+Retrieving date: 20250501_06, Member: 009, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 96
+Retrieving date: 20250501_06, Member: 011, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 96
+Retrieving date: 20250501_06, Member: 013, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T090.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T090.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 96
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 102
+Retrieving date: 20250501_06, Member: 004, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 102
+Retrieving date: 20250501_06, Member: 008, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 102
+Retrieving date: 20250501_06, Member: 010, Forecast: 102
+Retrieving date: 20250501_06, Member: 011, Forecast: 102
+Retrieving date: 20250501_06, Member: 012, Forecast: 102
+Retrieving date: 20250501_06, Member: 013, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T096.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 102
+Retrieving date: 20250501_06, Member: 015, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 102
+Retrieving date: 20250501_06, Member: 017, Forecast: 102
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T096.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 108
+Retrieving date: 20250501_06, Member: 001, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 108
+Retrieving date: 20250501_06, Member: 003, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 108
+Retrieving date: 20250501_06, Member: 005, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 108
+Retrieving date: 20250501_06, Member: 009, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 108
+Retrieving date: 20250501_06, Member: 011, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 108
+Retrieving date: 20250501_06, Member: 014, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T102.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T102.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 108
+Retrieving date: 20250501_06, Member: 017, Forecast: 108
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T108.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T108.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T108.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 114
+Retrieving date: 20250501_06, Member: 002, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 114
+Retrieving date: 20250501_06, Member: 007, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 114
+Retrieving date: 20250501_06, Member: 010, Forecast: 114
+Retrieving date: 20250501_06, Member: 011, Forecast: 114
+Retrieving date: 20250501_06, Member: 012, Forecast: 114
+Retrieving date: 20250501_06, Member: 013, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T108.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 114
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 114
+Retrieving date: 20250501_06, Member: 000, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T108.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 120
+Retrieving date: 20250501_06, Member: 003, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 120
+Retrieving date: 20250501_06, Member: 009, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T114.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 120
+Retrieving date: 20250501_06, Member: 014, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T114.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 120
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 126
+Retrieving date: 20250501_06, Member: 001, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 126
+Retrieving date: 20250501_06, Member: 003, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 126
+Retrieving date: 20250501_06, Member: 005, Forecast: 126
+Retrieving date: 20250501_06, Member: 006, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 126
+Retrieving date: 20250501_06, Member: 008, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 126
+Retrieving date: 20250501_06, Member: 010, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 126
+Retrieving date: 20250501_06, Member: 014, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 126
+Retrieving date: 20250501_06, Member: 016, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 126
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T120.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T120.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 132
+Retrieving date: 20250501_06, Member: 009, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 132
+Retrieving date: 20250501_06, Member: 011, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T126.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 132
+Retrieving date: 20250501_06, Member: 014, Forecast: 132
+Retrieving date: 20250501_06, Member: 015, Forecast: 132
+Retrieving date: 20250501_06, Member: 016, Forecast: 132
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T126.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 132
+Retrieving date: 20250501_06, Member: 000, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 138
+Retrieving date: 20250501_06, Member: 002, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 138
+Retrieving date: 20250501_06, Member: 006, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 138
+Retrieving date: 20250501_06, Member: 008, Forecast: 138
+Retrieving date: 20250501_06, Member: 009, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 138
+Retrieving date: 20250501_06, Member: 011, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 138
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T132.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 138
+Retrieving date: 20250501_06, Member: 017, Forecast: 138
+Retrieving date: 20250501_06, Member: 000, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T132.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 144
+Retrieving date: 20250501_06, Member: 003, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 144
+Retrieving date: 20250501_06, Member: 005, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 144
+Retrieving date: 20250501_06, Member: 007, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 144
+Retrieving date: 20250501_06, Member: 009, Forecast: 144
+Retrieving date: 20250501_06, Member: 010, Forecast: 144
+Retrieving date: 20250501_06, Member: 011, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T138.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 144
+Retrieving date: 20250501_06, Member: 015, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T138.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 144
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 144
+Retrieving date: 20250501_06, Member: 000, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 150
+Retrieving date: 20250501_06, Member: 002, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 150
+Retrieving date: 20250501_06, Member: 004, Forecast: 150
+Retrieving date: 20250501_06, Member: 005, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 150
+Retrieving date: 20250501_06, Member: 007, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 150
+Retrieving date: 20250501_06, Member: 011, Forecast: 150
+Retrieving date: 20250501_06, Member: 012, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 013, Forecast: 150
+Retrieving date: 20250501_06, Member: 014, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T144.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T144.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 150
+Retrieving date: 20250501_06, Member: 017, Forecast: 150
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 156
+Retrieving date: 20250501_06, Member: 001, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 002, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 005, Forecast: 156
+Retrieving date: 20250501_06, Member: 006, Forecast: 156
+Retrieving date: 20250501_06, Member: 007, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 008, Forecast: 156
+Retrieving date: 20250501_06, Member: 009, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 010, Forecast: 156
+Retrieving date: 20250501_06, Member: 011, Forecast: 156
+Retrieving date: 20250501_06, Member: 012, Forecast: 156
+Retrieving date: 20250501_06, Member: 013, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 156
+Retrieving date: 20250501_06, Member: 015, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 156
+Retrieving date: 20250501_06, Member: 017, Forecast: 156
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T150.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T150.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 000, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 001, Forecast: 162
+Retrieving date: 20250501_06, Member: 002, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 004, Forecast: 162
+Retrieving date: 20250501_06, Member: 005, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 162
+Retrieving date: 20250501_06, Member: 008, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 162
+Retrieving date: 20250501_06, Member: 010, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 012, Forecast: 162
+Retrieving date: 20250501_06, Member: 013, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T156.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T156.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 016, Forecast: 162
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 162
+Retrieving date: 20250501_06, Member: 000, Forecast: 168
+Retrieving date: 20250501_06, Member: 001, Forecast: 168
+Retrieving date: 20250501_06, Member: 002, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 003, Forecast: 168
+Retrieving date: 20250501_06, Member: 004, Forecast: 168
+Retrieving date: 20250501_06, Member: 005, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 006, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 007, Forecast: 168
+Retrieving date: 20250501_06, Member: 008, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 009, Forecast: 168
+Retrieving date: 20250501_06, Member: 010, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 011, Forecast: 168
+Retrieving date: 20250501_06, Member: 012, Forecast: 168
+Retrieving date: 20250501_06, Member: 013, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 014, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 015, Forecast: 168
+Retrieving date: 20250501_06, Member: 016, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T162.pp exists. Skipping retrieval.
+Retrieving date: 20250501_06, Member: 017, Forecast: 168
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/001/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/002/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T162.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/000/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/003/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/004/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/006/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/005/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/007/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/008/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/010/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/012/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/009/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/011/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/013/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/014/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/016/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/015/qg06T168.pp exists. Skipping retrieval.
+/data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket/20250501/06/017/qg06T168.pp exists. Skipping retrieval.
+Progress: [0.00%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_000.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_000.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_000.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_000.nc exists. Skip
+Progress: [5.56%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_001.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_001.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_001.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_001.nc exists. Skip
+Progress: [11.11%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_002.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_002.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_002.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_002.nc exists. Skip
+Progress: [16.67%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_003.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_003.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_003.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_003.nc exists. Skip
+Progress: [22.22%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_004.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_004.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_004.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_004.nc exists. Skip
+Progress: [27.78%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_005.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_005.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_005.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_005.nc exists. Skip
+Progress: [33.33%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_006.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_006.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_006.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_006.nc exists. Skip
+Progress: [38.89%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_007.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_007.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_007.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_007.nc exists. Skip
+Progress: [44.44%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_008.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_008.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_008.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_008.nc exists. Skip
+Progress: [50.00%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_009.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_009.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_009.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_009.nc exists. Skip
+Progress: [55.56%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_010.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_010.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_010.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_010.nc exists. Skip
+Progress: [61.11%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_011.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_011.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_011.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_011.nc exists. Skip
+Progress: [66.67%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_012.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_012.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_012.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_012.nc exists. Skip
+Progress: [72.22%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_013.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_013.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_013.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_013.nc exists. Skip
+Progress: [77.78%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_014.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_014.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_014.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_014.nc exists. Skip
+Progress: [83.33%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_015.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_015.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_015.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_015.nc exists. Skip
+Progress: [88.89%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_016.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_016.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_016.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_016.nc exists. Skip
+Progress: [94.44%]/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/x_wind_combined_20250501_06Z_017.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/y_wind_combined_20250501_06Z_017.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/geopotential_height_combined_20250501_06Z_017.nc exists. Skip
+/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_017.nc exists. Skip
+Data Processed.
+Computing waves...
+Computing wave for member: 000
+All wave files are found. skipping computation.
+Progress: 5.56%Computing wave for member: 001
+All wave files are found. skipping computation.
+Progress: 11.11%Computing wave for member: 002
+All wave files are found. skipping computation.
+Progress: 16.67%Computing wave for member: 003
+All wave files are found. skipping computation.
+Progress: 22.22%Computing wave for member: 004
+All wave files are found. skipping computation.
+Progress: 27.78%Computing wave for member: 005
+All wave files are found. skipping computation.
+Progress: 33.33%Computing wave for member: 006
+All wave files are found. skipping computation.
+Progress: 38.89%Computing wave for member: 007
+All wave files are found. skipping computation.
+Progress: 44.44%Computing wave for member: 008
+All wave files are found. skipping computation.
+Progress: 50.00%Computing wave for member: 009
+All wave files are found. skipping computation.
+Progress: 55.56%Computing wave for member: 010
+All wave files are found. skipping computation.
+Progress: 61.11%Computing wave for member: 011
+All wave files are found. skipping computation.
+Progress: 66.67%Computing wave for member: 012
+All wave files are found. skipping computation.
+Progress: 72.22%Computing wave for member: 013
+All wave files are found. skipping computation.
+Progress: 77.78%Computing wave for member: 014
+All wave files are found. skipping computation.
+Progress: 83.33%Computing wave for member: 015
+All wave files are found. skipping computation.
+Progress: 88.89%Computing wave for member: 016
+All wave files are found. skipping computation.
+Progress: 94.44%Computing wave for member: 017
+All wave files are found. skipping computation.
+Progress: 100.00%Waves computed.
+['/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_000.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_001.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_002.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_003.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_004.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_005.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_006.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_007.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_008.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_009.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_010.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_011.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_012.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_013.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_014.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_015.nc', '/data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250501_06/precipitation_amount_combined_20250501_06Z_016.nc']
+Computing probability for Precip, None
+Computing probability for Precip, None
+Computing probability for Kelvin, 850
+Computing probability for WMRG, 850
+Computing probability for R1, 850
+Computing probability for R2, 850
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-96h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-90h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-84h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-78h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-72h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-66h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-60h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-54h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-48h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-42h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-36h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-30h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-24h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-18h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-12h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T-6h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T0h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T6h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T12h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T18h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T24h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T30h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T36h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T42h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T48h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T54h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T60h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T66h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T72h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T78h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T84h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T90h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T96h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T102h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T108h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T114h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T120h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T126h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T132h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T138h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T144h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T150h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T156h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T162h.html
+/data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/20250501_06/AllWaves_850_EnsProb_20250501_06Z_T168h.html
+The /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/mogreps_eqw_ens_plot_dates.json file has been updated. New date added: 20250501_06

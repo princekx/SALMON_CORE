@@ -1,0 +1,1575 @@
+### select, command-id=2015537198, estimated-cost=51469872byte(s), files=1, media=0
+### select, command-id=2015537197, estimated-cost=51558512byte(s), files=1, media=0
+### select, command-id=2015537199, estimated-cost=51369392byte(s), files=1, media=0
+### select, command-id=2015537903, estimated-cost=44945040byte(s), files=1, media=0
+### select, command-id=2015537904, estimated-cost=44902640byte(s), files=1, media=0
+### select, command-id=2015537906, estimated-cost=44946640byte(s), files=1, media=0
+### select, command-id=2015537908, estimated-cost=44899440byte(s), files=1, media=0
+### select, command-id=2015537910, estimated-cost=44929520byte(s), files=1, media=0
+### select, command-id=2015537909, estimated-cost=44919600byte(s), files=1, media=0
+### select, command-id=2015537912, estimated-cost=44906480byte(s), files=1, media=0
+### select, command-id=2015537913, estimated-cost=44930480byte(s), files=1, media=0
+### select, command-id=2015537918, estimated-cost=44911120byte(s), files=1, media=0
+### select, command-id=2015537924, estimated-cost=44957680byte(s), files=1, media=0
+### select, command-id=2015537914, estimated-cost=44941360byte(s), files=1, media=0
+### select, command-id=2015537916, estimated-cost=44905360byte(s), files=1, media=0
+### select, command-id=2015537917, estimated-cost=44916720byte(s), files=1, media=0
+### select, command-id=2015537922, estimated-cost=44830800byte(s), files=1, media=0
+### select, command-id=2015537919, estimated-cost=44916720byte(s), files=1, media=0
+### select, command-id=2015537921, estimated-cost=44923280byte(s), files=1, media=0
+### select, command-id=2015537927, estimated-cost=44977040byte(s), files=1, media=0
+### select, command-id=2015537920, estimated-cost=44904080byte(s), files=1, media=0
+### select, command-id=2015537925, estimated-cost=44968880byte(s), files=1, media=0
+### select, command-id=2015537929, estimated-cost=44855760byte(s), files=1, media=0
+### select, command-id=2015537926, estimated-cost=44817840byte(s), files=1, media=0
+### select, command-id=2015537934, estimated-cost=44932720byte(s), files=1, media=0
+### select, command-id=2015537933, estimated-cost=44913840byte(s), files=1, media=0
+### select, command-id=2015537931, estimated-cost=44930000byte(s), files=1, media=0
+### select, command-id=2015537930, estimated-cost=44945680byte(s), files=1, media=0
+### select, command-id=2015537932, estimated-cost=44927600byte(s), files=1, media=0
+### select, command-id=2015537938, estimated-cost=44946480byte(s), files=1, media=0
+### select, command-id=2015537936, estimated-cost=44929840byte(s), files=1, media=0
+### select, command-id=2015537935, estimated-cost=44910960byte(s), files=1, media=0
+### select, command-id=2015537937, estimated-cost=44926800byte(s), files=1, media=0
+### select, command-id=2015537939, estimated-cost=44943760byte(s), files=1, media=0
+### select, command-id=2015537940, estimated-cost=44900240byte(s), files=1, media=0
+### select, command-id=2015537956, estimated-cost=44932880byte(s), files=1, media=0
+### select, command-id=2015537967, estimated-cost=44938640byte(s), files=1, media=0
+### select, command-id=2015537968, estimated-cost=44948240byte(s), files=1, media=0
+### select, command-id=2015537973, estimated-cost=44958320byte(s), files=1, media=0
+### select, command-id=2015537977, estimated-cost=44937840byte(s), files=1, media=0
+### select, command-id=2015537986, estimated-cost=44922000byte(s), files=1, media=0
+### select, command-id=2015537987, estimated-cost=44964400byte(s), files=1, media=0
+### select, command-id=2015537985, estimated-cost=44981840byte(s), files=1, media=0
+### select, command-id=2015537992, estimated-cost=44974160byte(s), files=1, media=0
+### select, command-id=2015537991, estimated-cost=44934800byte(s), files=1, media=0
+### select, command-id=2015537995, estimated-cost=44925200byte(s), files=1, media=0
+### select, command-id=2015537993, estimated-cost=44955280byte(s), files=1, media=0
+### select, command-id=2015538000, estimated-cost=44936720byte(s), files=1, media=0
+### select, command-id=2015538001, estimated-cost=44890640byte(s), files=1, media=0
+### select, command-id=2015538003, estimated-cost=44950960byte(s), files=1, media=0
+### select, command-id=2015538007, estimated-cost=44945680byte(s), files=1, media=0
+### select, command-id=2015538006, estimated-cost=44994800byte(s), files=1, media=0
+### select, command-id=2015538002, estimated-cost=44952880byte(s), files=1, media=0
+### select, command-id=2015538004, estimated-cost=45011280byte(s), files=1, media=0
+### select, command-id=2015538008, estimated-cost=45011920byte(s), files=1, media=0
+### select, command-id=2015538012, estimated-cost=44957360byte(s), files=1, media=0
+### select, command-id=2015538011, estimated-cost=44978320byte(s), files=1, media=0
+### select, command-id=2015538010, estimated-cost=44987440byte(s), files=1, media=0
+### select, command-id=2015538009, estimated-cost=44964400byte(s), files=1, media=0
+### select, command-id=2015538013, estimated-cost=44974000byte(s), files=1, media=0
+### select, command-id=2015538014, estimated-cost=45020880byte(s), files=1, media=0
+### select, command-id=2015538019, estimated-cost=44988400byte(s), files=1, media=0
+### select, command-id=2015538018, estimated-cost=44984880byte(s), files=1, media=0
+### select, command-id=2015538021, estimated-cost=44985200byte(s), files=1, media=0
+### select, command-id=2015538020, estimated-cost=44982480byte(s), files=1, media=0
+### select, command-id=2015538022, estimated-cost=44973200byte(s), files=1, media=0
+### select, command-id=2015538028, estimated-cost=45012720byte(s), files=1, media=0
+### select, command-id=2015538029, estimated-cost=45018800byte(s), files=1, media=0
+### select, command-id=2015538031, estimated-cost=45099760byte(s), files=1, media=0
+### select, command-id=2015538032, estimated-cost=45005200byte(s), files=1, media=0
+### select, command-id=2015538033, estimated-cost=45094640byte(s), files=1, media=0
+### select, command-id=2015538039, estimated-cost=45026480byte(s), files=1, media=0
+### select, command-id=2015538041, estimated-cost=45099760byte(s), files=1, media=0
+### select, command-id=2015538047, estimated-cost=45086640byte(s), files=1, media=0
+### select, command-id=2015538048, estimated-cost=45073840byte(s), files=1, media=0
+### select, command-id=2015538051, estimated-cost=45104720byte(s), files=1, media=0
+### select, command-id=2015538057, estimated-cost=45084720byte(s), files=1, media=0
+### select, command-id=2015538059, estimated-cost=45079280byte(s), files=1, media=0
+### select, command-id=2015538061, estimated-cost=45083120byte(s), files=1, media=0
+### select, command-id=2015538064, estimated-cost=45102160byte(s), files=1, media=0
+### select, command-id=2015538069, estimated-cost=45048400byte(s), files=1, media=0
+### select, command-id=2015538071, estimated-cost=45087120byte(s), files=1, media=0
+### select, command-id=2015538070, estimated-cost=45094800byte(s), files=1, media=0
+### select, command-id=2015538075, estimated-cost=45042320byte(s), files=1, media=0
+### select, command-id=2015538076, estimated-cost=45094000byte(s), files=1, media=0
+### select, command-id=2015538079, estimated-cost=45078320byte(s), files=1, media=0
+### select, command-id=2015538081, estimated-cost=45123120byte(s), files=1, media=0
+### select, command-id=2015538083, estimated-cost=45052720byte(s), files=1, media=0
+### select, command-id=2015538086, estimated-cost=45084240byte(s), files=1, media=0
+### select, command-id=2015538088, estimated-cost=45115440byte(s), files=1, media=0
+### select, command-id=2015538090, estimated-cost=45000880byte(s), files=1, media=0
+### select, command-id=2015538093, estimated-cost=45092880byte(s), files=1, media=0
+### select, command-id=2015538097, estimated-cost=45082640byte(s), files=1, media=0
+### select, command-id=2015538095, estimated-cost=45057680byte(s), files=1, media=0
+### select, command-id=2015538099, estimated-cost=45124240byte(s), files=1, media=0
+### select, command-id=2015538103, estimated-cost=45092240byte(s), files=1, media=0
+### select, command-id=2015538106, estimated-cost=45084400byte(s), files=1, media=0
+### select, command-id=2015538098, estimated-cost=45098960byte(s), files=1, media=0
+### select, command-id=2015538102, estimated-cost=45141040byte(s), files=1, media=0
+### select, command-id=2015538105, estimated-cost=45075760byte(s), files=1, media=0
+### select, command-id=2015538100, estimated-cost=45068720byte(s), files=1, media=0
+### select, command-id=2015538108, estimated-cost=45101200byte(s), files=1, media=0
+### select, command-id=2015538111, estimated-cost=45074960byte(s), files=1, media=0
+### select, command-id=2015538112, estimated-cost=45047760byte(s), files=1, media=0
+### select, command-id=2015538114, estimated-cost=45079600byte(s), files=1, media=0
+### select, command-id=2015538115, estimated-cost=45101840byte(s), files=1, media=0
+### select, command-id=2015538119, estimated-cost=45131760byte(s), files=1, media=0
+### select, command-id=2015538117, estimated-cost=45109840byte(s), files=1, media=0
+### select, command-id=2015538126, estimated-cost=45161520byte(s), files=1, media=0
+### select, command-id=2015538128, estimated-cost=45138480byte(s), files=1, media=0
+### select, command-id=2015538131, estimated-cost=45143920byte(s), files=1, media=0
+### select, command-id=2015538133, estimated-cost=45133040byte(s), files=1, media=0
+### select, command-id=2015538134, estimated-cost=45097840byte(s), files=1, media=0
+### select, command-id=2015538141, estimated-cost=45114960byte(s), files=1, media=0
+### select, command-id=2015538144, estimated-cost=45135760byte(s), files=1, media=0
+### select, command-id=2015538142, estimated-cost=45098960byte(s), files=1, media=0
+### select, command-id=2015538145, estimated-cost=45150000byte(s), files=1, media=0
+### select, command-id=2015538147, estimated-cost=45117040byte(s), files=1, media=0
+### select, command-id=2015538153, estimated-cost=45133840byte(s), files=1, media=0
+### select, command-id=2015538152, estimated-cost=45186960byte(s), files=1, media=0
+### select, command-id=2015538167, estimated-cost=45155440byte(s), files=1, media=0
+### select, command-id=2015538166, estimated-cost=45028720byte(s), files=1, media=0
+### select, command-id=2015538169, estimated-cost=45070800byte(s), files=1, media=0
+### select, command-id=2015538168, estimated-cost=45121200byte(s), files=1, media=0
+### select, command-id=2015538170, estimated-cost=45108240byte(s), files=1, media=0
+### select, command-id=2015538174, estimated-cost=45103120byte(s), files=1, media=0
+### select, command-id=2015538175, estimated-cost=45110640byte(s), files=1, media=0
+### select, command-id=2015538176, estimated-cost=45135280byte(s), files=1, media=0
+### select, command-id=2015538180, estimated-cost=45142960byte(s), files=1, media=0
+### select, command-id=2015538182, estimated-cost=45104560byte(s), files=1, media=0
+### select, command-id=2015538185, estimated-cost=45100720byte(s), files=1, media=0
+### select, command-id=2015538189, estimated-cost=45154640byte(s), files=1, media=0
+### select, command-id=2015538193, estimated-cost=45166320byte(s), files=1, media=0
+### select, command-id=2015538194, estimated-cost=45093840byte(s), files=1, media=0
+### select, command-id=2015538195, estimated-cost=45113840byte(s), files=1, media=0
+### select, command-id=2015538199, estimated-cost=45116080byte(s), files=1, media=0
+### select, command-id=2015538203, estimated-cost=45108560byte(s), files=1, media=0
+### select, command-id=2015538202, estimated-cost=45162000byte(s), files=1, media=0
+### select, command-id=2015538205, estimated-cost=45161360byte(s), files=1, media=0
+### select, command-id=2015538207, estimated-cost=45136720byte(s), files=1, media=0
+### select, command-id=2015538209, estimated-cost=45104240byte(s), files=1, media=0
+### select, command-id=2015538212, estimated-cost=45156560byte(s), files=1, media=0
+### select, command-id=2015538215, estimated-cost=45160400byte(s), files=1, media=0
+### select, command-id=2015538216, estimated-cost=45176400byte(s), files=1, media=0
+### select, command-id=2015538218, estimated-cost=45168080byte(s), files=1, media=0
+### select, command-id=2015538219, estimated-cost=45161680byte(s), files=1, media=0
+### select, command-id=2015538225, estimated-cost=45192560byte(s), files=1, media=0
+### select, command-id=2015538226, estimated-cost=45126480byte(s), files=1, media=0
+### select, command-id=2015538228, estimated-cost=45129040byte(s), files=1, media=0
+### select, command-id=2015538231, estimated-cost=45117360byte(s), files=1, media=0
+### select, command-id=2015538235, estimated-cost=45105360byte(s), files=1, media=0
+### select, command-id=2015538241, estimated-cost=45159120byte(s), files=1, media=0
+### select, command-id=2015538243, estimated-cost=45147600byte(s), files=1, media=0
+### select, command-id=2015538244, estimated-cost=45201200byte(s), files=1, media=0
+### select, command-id=2015538242, estimated-cost=45208560byte(s), files=1, media=0
+### select, command-id=2015538245, estimated-cost=45222960byte(s), files=1, media=0
+### select, command-id=2015538249, estimated-cost=28995280byte(s), files=1, media=0
+### select, command-id=2015538250, estimated-cost=45147120byte(s), files=1, media=0
+### select, command-id=2015538256, estimated-cost=45182480byte(s), files=1, media=0
+### select, command-id=2015538262, estimated-cost=28959440byte(s), files=1, media=0
+### select, command-id=2015538258, estimated-cost=29008240byte(s), files=1, media=0
+### select, command-id=2015538260, estimated-cost=29006000byte(s), files=1, media=0
+### select, command-id=2015538267, estimated-cost=29029840byte(s), files=1, media=0
+### select, command-id=2015538279, estimated-cost=28992880byte(s), files=1, media=0
+### select, command-id=2015538277, estimated-cost=29003440byte(s), files=1, media=0
+### select, command-id=2015538275, estimated-cost=29010480byte(s), files=1, media=0
+### select, command-id=2015538281, estimated-cost=29013840byte(s), files=1, media=0
+### select, command-id=2015538287, estimated-cost=28993040byte(s), files=1, media=0
+### select, command-id=2015538286, estimated-cost=29020720byte(s), files=1, media=0
+### select, command-id=2015538291, estimated-cost=29006960byte(s), files=1, media=0
+### select, command-id=2015538294, estimated-cost=29008240byte(s), files=1, media=0
+### select, command-id=2015538295, estimated-cost=29019920byte(s), files=1, media=0
+### select, command-id=2015538296, estimated-cost=29018000byte(s), files=1, media=0
+### select, command-id=2015538300, estimated-cost=29014320byte(s), files=1, media=0
+### select, command-id=2015538303, estimated-cost=28988720byte(s), files=1, media=0
+### select, command-id=2015538308, estimated-cost=29014000byte(s), files=1, media=0
+### select, command-id=2015538310, estimated-cost=29024080byte(s), files=1, media=0
+### select, command-id=2015538309, estimated-cost=29038480byte(s), files=1, media=0
+### select, command-id=2015538312, estimated-cost=29030320byte(s), files=1, media=0
+### select, command-id=2015538320, estimated-cost=29040720byte(s), files=1, media=0
+### select, command-id=2015538324, estimated-cost=29090160byte(s), files=1, media=0
+### select, command-id=2015538323, estimated-cost=29033360byte(s), files=1, media=0
+### select, command-id=2015538331, estimated-cost=29052720byte(s), files=1, media=0
+### select, command-id=2015538332, estimated-cost=29065680byte(s), files=1, media=0
+### select, command-id=2015538334, estimated-cost=29049040byte(s), files=1, media=0
+### select, command-id=2015538336, estimated-cost=29055280byte(s), files=1, media=0
+### select, command-id=2015538338, estimated-cost=29090800byte(s), files=1, media=0
+### select, command-id=2015538339, estimated-cost=29031440byte(s), files=1, media=0
+### select, command-id=2015538341, estimated-cost=29062800byte(s), files=1, media=0
+### select, command-id=2015538345, estimated-cost=29060880byte(s), files=1, media=0
+### select, command-id=2015538352, estimated-cost=29058320byte(s), files=1, media=0
+### select, command-id=2015538347, estimated-cost=29054320byte(s), files=1, media=0
+### select, command-id=2015538357, estimated-cost=29052400byte(s), files=1, media=0
+### select, command-id=2015538361, estimated-cost=29036720byte(s), files=1, media=0
+### select, command-id=2015538364, estimated-cost=29068080byte(s), files=1, media=0
+### select, command-id=2015538365, estimated-cost=29090480byte(s), files=1, media=0
+### select, command-id=2015538366, estimated-cost=29054000byte(s), files=1, media=0
+### select, command-id=2015538370, estimated-cost=29037520byte(s), files=1, media=0
+### select, command-id=2015538369, estimated-cost=29026800byte(s), files=1, media=0
+### select, command-id=2015538381, estimated-cost=29047760byte(s), files=1, media=0
+### select, command-id=2015538380, estimated-cost=29060400byte(s), files=1, media=0
+### select, command-id=2015538384, estimated-cost=29065680byte(s), files=1, media=0
+### select, command-id=2015538383, estimated-cost=29035280byte(s), files=1, media=0
+### select, command-id=2015538387, estimated-cost=29069360byte(s), files=1, media=0
+### select, command-id=2015538388, estimated-cost=29035760byte(s), files=1, media=0
+### select, command-id=2015538389, estimated-cost=29058960byte(s), files=1, media=0
+### select, command-id=2015538390, estimated-cost=29092880byte(s), files=1, media=0
+### select, command-id=2015538394, estimated-cost=29077680byte(s), files=1, media=0
+### select, command-id=2015538400, estimated-cost=29033040byte(s), files=1, media=0
+### select, command-id=2015538399, estimated-cost=29045200byte(s), files=1, media=0
+### select, command-id=2015538405, estimated-cost=29103120byte(s), files=1, media=0
+### select, command-id=2015538409, estimated-cost=29041840byte(s), files=1, media=0
+### select, command-id=2015538411, estimated-cost=29076080byte(s), files=1, media=0
+### select, command-id=2015538414, estimated-cost=29083440byte(s), files=1, media=0
+### select, command-id=2015538413, estimated-cost=29117520byte(s), files=1, media=0
+### select, command-id=2015538415, estimated-cost=29038960byte(s), files=1, media=0
+### select, command-id=2015538421, estimated-cost=29120720byte(s), files=1, media=0
+### select, command-id=2015538419, estimated-cost=29145040byte(s), files=1, media=0
+### select, command-id=2015538428, estimated-cost=29131280byte(s), files=1, media=0
+### select, command-id=2015538425, estimated-cost=29138800byte(s), files=1, media=0
+### select, command-id=2015538434, estimated-cost=29110800byte(s), files=1, media=0
+### select, command-id=2015538436, estimated-cost=29104400byte(s), files=1, media=0
+### select, command-id=2015538435, estimated-cost=29139120byte(s), files=1, media=0
+### select, command-id=2015538441, estimated-cost=29129680byte(s), files=1, media=0
+### select, command-id=2015538446, estimated-cost=29107600byte(s), files=1, media=0
+### select, command-id=2015538447, estimated-cost=29121680byte(s), files=1, media=0
+### select, command-id=2015538449, estimated-cost=29091120byte(s), files=1, media=0
+### select, command-id=2015538452, estimated-cost=29132400byte(s), files=1, media=0
+### select, command-id=2015538451, estimated-cost=29140720byte(s), files=1, media=0
+### select, command-id=2015538454, estimated-cost=29077360byte(s), files=1, media=0
+### select, command-id=2015538459, estimated-cost=29030000byte(s), files=1, media=0
+### select, command-id=2015538466, estimated-cost=29010960byte(s), files=1, media=0
+### select, command-id=2015538468, estimated-cost=29057680byte(s), files=1, media=0
+### select, command-id=2015538470, estimated-cost=29029520byte(s), files=1, media=0
+### select, command-id=2015538472, estimated-cost=29025840byte(s), files=1, media=0
+### select, command-id=2015538473, estimated-cost=29031600byte(s), files=1, media=0
+### select, command-id=2015538478, estimated-cost=29080400byte(s), files=1, media=0
+### select, command-id=2015538479, estimated-cost=29056400byte(s), files=1, media=0
+### select, command-id=2015538481, estimated-cost=29052560byte(s), files=1, media=0
+### select, command-id=2015538483, estimated-cost=29042160byte(s), files=1, media=0
+### select, command-id=2015538484, estimated-cost=29065040byte(s), files=1, media=0
+### select, command-id=2015538489, estimated-cost=29046640byte(s), files=1, media=0
+### select, command-id=2015538486, estimated-cost=29058000byte(s), files=1, media=0
+### select, command-id=2015538491, estimated-cost=29088080byte(s), files=1, media=0
+### select, command-id=2015538488, estimated-cost=29079600byte(s), files=1, media=0
+### select, command-id=2015538499, estimated-cost=29062960byte(s), files=1, media=0
+### select, command-id=2015538501, estimated-cost=29028240byte(s), files=1, media=0
+### select, command-id=2015538503, estimated-cost=29054960byte(s), files=1, media=0
+### select, command-id=2015538500, estimated-cost=29010640byte(s), files=1, media=0
+### select, command-id=2015538502, estimated-cost=29048240byte(s), files=1, media=0
+### select, command-id=2015538507, estimated-cost=29070800byte(s), files=1, media=0
+### select, command-id=2015538508, estimated-cost=29105840byte(s), files=1, media=0
+### select, command-id=2015538509, estimated-cost=29086480byte(s), files=1, media=0
+### select, command-id=2015538511, estimated-cost=29058000byte(s), files=1, media=0
+### select, command-id=2015538510, estimated-cost=29052240byte(s), files=1, media=0
+### select, command-id=2015538514, estimated-cost=29050800byte(s), files=1, media=0
+### select, command-id=2015538515, estimated-cost=29067920byte(s), files=1, media=0
+### select, command-id=2015538516, estimated-cost=29063920byte(s), files=1, media=0
+### select, command-id=2015538522, estimated-cost=29058960byte(s), files=1, media=0
+### select, command-id=2015538524, estimated-cost=29093040byte(s), files=1, media=0
+### select, command-id=2015538525, estimated-cost=29084560byte(s), files=1, media=0
+### select, command-id=2015538527, estimated-cost=29064240byte(s), files=1, media=0
+### select, command-id=2015538531, estimated-cost=29100080byte(s), files=1, media=0
+### select, command-id=2015538532, estimated-cost=28999760byte(s), files=1, media=0
+### select, command-id=2015538533, estimated-cost=29013840byte(s), files=1, media=0
+### select, command-id=2015538534, estimated-cost=29065040byte(s), files=1, media=0
+### select, command-id=2015538539, estimated-cost=29045680byte(s), files=1, media=0
+### select, command-id=2015538544, estimated-cost=29057520byte(s), files=1, media=0
+### select, command-id=2015538546, estimated-cost=29075440byte(s), files=1, media=0
+### select, command-id=2015538549, estimated-cost=29037840byte(s), files=1, media=0
+### select, command-id=2015538550, estimated-cost=29031600byte(s), files=1, media=0
+### select, command-id=2015538554, estimated-cost=29062640byte(s), files=1, media=0
+### select, command-id=2015538555, estimated-cost=29021680byte(s), files=1, media=0
+### select, command-id=2015538557, estimated-cost=29074480byte(s), files=1, media=0
+### select, command-id=2015538565, estimated-cost=29066640byte(s), files=1, media=0
+### select, command-id=2015538562, estimated-cost=29064880byte(s), files=1, media=0
+### select, command-id=2015538564, estimated-cost=29047760byte(s), files=1, media=0
+### select, command-id=2015538563, estimated-cost=29033680byte(s), files=1, media=0
+### select, command-id=2015538568, estimated-cost=29059920byte(s), files=1, media=0
+### select, command-id=2015538571, estimated-cost=29086640byte(s), files=1, media=0
+### select, command-id=2015538573, estimated-cost=29086000byte(s), files=1, media=0
+### select, command-id=2015538574, estimated-cost=29030640byte(s), files=1, media=0
+### select, command-id=2015538576, estimated-cost=29030960byte(s), files=1, media=0
+### select, command-id=2015538577, estimated-cost=29089200byte(s), files=1, media=0
+### select, command-id=2015538579, estimated-cost=29096720byte(s), files=1, media=0
+### select, command-id=2015538580, estimated-cost=29051280byte(s), files=1, media=0
+### select, command-id=2015538584, estimated-cost=29134160byte(s), files=1, media=0
+### select, command-id=2015538581, estimated-cost=29145840byte(s), files=1, media=0
+### select, command-id=2015538583, estimated-cost=29055280byte(s), files=1, media=0
+### select, command-id=2015538586, estimated-cost=29095760byte(s), files=1, media=0
+### select, command-id=2015538591, estimated-cost=29116080byte(s), files=1, media=0
+### select, command-id=2015538593, estimated-cost=29111280byte(s), files=1, media=0
+### select, command-id=2015538595, estimated-cost=29087280byte(s), files=1, media=0
+### select, command-id=2015538596, estimated-cost=29098960byte(s), files=1, media=0
+### select, command-id=2015538599, estimated-cost=29122160byte(s), files=1, media=0
+### select, command-id=2015538600, estimated-cost=29138160byte(s), files=1, media=0
+### select, command-id=2015538606, estimated-cost=29111920byte(s), files=1, media=0
+### select, command-id=2015538608, estimated-cost=29075120byte(s), files=1, media=0
+### select, command-id=2015538613, estimated-cost=29157840byte(s), files=1, media=0
+### select, command-id=2015538614, estimated-cost=29151120byte(s), files=1, media=0
+### select, command-id=2015538615, estimated-cost=29117840byte(s), files=1, media=0
+### select, command-id=2015538621, estimated-cost=29106800byte(s), files=1, media=0
+### select, command-id=2015538628, estimated-cost=29024560byte(s), files=1, media=0
+### select, command-id=2015538629, estimated-cost=29016400byte(s), files=1, media=0
+### select, command-id=2015538634, estimated-cost=28984400byte(s), files=1, media=0
+### select, command-id=2015538636, estimated-cost=29055440byte(s), files=1, media=0
+### select, command-id=2015538639, estimated-cost=29065680byte(s), files=1, media=0
+### select, command-id=2015538651, estimated-cost=29048560byte(s), files=1, media=0
+### select, command-id=2015538650, estimated-cost=29019920byte(s), files=1, media=0
+### select, command-id=2015538649, estimated-cost=29069040byte(s), files=1, media=0
+### select, command-id=2015538659, estimated-cost=29060080byte(s), files=1, media=0
+### select, command-id=2015538661, estimated-cost=29057360byte(s), files=1, media=0
+### select, command-id=2015538676, estimated-cost=29065520byte(s), files=1, media=0
+### select, command-id=2015538679, estimated-cost=29069840byte(s), files=1, media=0
+### select, command-id=2015538681, estimated-cost=29075280byte(s), files=1, media=0
+### select, command-id=2015538680, estimated-cost=29106480byte(s), files=1, media=0
+### select, command-id=2015538686, estimated-cost=29027920byte(s), files=1, media=0
+### select, command-id=2015538685, estimated-cost=29009520byte(s), files=1, media=0
+### select, command-id=2015538693, estimated-cost=29042960byte(s), files=1, media=0
+### select, command-id=2015538692, estimated-cost=29041360byte(s), files=1, media=0
+### select, command-id=2015538695, estimated-cost=29065680byte(s), files=1, media=0
+### select, command-id=2015538698, estimated-cost=29072400byte(s), files=1, media=0
+### select, command-id=2015538702, estimated-cost=29019920byte(s), files=1, media=0
+### select, command-id=2015538704, estimated-cost=29071120byte(s), files=1, media=0
+### select, command-id=2015538708, estimated-cost=29054640byte(s), files=1, media=0
+### select, command-id=2015538706, estimated-cost=28992880byte(s), files=1, media=0
+### select, command-id=2015538710, estimated-cost=29057840byte(s), files=1, media=0
+### select, command-id=2015538713, estimated-cost=29076240byte(s), files=1, media=0
+### select, command-id=2015538717, estimated-cost=29068080byte(s), files=1, media=0
+### select, command-id=2015538722, estimated-cost=29058960byte(s), files=1, media=0
+### select, command-id=2015538721, estimated-cost=29117840byte(s), files=1, media=0
+### select, command-id=2015538719, estimated-cost=29063600byte(s), files=1, media=0
+### select, command-id=2015538723, estimated-cost=29086800byte(s), files=1, media=0
+### select, command-id=2015538727, estimated-cost=29120240byte(s), files=1, media=0
+### select, command-id=2015538726, estimated-cost=29097520byte(s), files=1, media=0
+### select, command-id=2015538734, estimated-cost=29057040byte(s), files=1, media=0
+### select, command-id=2015538736, estimated-cost=29029840byte(s), files=1, media=0
+### select, command-id=2015538735, estimated-cost=29001040byte(s), files=1, media=0
+### select, command-id=2015538738, estimated-cost=29062480byte(s), files=1, media=0
+### select, command-id=2015538740, estimated-cost=29006320byte(s), files=1, media=0
+### select, command-id=2015538741, estimated-cost=29025200byte(s), files=1, media=0
+### select, command-id=2015538743, estimated-cost=28977040byte(s), files=1, media=0
+### select, command-id=2015538748, estimated-cost=29064080byte(s), files=1, media=0
+### select, command-id=2015538750, estimated-cost=29022960byte(s), files=1, media=0
+### select, command-id=2015538752, estimated-cost=29069840byte(s), files=1, media=0
+### select, command-id=2015538756, estimated-cost=29078640byte(s), files=1, media=0
+### select, command-id=2015538759, estimated-cost=29083760byte(s), files=1, media=0
+### select, command-id=2015538754, estimated-cost=29049680byte(s), files=1, media=0
+### select, command-id=2015538758, estimated-cost=29053680byte(s), files=1, media=0
+### select, command-id=2015538761, estimated-cost=29056880byte(s), files=1, media=0
+### select, command-id=2015538763, estimated-cost=29084080byte(s), files=1, media=0
+### select, command-id=2015538764, estimated-cost=29044080byte(s), files=1, media=0
+### select, command-id=2015538768, estimated-cost=29108240byte(s), files=1, media=0
+### select, command-id=2015538771, estimated-cost=29026640byte(s), files=1, media=0
+### select, command-id=2015538772, estimated-cost=29136080byte(s), files=1, media=0
+### select, command-id=2015538773, estimated-cost=29005200byte(s), files=1, media=0
+### select, command-id=2015538774, estimated-cost=29013680byte(s), files=1, media=0
+### select, command-id=2015538776, estimated-cost=29034640byte(s), files=1, media=0
+### select, command-id=2015538779, estimated-cost=29135280byte(s), files=1, media=0
+### select, command-id=2015538785, estimated-cost=29146320byte(s), files=1, media=0
+### select, command-id=2015538786, estimated-cost=29027440byte(s), files=1, media=0
+### select, command-id=2015538788, estimated-cost=29113360byte(s), files=1, media=0
+### select, command-id=2015538798, estimated-cost=29078960byte(s), files=1, media=0
+### select, command-id=2015538783, estimated-cost=29078640byte(s), files=1, media=0
+### select, command-id=2015538804, estimated-cost=29097680byte(s), files=1, media=0
+### select, command-id=2015538811, estimated-cost=29118160byte(s), files=1, media=0
+### select, command-id=2015538825, estimated-cost=29115600byte(s), files=1, media=0
+### select, command-id=2015538824, estimated-cost=29078960byte(s), files=1, media=0
+### select, command-id=2015538827, estimated-cost=29105840byte(s), files=1, media=0
+### select, command-id=2015538829, estimated-cost=29153200byte(s), files=1, media=0
+### select, command-id=2015538831, estimated-cost=29099920byte(s), files=1, media=0
+### select, command-id=2015538826, estimated-cost=29071600byte(s), files=1, media=0
+### select, command-id=2015538828, estimated-cost=29142320byte(s), files=1, media=0
+### select, command-id=2015538832, estimated-cost=29072240byte(s), files=1, media=0
+### select, command-id=2015538838, estimated-cost=28974960byte(s), files=1, media=0
+### select, command-id=2015538837, estimated-cost=29046000byte(s), files=1, media=0
+### select, command-id=2015538840, estimated-cost=29060400byte(s), files=1, media=0
+### select, command-id=2015538836, estimated-cost=28990480byte(s), files=1, media=0
+### select, command-id=2015538839, estimated-cost=29059120byte(s), files=1, media=0
+### select, command-id=2015538845, estimated-cost=29017040byte(s), files=1, media=0
+### select, command-id=2015538859, estimated-cost=29027600byte(s), files=1, media=0
+### select, command-id=2015538857, estimated-cost=29003600byte(s), files=1, media=0
+### select, command-id=2015538850, estimated-cost=29064720byte(s), files=1, media=0
+### select, command-id=2015538858, estimated-cost=29061840byte(s), files=1, media=0
+### select, command-id=2015538861, estimated-cost=29069200byte(s), files=1, media=0
+### select, command-id=2015538860, estimated-cost=29047600byte(s), files=1, media=0
+### select, command-id=2015538862, estimated-cost=29036880byte(s), files=1, media=0
+### select, command-id=2015538867, estimated-cost=28974480byte(s), files=1, media=0
+### select, command-id=2015538868, estimated-cost=29096400byte(s), files=1, media=0
+### select, command-id=2015538871, estimated-cost=29014320byte(s), files=1, media=0
+### select, command-id=2015538873, estimated-cost=28997040byte(s), files=1, media=0
+### select, command-id=2015538870, estimated-cost=29090480byte(s), files=1, media=0
+### select, command-id=2015538875, estimated-cost=29063760byte(s), files=1, media=0
+### select, command-id=2015538874, estimated-cost=29049360byte(s), files=1, media=0
+### select, command-id=2015538877, estimated-cost=29031760byte(s), files=1, media=0
+### select, command-id=2015538880, estimated-cost=28999760byte(s), files=1, media=0
+### select, command-id=2015538884, estimated-cost=29079280byte(s), files=1, media=0
+### select, command-id=2015538887, estimated-cost=29006960byte(s), files=1, media=0
+### select, command-id=2015538885, estimated-cost=29013840byte(s), files=1, media=0
+### select, command-id=2015538886, estimated-cost=28996560byte(s), files=1, media=0
+### select, command-id=2015538888, estimated-cost=29008560byte(s), files=1, media=0
+### select, command-id=2015538889, estimated-cost=29072240byte(s), files=1, media=0
+### select, command-id=2015538892, estimated-cost=29041520byte(s), files=1, media=0
+### select, command-id=2015538893, estimated-cost=29058320byte(s), files=1, media=0
+### select, command-id=2015538896, estimated-cost=29042000byte(s), files=1, media=0
+### select, command-id=2015538899, estimated-cost=29064880byte(s), files=1, media=0
+### select, command-id=2015538907, estimated-cost=24790544byte(s), files=1, media=0
+### select, command-id=2015538904, estimated-cost=29052080byte(s), files=1, media=0
+### select, command-id=2015538909, estimated-cost=29013680byte(s), files=1, media=0
+### select, command-id=2015538912, estimated-cost=24837744byte(s), files=1, media=0
+### select, command-id=2015538911, estimated-cost=28984400byte(s), files=1, media=0
+### select, command-id=2015538916, estimated-cost=28994160byte(s), files=1, media=0
+### select, command-id=2015538921, estimated-cost=24836624byte(s), files=1, media=0
+### select, command-id=2015538920, estimated-cost=24870384byte(s), files=1, media=0
+### select, command-id=2015538923, estimated-cost=24814864byte(s), files=1, media=0
+### select, command-id=2015538924, estimated-cost=24820304byte(s), files=1, media=0
+### select, command-id=2015538925, estimated-cost=24883504byte(s), files=1, media=0
+### select, command-id=2015538927, estimated-cost=24844304byte(s), files=1, media=0
+### select, command-id=2015538926, estimated-cost=24837264byte(s), files=1, media=0
+### select, command-id=2015538928, estimated-cost=24875344byte(s), files=1, media=0
+### select, command-id=2015538932, estimated-cost=24802224byte(s), files=1, media=0
+### select, command-id=2015538938, estimated-cost=24839024byte(s), files=1, media=0
+### select, command-id=2015538944, estimated-cost=24844944byte(s), files=1, media=0
+### select, command-id=2015538947, estimated-cost=24846704byte(s), files=1, media=0
+### select, command-id=2015538949, estimated-cost=24878864byte(s), files=1, media=0
+### select, command-id=2015538951, estimated-cost=24786224byte(s), files=1, media=0
+### select, command-id=2015538952, estimated-cost=24835344byte(s), files=1, media=0
+### select, command-id=2015538955, estimated-cost=24853104byte(s), files=1, media=0
+### select, command-id=2015538957, estimated-cost=24871184byte(s), files=1, media=0
+### select, command-id=2015538959, estimated-cost=24811024byte(s), files=1, media=0
+### select, command-id=2015538958, estimated-cost=24866704byte(s), files=1, media=0
+### select, command-id=2015538961, estimated-cost=24910704byte(s), files=1, media=0
+### select, command-id=2015538960, estimated-cost=24814224byte(s), files=1, media=0
+### select, command-id=2015538963, estimated-cost=24849584byte(s), files=1, media=0
+### select, command-id=2015538962, estimated-cost=24837584byte(s), files=1, media=0
+### select, command-id=2015538964, estimated-cost=24837264byte(s), files=1, media=0
+### select, command-id=2015538967, estimated-cost=24834704byte(s), files=1, media=0
+### select, command-id=2015538970, estimated-cost=24883184byte(s), files=1, media=0
+### select, command-id=2015538974, estimated-cost=24847504byte(s), files=1, media=0
+### select, command-id=2015538978, estimated-cost=24854544byte(s), files=1, media=0
+### select, command-id=2015538985, estimated-cost=24866384byte(s), files=1, media=0
+### select, command-id=2015538984, estimated-cost=24833584byte(s), files=1, media=0
+### select, command-id=2015538986, estimated-cost=24893744byte(s), files=1, media=0
+### select, command-id=2015538990, estimated-cost=24752624byte(s), files=1, media=0
+### select, command-id=2015538991, estimated-cost=24793904byte(s), files=1, media=0
+### select, command-id=2015538995, estimated-cost=24829904byte(s), files=1, media=0
+### select, command-id=2015538992, estimated-cost=24858704byte(s), files=1, media=0
+### select, command-id=2015538993, estimated-cost=24814384byte(s), files=1, media=0
+### select, command-id=2015538996, estimated-cost=24805584byte(s), files=1, media=0
+### select, command-id=2015539000, estimated-cost=24848784byte(s), files=1, media=0
+### select, command-id=2015538997, estimated-cost=24861744byte(s), files=1, media=0
+### select, command-id=2015538998, estimated-cost=24792624byte(s), files=1, media=0
+### select, command-id=2015538999, estimated-cost=24849424byte(s), files=1, media=0
+### select, command-id=2015539001, estimated-cost=24847344byte(s), files=1, media=0
+### select, command-id=2015539009, estimated-cost=24793264byte(s), files=1, media=0
+### select, command-id=2015539010, estimated-cost=24840624byte(s), files=1, media=0
+### select, command-id=2015539014, estimated-cost=24814704byte(s), files=1, media=0
+### select, command-id=2015539015, estimated-cost=24770064byte(s), files=1, media=0
+### select, command-id=2015539021, estimated-cost=24783344byte(s), files=1, media=0
+### select, command-id=2015539022, estimated-cost=24814384byte(s), files=1, media=0
+### select, command-id=2015539025, estimated-cost=24788944byte(s), files=1, media=0
+### select, command-id=2015539027, estimated-cost=24815504byte(s), files=1, media=0
+### select, command-id=2015539033, estimated-cost=24744144byte(s), files=1, media=0
+### select, command-id=2015539030, estimated-cost=24757424byte(s), files=1, media=0
+### select, command-id=2015539034, estimated-cost=24813264byte(s), files=1, media=0
+### select, command-id=2015539037, estimated-cost=24885744byte(s), files=1, media=0
+### select, command-id=2015539039, estimated-cost=24850544byte(s), files=1, media=0
+### select, command-id=2015539047, estimated-cost=24799824byte(s), files=1, media=0
+### select, command-id=2015539052, estimated-cost=24812304byte(s), files=1, media=0
+### select, command-id=2015539053, estimated-cost=24867984byte(s), files=1, media=0
+### select, command-id=2015539054, estimated-cost=24803664byte(s), files=1, media=0
+### select, command-id=2015539063, estimated-cost=24854224byte(s), files=1, media=0
+### select, command-id=2015539060, estimated-cost=24836784byte(s), files=1, media=0
+### select, command-id=2015539068, estimated-cost=24817104byte(s), files=1, media=0
+### select, command-id=2015539065, estimated-cost=24826704byte(s), files=1, media=0
+### select, command-id=2015539066, estimated-cost=24797264byte(s), files=1, media=0
+### select, command-id=2015539070, estimated-cost=24747024byte(s), files=1, media=0
+### select, command-id=2015539067, estimated-cost=24822224byte(s), files=1, media=0
+### select, command-id=2015539072, estimated-cost=24763664byte(s), files=1, media=0
+### select, command-id=2015539073, estimated-cost=24825424byte(s), files=1, media=0
+### select, command-id=2015539075, estimated-cost=24771344byte(s), files=1, media=0
+### select, command-id=2015539076, estimated-cost=24832944byte(s), files=1, media=0
+### select, command-id=2015539078, estimated-cost=24819984byte(s), files=1, media=0
+### select, command-id=2015539079, estimated-cost=24804944byte(s), files=1, media=0
+### select, command-id=2015539082, estimated-cost=24861584byte(s), files=1, media=0
+### select, command-id=2015539083, estimated-cost=24780304byte(s), files=1, media=0
+### select, command-id=2015539087, estimated-cost=24798224byte(s), files=1, media=0
+### select, command-id=2015539084, estimated-cost=24829744byte(s), files=1, media=0
+### select, command-id=2015539085, estimated-cost=24804944byte(s), files=1, media=0
+### select, command-id=2015539088, estimated-cost=24799664byte(s), files=1, media=0
+### select, command-id=2015539092, estimated-cost=24834064byte(s), files=1, media=0
+### select, command-id=2015539093, estimated-cost=24819344byte(s), files=1, media=0
+### select, command-id=2015539094, estimated-cost=24757424byte(s), files=1, media=0
+### select, command-id=2015539095, estimated-cost=24778384byte(s), files=1, media=0
+### select, command-id=2015539097, estimated-cost=24788624byte(s), files=1, media=0
+### select, command-id=2015539099, estimated-cost=24790384byte(s), files=1, media=0
+### select, command-id=2015539098, estimated-cost=24803984byte(s), files=1, media=0
+### select, command-id=2015539100, estimated-cost=24830384byte(s), files=1, media=0
+### select, command-id=2015539103, estimated-cost=24738544byte(s), files=1, media=0
+### select, command-id=2015539104, estimated-cost=24782384byte(s), files=1, media=0
+/home/users/prince.xavier/MJO/SALMON
+/home/users/prince.xavier/MJO/SALMON/salmon_config.yaml
+2025-05-05 06:00:00
+dict_keys(['analysis_raw_dir', 'analysis_moose_dir', 'analysis_dummy_queryfiles_dir', 'analysis_combined_queryfile', 'analysis_mjo_processed_dir', 'analysis_mjo_rmm_archive_dir', 'analysis_eqwaves_processed_dir'])
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket
+Skipping: moose:/opfc/atm/global/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: /home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves
+dict_keys(['mogreps_dummy_queryfiles_dir', 'mogreps_moose_dir', 'mogreps_raw_dir', 'mogreps_combined_queryfile', 'mogreps_mjo_processed_dir', 'mogreps_mjo_archive_dir', 'mogreps_mjo_plot_ens', 'mogreps_cs_processed_dir', 'mogreps_cs_plot_ens', 'mogreps_eqwaves_processed_dir', 'mogreps_eqwaves_plot_ens'])
+Already exists: /data/scratch/prince.xavier/SALMON/temp
+Skipping: moose:/opfc/atm/mogreps-g/prods/
+Already exists: /data/scratch/prince.xavier/SALMON/raw_data/mogreps/mogreps_bucket
+Skipping: /home/users/prince.xavier/MJO/Monitoring_new/RETRIEVALS/mogreps_combined.query
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/rmms/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/mjo/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/coldsurge/plot_ens/
+Already exists: /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/
+Already exists: /data/users/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/plot_ens/
+{'analysis_raw_dir': '/data/scratch/prince.xavier/SALMON/raw_data/analysis/analysis_bucket', 'analysis_moose_dir': 'moose:/opfc/atm/global/prods/', 'analysis_dummy_queryfiles_dir': '/data/scratch/prince.xavier/SALMON/temp', 'analysis_combined_queryfile': '/home/users/prince.xavier/MJO/SALMON/RETRIEVALS/analysis_combined.query', 'analysis_mjo_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/', 'analysis_mjo_rmm_archive_dir': '/data/users/prince.xavier/SALMON/processed_SEA_data/analysis/mjo/rmms/', 'analysis_eqwaves_processed_dir': '/data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves'}
+Reading 332 analysis files
+Generating /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Generating /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250505_06.nc
+Generating /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250505_06.nc
+Generating /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250505_06.nc
+Retrieving date: 20250505_06, Member: 000, Forecast: 6
+Retrieving date: 20250505_06, Member: 001, Forecast: 6
+Retrieving date: 20250505_06, Member: 002, Forecast: 6
+Retrieving date: 20250505_06, Member: 003, Forecast: 6
+Retrieving date: 20250505_06, Member: 004, Forecast: 6
+Retrieving date: 20250505_06, Member: 005, Forecast: 6
+Retrieving date: 20250505_06, Member: 006, Forecast: 6
+Retrieving date: 20250505_06, Member: 007, Forecast: 6
+Retrieving date: 20250505_06, Member: 008, Forecast: 6
+Retrieving date: 20250505_06, Member: 009, Forecast: 6
+Retrieving date: 20250505_06, Member: 010, Forecast: 6
+Retrieving date: 20250505_06, Member: 011, Forecast: 6
+Retrieving date: 20250505_06, Member: 012, Forecast: 6
+Retrieving date: 20250505_06, Member: 013, Forecast: 6
+Retrieving date: 20250505_06, Member: 014, Forecast: 6
+Retrieving date: 20250505_06, Member: 015, Forecast: 6
+Retrieving date: 20250505_06, Member: 016, Forecast: 6
+Retrieving date: 20250505_06, Member: 017, Forecast: 6
+Retrieving date: 20250505_06, Member: 000, Forecast: 12
+Retrieving date: 20250505_06, Member: 001, Forecast: 12
+Retrieving date: 20250505_06, Member: 002, Forecast: 12
+Retrieving date: 20250505_06, Member: 003, Forecast: 12
+Retrieving date: 20250505_06, Member: 004, Forecast: 12
+Retrieving date: 20250505_06, Member: 005, Forecast: 12
+Retrieving date: 20250505_06, Member: 006, Forecast: 12
+Retrieving date: 20250505_06, Member: 007, Forecast: 12
+Retrieving date: 20250505_06, Member: 008, Forecast: 12
+Retrieving date: 20250505_06, Member: 009, Forecast: 12
+Retrieving date: 20250505_06, Member: 010, Forecast: 12
+Retrieving date: 20250505_06, Member: 011, Forecast: 12
+Retrieving date: 20250505_06, Member: 012, Forecast: 12
+Retrieving date: 20250505_06, Member: 013, Forecast: 12
+Retrieving date: 20250505_06, Member: 014, Forecast: 12
+Retrieving date: 20250505_06, Member: 015, Forecast: 12
+Retrieving date: 20250505_06, Member: 016, Forecast: 12
+Retrieving date: 20250505_06, Member: 017, Forecast: 12
+Retrieving date: 20250505_06, Member: 000, Forecast: 18
+Retrieving date: 20250505_06, Member: 001, Forecast: 18
+Retrieving date: 20250505_06, Member: 002, Forecast: 18
+Retrieving date: 20250505_06, Member: 003, Forecast: 18
+Retrieving date: 20250505_06, Member: 004, Forecast: 18
+Retrieving date: 20250505_06, Member: 005, Forecast: 18
+Retrieving date: 20250505_06, Member: 006, Forecast: 18
+Retrieving date: 20250505_06, Member: 007, Forecast: 18
+Retrieving date: 20250505_06, Member: 008, Forecast: 18
+Retrieving date: 20250505_06, Member: 009, Forecast: 18
+Retrieving date: 20250505_06, Member: 010, Forecast: 18
+Retrieving date: 20250505_06, Member: 011, Forecast: 18
+Retrieving date: 20250505_06, Member: 012, Forecast: 18
+Retrieving date: 20250505_06, Member: 013, Forecast: 18
+Retrieving date: 20250505_06, Member: 014, Forecast: 18
+Retrieving date: 20250505_06, Member: 015, Forecast: 18
+Retrieving date: 20250505_06, Member: 016, Forecast: 18
+Retrieving date: 20250505_06, Member: 017, Forecast: 18
+Retrieving date: 20250505_06, Member: 000, Forecast: 24
+Retrieving date: 20250505_06, Member: 001, Forecast: 24
+Retrieving date: 20250505_06, Member: 002, Forecast: 24
+Retrieving date: 20250505_06, Member: 003, Forecast: 24
+Retrieving date: 20250505_06, Member: 004, Forecast: 24
+Retrieving date: 20250505_06, Member: 005, Forecast: 24
+Retrieving date: 20250505_06, Member: 006, Forecast: 24
+Retrieving date: 20250505_06, Member: 007, Forecast: 24
+Retrieving date: 20250505_06, Member: 008, Forecast: 24
+Retrieving date: 20250505_06, Member: 009, Forecast: 24
+Retrieving date: 20250505_06, Member: 010, Forecast: 24
+Retrieving date: 20250505_06, Member: 011, Forecast: 24
+Retrieving date: 20250505_06, Member: 012, Forecast: 24
+Retrieving date: 20250505_06, Member: 013, Forecast: 24
+Retrieving date: 20250505_06, Member: 014, Forecast: 24
+Retrieving date: 20250505_06, Member: 015, Forecast: 24
+Retrieving date: 20250505_06, Member: 016, Forecast: 24
+Retrieving date: 20250505_06, Member: 017, Forecast: 24
+Retrieving date: 20250505_06, Member: 000, Forecast: 30
+Retrieving date: 20250505_06, Member: 001, Forecast: 30
+Retrieving date: 20250505_06, Member: 002, Forecast: 30
+Retrieving date: 20250505_06, Member: 003, Forecast: 30
+Retrieving date: 20250505_06, Member: 004, Forecast: 30
+Retrieving date: 20250505_06, Member: 005, Forecast: 30
+Retrieving date: 20250505_06, Member: 006, Forecast: 30
+Retrieving date: 20250505_06, Member: 007, Forecast: 30
+Retrieving date: 20250505_06, Member: 008, Forecast: 30
+Retrieving date: 20250505_06, Member: 009, Forecast: 30
+Retrieving date: 20250505_06, Member: 010, Forecast: 30
+Retrieving date: 20250505_06, Member: 011, Forecast: 30
+Retrieving date: 20250505_06, Member: 012, Forecast: 30
+Retrieving date: 20250505_06, Member: 013, Forecast: 30
+Retrieving date: 20250505_06, Member: 014, Forecast: 30
+Retrieving date: 20250505_06, Member: 015, Forecast: 30
+Retrieving date: 20250505_06, Member: 016, Forecast: 30
+Retrieving date: 20250505_06, Member: 017, Forecast: 30
+Retrieving date: 20250505_06, Member: 000, Forecast: 36
+Retrieving date: 20250505_06, Member: 001, Forecast: 36
+Retrieving date: 20250505_06, Member: 002, Forecast: 36
+Retrieving date: 20250505_06, Member: 003, Forecast: 36
+Retrieving date: 20250505_06, Member: 004, Forecast: 36
+Retrieving date: 20250505_06, Member: 005, Forecast: 36
+Retrieving date: 20250505_06, Member: 006, Forecast: 36
+Retrieving date: 20250505_06, Member: 007, Forecast: 36
+Retrieving date: 20250505_06, Member: 008, Forecast: 36
+Retrieving date: 20250505_06, Member: 009, Forecast: 36
+Retrieving date: 20250505_06, Member: 010, Forecast: 36
+Retrieving date: 20250505_06, Member: 011, Forecast: 36
+Retrieving date: 20250505_06, Member: 012, Forecast: 36
+Retrieving date: 20250505_06, Member: 013, Forecast: 36
+Retrieving date: 20250505_06, Member: 014, Forecast: 36
+Retrieving date: 20250505_06, Member: 015, Forecast: 36
+Retrieving date: 20250505_06, Member: 016, Forecast: 36
+Retrieving date: 20250505_06, Member: 017, Forecast: 36
+Retrieving date: 20250505_06, Member: 000, Forecast: 42
+Retrieving date: 20250505_06, Member: 001, Forecast: 42
+Retrieving date: 20250505_06, Member: 002, Forecast: 42
+Retrieving date: 20250505_06, Member: 003, Forecast: 42
+Retrieving date: 20250505_06, Member: 004, Forecast: 42
+Retrieving date: 20250505_06, Member: 005, Forecast: 42
+Retrieving date: 20250505_06, Member: 006, Forecast: 42
+Retrieving date: 20250505_06, Member: 007, Forecast: 42
+Retrieving date: 20250505_06, Member: 008, Forecast: 42
+Retrieving date: 20250505_06, Member: 009, Forecast: 42
+Retrieving date: 20250505_06, Member: 010, Forecast: 42
+Retrieving date: 20250505_06, Member: 011, Forecast: 42
+Retrieving date: 20250505_06, Member: 012, Forecast: 42
+Retrieving date: 20250505_06, Member: 013, Forecast: 42
+Retrieving date: 20250505_06, Member: 014, Forecast: 42
+Retrieving date: 20250505_06, Member: 015, Forecast: 42
+Retrieving date: 20250505_06, Member: 016, Forecast: 42
+Retrieving date: 20250505_06, Member: 017, Forecast: 42
+Retrieving date: 20250505_06, Member: 000, Forecast: 48
+Retrieving date: 20250505_06, Member: 001, Forecast: 48
+Retrieving date: 20250505_06, Member: 002, Forecast: 48
+Retrieving date: 20250505_06, Member: 003, Forecast: 48
+Retrieving date: 20250505_06, Member: 004, Forecast: 48
+Retrieving date: 20250505_06, Member: 005, Forecast: 48
+Retrieving date: 20250505_06, Member: 006, Forecast: 48
+Retrieving date: 20250505_06, Member: 007, Forecast: 48
+Retrieving date: 20250505_06, Member: 008, Forecast: 48
+Retrieving date: 20250505_06, Member: 009, Forecast: 48
+Retrieving date: 20250505_06, Member: 010, Forecast: 48
+Retrieving date: 20250505_06, Member: 011, Forecast: 48
+Retrieving date: 20250505_06, Member: 012, Forecast: 48
+Retrieving date: 20250505_06, Member: 013, Forecast: 48
+Retrieving date: 20250505_06, Member: 014, Forecast: 48
+Retrieving date: 20250505_06, Member: 015, Forecast: 48
+Retrieving date: 20250505_06, Member: 016, Forecast: 48
+Retrieving date: 20250505_06, Member: 017, Forecast: 48
+Retrieving date: 20250505_06, Member: 000, Forecast: 54
+Retrieving date: 20250505_06, Member: 001, Forecast: 54
+Retrieving date: 20250505_06, Member: 002, Forecast: 54
+Retrieving date: 20250505_06, Member: 003, Forecast: 54
+Retrieving date: 20250505_06, Member: 004, Forecast: 54
+Retrieving date: 20250505_06, Member: 005, Forecast: 54
+Retrieving date: 20250505_06, Member: 006, Forecast: 54
+Retrieving date: 20250505_06, Member: 007, Forecast: 54
+Retrieving date: 20250505_06, Member: 008, Forecast: 54
+Retrieving date: 20250505_06, Member: 009, Forecast: 54
+Retrieving date: 20250505_06, Member: 010, Forecast: 54
+Retrieving date: 20250505_06, Member: 011, Forecast: 54
+Retrieving date: 20250505_06, Member: 012, Forecast: 54
+Retrieving date: 20250505_06, Member: 013, Forecast: 54
+Retrieving date: 20250505_06, Member: 014, Forecast: 54
+Retrieving date: 20250505_06, Member: 015, Forecast: 54
+Retrieving date: 20250505_06, Member: 016, Forecast: 54
+Retrieving date: 20250505_06, Member: 017, Forecast: 54
+Retrieving date: 20250505_06, Member: 000, Forecast: 60
+Retrieving date: 20250505_06, Member: 001, Forecast: 60
+Retrieving date: 20250505_06, Member: 002, Forecast: 60
+Retrieving date: 20250505_06, Member: 003, Forecast: 60
+Retrieving date: 20250505_06, Member: 004, Forecast: 60
+Retrieving date: 20250505_06, Member: 005, Forecast: 60
+Retrieving date: 20250505_06, Member: 006, Forecast: 60
+Retrieving date: 20250505_06, Member: 007, Forecast: 60
+Retrieving date: 20250505_06, Member: 008, Forecast: 60
+Retrieving date: 20250505_06, Member: 009, Forecast: 60
+Retrieving date: 20250505_06, Member: 010, Forecast: 60
+Retrieving date: 20250505_06, Member: 011, Forecast: 60
+Retrieving date: 20250505_06, Member: 012, Forecast: 60
+Retrieving date: 20250505_06, Member: 013, Forecast: 60
+Retrieving date: 20250505_06, Member: 014, Forecast: 60
+Retrieving date: 20250505_06, Member: 015, Forecast: 60
+Retrieving date: 20250505_06, Member: 016, Forecast: 60
+Retrieving date: 20250505_06, Member: 017, Forecast: 60
+Retrieving date: 20250505_06, Member: 000, Forecast: 66
+Retrieving date: 20250505_06, Member: 001, Forecast: 66
+Retrieving date: 20250505_06, Member: 002, Forecast: 66
+Retrieving date: 20250505_06, Member: 003, Forecast: 66
+Retrieving date: 20250505_06, Member: 004, Forecast: 66
+Retrieving date: 20250505_06, Member: 005, Forecast: 66
+Retrieving date: 20250505_06, Member: 006, Forecast: 66
+Retrieving date: 20250505_06, Member: 007, Forecast: 66
+Retrieving date: 20250505_06, Member: 008, Forecast: 66
+Retrieving date: 20250505_06, Member: 009, Forecast: 66
+Retrieving date: 20250505_06, Member: 010, Forecast: 66
+Retrieving date: 20250505_06, Member: 011, Forecast: 66
+Retrieving date: 20250505_06, Member: 012, Forecast: 66
+Retrieving date: 20250505_06, Member: 013, Forecast: 66
+Retrieving date: 20250505_06, Member: 014, Forecast: 66
+Retrieving date: 20250505_06, Member: 015, Forecast: 66
+Retrieving date: 20250505_06, Member: 016, Forecast: 66
+Retrieving date: 20250505_06, Member: 017, Forecast: 66
+Retrieving date: 20250505_06, Member: 000, Forecast: 72
+Retrieving date: 20250505_06, Member: 001, Forecast: 72
+Retrieving date: 20250505_06, Member: 002, Forecast: 72
+Retrieving date: 20250505_06, Member: 003, Forecast: 72
+Retrieving date: 20250505_06, Member: 004, Forecast: 72
+Retrieving date: 20250505_06, Member: 005, Forecast: 72
+Retrieving date: 20250505_06, Member: 006, Forecast: 72
+Retrieving date: 20250505_06, Member: 007, Forecast: 72
+Retrieving date: 20250505_06, Member: 008, Forecast: 72
+Retrieving date: 20250505_06, Member: 009, Forecast: 72
+Retrieving date: 20250505_06, Member: 010, Forecast: 72
+Retrieving date: 20250505_06, Member: 011, Forecast: 72
+Retrieving date: 20250505_06, Member: 012, Forecast: 72
+Retrieving date: 20250505_06, Member: 013, Forecast: 72
+Retrieving date: 20250505_06, Member: 014, Forecast: 72
+Retrieving date: 20250505_06, Member: 015, Forecast: 72
+Retrieving date: 20250505_06, Member: 016, Forecast: 72
+Retrieving date: 20250505_06, Member: 017, Forecast: 72
+Retrieving date: 20250505_06, Member: 000, Forecast: 78
+Retrieving date: 20250505_06, Member: 001, Forecast: 78
+Retrieving date: 20250505_06, Member: 002, Forecast: 78
+Retrieving date: 20250505_06, Member: 003, Forecast: 78
+Retrieving date: 20250505_06, Member: 004, Forecast: 78
+Retrieving date: 20250505_06, Member: 005, Forecast: 78
+Retrieving date: 20250505_06, Member: 006, Forecast: 78
+Retrieving date: 20250505_06, Member: 007, Forecast: 78
+Retrieving date: 20250505_06, Member: 008, Forecast: 78
+Retrieving date: 20250505_06, Member: 009, Forecast: 78
+Retrieving date: 20250505_06, Member: 010, Forecast: 78
+Retrieving date: 20250505_06, Member: 011, Forecast: 78
+Retrieving date: 20250505_06, Member: 012, Forecast: 78
+Retrieving date: 20250505_06, Member: 013, Forecast: 78
+Retrieving date: 20250505_06, Member: 014, Forecast: 78
+Retrieving date: 20250505_06, Member: 015, Forecast: 78
+Retrieving date: 20250505_06, Member: 016, Forecast: 78
+Retrieving date: 20250505_06, Member: 017, Forecast: 78
+Retrieving date: 20250505_06, Member: 000, Forecast: 84
+Retrieving date: 20250505_06, Member: 001, Forecast: 84
+Retrieving date: 20250505_06, Member: 002, Forecast: 84
+Retrieving date: 20250505_06, Member: 003, Forecast: 84
+Retrieving date: 20250505_06, Member: 004, Forecast: 84
+Retrieving date: 20250505_06, Member: 005, Forecast: 84
+Retrieving date: 20250505_06, Member: 006, Forecast: 84
+Retrieving date: 20250505_06, Member: 007, Forecast: 84
+Retrieving date: 20250505_06, Member: 008, Forecast: 84
+Retrieving date: 20250505_06, Member: 009, Forecast: 84
+Retrieving date: 20250505_06, Member: 010, Forecast: 84
+Retrieving date: 20250505_06, Member: 011, Forecast: 84
+Retrieving date: 20250505_06, Member: 012, Forecast: 84
+Retrieving date: 20250505_06, Member: 013, Forecast: 84
+Retrieving date: 20250505_06, Member: 014, Forecast: 84
+Retrieving date: 20250505_06, Member: 015, Forecast: 84
+Retrieving date: 20250505_06, Member: 016, Forecast: 84
+Retrieving date: 20250505_06, Member: 017, Forecast: 84
+Retrieving date: 20250505_06, Member: 000, Forecast: 90
+Retrieving date: 20250505_06, Member: 001, Forecast: 90
+Retrieving date: 20250505_06, Member: 002, Forecast: 90
+Retrieving date: 20250505_06, Member: 003, Forecast: 90
+Retrieving date: 20250505_06, Member: 004, Forecast: 90
+Retrieving date: 20250505_06, Member: 005, Forecast: 90
+Retrieving date: 20250505_06, Member: 006, Forecast: 90
+Retrieving date: 20250505_06, Member: 007, Forecast: 90
+Retrieving date: 20250505_06, Member: 008, Forecast: 90
+Retrieving date: 20250505_06, Member: 009, Forecast: 90
+Retrieving date: 20250505_06, Member: 010, Forecast: 90
+Retrieving date: 20250505_06, Member: 011, Forecast: 90
+Retrieving date: 20250505_06, Member: 012, Forecast: 90
+Retrieving date: 20250505_06, Member: 013, Forecast: 90
+Retrieving date: 20250505_06, Member: 014, Forecast: 90
+Retrieving date: 20250505_06, Member: 015, Forecast: 90
+Retrieving date: 20250505_06, Member: 016, Forecast: 90
+Retrieving date: 20250505_06, Member: 017, Forecast: 90
+Retrieving date: 20250505_06, Member: 000, Forecast: 96
+Retrieving date: 20250505_06, Member: 001, Forecast: 96
+Retrieving date: 20250505_06, Member: 002, Forecast: 96
+Retrieving date: 20250505_06, Member: 003, Forecast: 96
+Retrieving date: 20250505_06, Member: 004, Forecast: 96
+Retrieving date: 20250505_06, Member: 005, Forecast: 96
+Retrieving date: 20250505_06, Member: 006, Forecast: 96
+Retrieving date: 20250505_06, Member: 007, Forecast: 96
+Retrieving date: 20250505_06, Member: 008, Forecast: 96
+Retrieving date: 20250505_06, Member: 009, Forecast: 96
+Retrieving date: 20250505_06, Member: 010, Forecast: 96
+Retrieving date: 20250505_06, Member: 011, Forecast: 96
+Retrieving date: 20250505_06, Member: 012, Forecast: 96
+Retrieving date: 20250505_06, Member: 013, Forecast: 96
+Retrieving date: 20250505_06, Member: 014, Forecast: 96
+Retrieving date: 20250505_06, Member: 015, Forecast: 96
+Retrieving date: 20250505_06, Member: 016, Forecast: 96
+Retrieving date: 20250505_06, Member: 017, Forecast: 96
+Retrieving date: 20250505_06, Member: 000, Forecast: 102
+Retrieving date: 20250505_06, Member: 001, Forecast: 102
+Retrieving date: 20250505_06, Member: 002, Forecast: 102
+Retrieving date: 20250505_06, Member: 003, Forecast: 102
+Retrieving date: 20250505_06, Member: 004, Forecast: 102
+Retrieving date: 20250505_06, Member: 005, Forecast: 102
+Retrieving date: 20250505_06, Member: 006, Forecast: 102
+Retrieving date: 20250505_06, Member: 007, Forecast: 102
+Retrieving date: 20250505_06, Member: 008, Forecast: 102
+Retrieving date: 20250505_06, Member: 009, Forecast: 102
+Retrieving date: 20250505_06, Member: 010, Forecast: 102
+Retrieving date: 20250505_06, Member: 011, Forecast: 102
+Retrieving date: 20250505_06, Member: 012, Forecast: 102
+Retrieving date: 20250505_06, Member: 013, Forecast: 102
+Retrieving date: 20250505_06, Member: 014, Forecast: 102
+Retrieving date: 20250505_06, Member: 015, Forecast: 102
+Retrieving date: 20250505_06, Member: 016, Forecast: 102
+Retrieving date: 20250505_06, Member: 017, Forecast: 102
+Retrieving date: 20250505_06, Member: 000, Forecast: 108
+Retrieving date: 20250505_06, Member: 001, Forecast: 108
+Retrieving date: 20250505_06, Member: 002, Forecast: 108
+Retrieving date: 20250505_06, Member: 003, Forecast: 108
+Retrieving date: 20250505_06, Member: 004, Forecast: 108
+Retrieving date: 20250505_06, Member: 005, Forecast: 108
+Retrieving date: 20250505_06, Member: 006, Forecast: 108
+Retrieving date: 20250505_06, Member: 007, Forecast: 108
+Retrieving date: 20250505_06, Member: 008, Forecast: 108
+Retrieving date: 20250505_06, Member: 009, Forecast: 108
+Retrieving date: 20250505_06, Member: 010, Forecast: 108
+Retrieving date: 20250505_06, Member: 011, Forecast: 108
+Retrieving date: 20250505_06, Member: 012, Forecast: 108
+Retrieving date: 20250505_06, Member: 013, Forecast: 108
+Retrieving date: 20250505_06, Member: 014, Forecast: 108
+Retrieving date: 20250505_06, Member: 015, Forecast: 108
+Retrieving date: 20250505_06, Member: 016, Forecast: 108
+Retrieving date: 20250505_06, Member: 017, Forecast: 108
+Retrieving date: 20250505_06, Member: 000, Forecast: 114
+Retrieving date: 20250505_06, Member: 001, Forecast: 114
+Retrieving date: 20250505_06, Member: 002, Forecast: 114
+Retrieving date: 20250505_06, Member: 003, Forecast: 114
+Retrieving date: 20250505_06, Member: 004, Forecast: 114
+Retrieving date: 20250505_06, Member: 005, Forecast: 114
+Retrieving date: 20250505_06, Member: 006, Forecast: 114
+Retrieving date: 20250505_06, Member: 007, Forecast: 114
+Retrieving date: 20250505_06, Member: 008, Forecast: 114
+Retrieving date: 20250505_06, Member: 009, Forecast: 114
+Retrieving date: 20250505_06, Member: 010, Forecast: 114
+Retrieving date: 20250505_06, Member: 011, Forecast: 114
+Retrieving date: 20250505_06, Member: 012, Forecast: 114
+Retrieving date: 20250505_06, Member: 013, Forecast: 114
+Retrieving date: 20250505_06, Member: 014, Forecast: 114
+Retrieving date: 20250505_06, Member: 015, Forecast: 114
+Retrieving date: 20250505_06, Member: 016, Forecast: 114
+Retrieving date: 20250505_06, Member: 017, Forecast: 114
+Retrieving date: 20250505_06, Member: 000, Forecast: 120
+Retrieving date: 20250505_06, Member: 001, Forecast: 120
+Retrieving date: 20250505_06, Member: 002, Forecast: 120
+Retrieving date: 20250505_06, Member: 003, Forecast: 120
+Retrieving date: 20250505_06, Member: 004, Forecast: 120
+Retrieving date: 20250505_06, Member: 005, Forecast: 120
+Retrieving date: 20250505_06, Member: 006, Forecast: 120
+Retrieving date: 20250505_06, Member: 007, Forecast: 120
+Retrieving date: 20250505_06, Member: 008, Forecast: 120
+Retrieving date: 20250505_06, Member: 009, Forecast: 120
+Retrieving date: 20250505_06, Member: 010, Forecast: 120
+Retrieving date: 20250505_06, Member: 011, Forecast: 120
+Retrieving date: 20250505_06, Member: 012, Forecast: 120
+Retrieving date: 20250505_06, Member: 013, Forecast: 120
+Retrieving date: 20250505_06, Member: 014, Forecast: 120
+Retrieving date: 20250505_06, Member: 015, Forecast: 120
+Retrieving date: 20250505_06, Member: 016, Forecast: 120
+Retrieving date: 20250505_06, Member: 017, Forecast: 120
+Retrieving date: 20250505_06, Member: 000, Forecast: 126
+Retrieving date: 20250505_06, Member: 001, Forecast: 126
+Retrieving date: 20250505_06, Member: 002, Forecast: 126
+Retrieving date: 20250505_06, Member: 003, Forecast: 126
+Retrieving date: 20250505_06, Member: 004, Forecast: 126
+Retrieving date: 20250505_06, Member: 005, Forecast: 126
+Retrieving date: 20250505_06, Member: 006, Forecast: 126
+Retrieving date: 20250505_06, Member: 007, Forecast: 126
+Retrieving date: 20250505_06, Member: 008, Forecast: 126
+Retrieving date: 20250505_06, Member: 009, Forecast: 126
+Retrieving date: 20250505_06, Member: 010, Forecast: 126
+Retrieving date: 20250505_06, Member: 011, Forecast: 126
+Retrieving date: 20250505_06, Member: 012, Forecast: 126
+Retrieving date: 20250505_06, Member: 013, Forecast: 126
+Retrieving date: 20250505_06, Member: 014, Forecast: 126
+Retrieving date: 20250505_06, Member: 015, Forecast: 126
+Retrieving date: 20250505_06, Member: 016, Forecast: 126
+Retrieving date: 20250505_06, Member: 017, Forecast: 126
+Retrieving date: 20250505_06, Member: 000, Forecast: 132
+Retrieving date: 20250505_06, Member: 001, Forecast: 132
+Retrieving date: 20250505_06, Member: 002, Forecast: 132
+Retrieving date: 20250505_06, Member: 003, Forecast: 132
+Retrieving date: 20250505_06, Member: 004, Forecast: 132
+Retrieving date: 20250505_06, Member: 005, Forecast: 132
+Retrieving date: 20250505_06, Member: 006, Forecast: 132
+Retrieving date: 20250505_06, Member: 007, Forecast: 132
+Retrieving date: 20250505_06, Member: 008, Forecast: 132
+Retrieving date: 20250505_06, Member: 009, Forecast: 132
+Retrieving date: 20250505_06, Member: 010, Forecast: 132
+Retrieving date: 20250505_06, Member: 011, Forecast: 132
+Retrieving date: 20250505_06, Member: 012, Forecast: 132
+Retrieving date: 20250505_06, Member: 013, Forecast: 132
+Retrieving date: 20250505_06, Member: 014, Forecast: 132
+Retrieving date: 20250505_06, Member: 015, Forecast: 132
+Retrieving date: 20250505_06, Member: 016, Forecast: 132
+Retrieving date: 20250505_06, Member: 017, Forecast: 132
+Retrieving date: 20250505_06, Member: 000, Forecast: 138
+Retrieving date: 20250505_06, Member: 001, Forecast: 138
+Retrieving date: 20250505_06, Member: 002, Forecast: 138
+Retrieving date: 20250505_06, Member: 003, Forecast: 138
+Retrieving date: 20250505_06, Member: 004, Forecast: 138
+Retrieving date: 20250505_06, Member: 005, Forecast: 138
+Retrieving date: 20250505_06, Member: 006, Forecast: 138
+Retrieving date: 20250505_06, Member: 007, Forecast: 138
+Retrieving date: 20250505_06, Member: 008, Forecast: 138
+Retrieving date: 20250505_06, Member: 009, Forecast: 138
+Retrieving date: 20250505_06, Member: 010, Forecast: 138
+Retrieving date: 20250505_06, Member: 011, Forecast: 138
+Retrieving date: 20250505_06, Member: 012, Forecast: 138
+Retrieving date: 20250505_06, Member: 013, Forecast: 138
+Retrieving date: 20250505_06, Member: 014, Forecast: 138
+Retrieving date: 20250505_06, Member: 015, Forecast: 138
+Retrieving date: 20250505_06, Member: 016, Forecast: 138
+Retrieving date: 20250505_06, Member: 017, Forecast: 138
+Retrieving date: 20250505_06, Member: 000, Forecast: 144
+Retrieving date: 20250505_06, Member: 001, Forecast: 144
+Retrieving date: 20250505_06, Member: 002, Forecast: 144
+Retrieving date: 20250505_06, Member: 003, Forecast: 144
+Retrieving date: 20250505_06, Member: 004, Forecast: 144
+Retrieving date: 20250505_06, Member: 005, Forecast: 144
+Retrieving date: 20250505_06, Member: 006, Forecast: 144
+Retrieving date: 20250505_06, Member: 007, Forecast: 144
+Retrieving date: 20250505_06, Member: 008, Forecast: 144
+Retrieving date: 20250505_06, Member: 009, Forecast: 144
+Retrieving date: 20250505_06, Member: 010, Forecast: 144
+Retrieving date: 20250505_06, Member: 011, Forecast: 144
+Retrieving date: 20250505_06, Member: 012, Forecast: 144
+Retrieving date: 20250505_06, Member: 013, Forecast: 144
+Retrieving date: 20250505_06, Member: 014, Forecast: 144
+Retrieving date: 20250505_06, Member: 015, Forecast: 144
+Retrieving date: 20250505_06, Member: 016, Forecast: 144
+Retrieving date: 20250505_06, Member: 017, Forecast: 144
+Retrieving date: 20250505_06, Member: 000, Forecast: 150
+Retrieving date: 20250505_06, Member: 001, Forecast: 150
+Retrieving date: 20250505_06, Member: 002, Forecast: 150
+Retrieving date: 20250505_06, Member: 003, Forecast: 150
+Retrieving date: 20250505_06, Member: 004, Forecast: 150
+Retrieving date: 20250505_06, Member: 005, Forecast: 150
+Retrieving date: 20250505_06, Member: 006, Forecast: 150
+Retrieving date: 20250505_06, Member: 007, Forecast: 150
+Retrieving date: 20250505_06, Member: 008, Forecast: 150
+Retrieving date: 20250505_06, Member: 009, Forecast: 150
+Retrieving date: 20250505_06, Member: 010, Forecast: 150
+Retrieving date: 20250505_06, Member: 011, Forecast: 150
+Retrieving date: 20250505_06, Member: 012, Forecast: 150
+Retrieving date: 20250505_06, Member: 013, Forecast: 150
+Retrieving date: 20250505_06, Member: 014, Forecast: 150
+Retrieving date: 20250505_06, Member: 015, Forecast: 150
+Retrieving date: 20250505_06, Member: 016, Forecast: 150
+Retrieving date: 20250505_06, Member: 017, Forecast: 150
+Retrieving date: 20250505_06, Member: 000, Forecast: 156
+Retrieving date: 20250505_06, Member: 001, Forecast: 156
+Retrieving date: 20250505_06, Member: 002, Forecast: 156
+Retrieving date: 20250505_06, Member: 003, Forecast: 156
+Retrieving date: 20250505_06, Member: 004, Forecast: 156
+Retrieving date: 20250505_06, Member: 005, Forecast: 156
+Retrieving date: 20250505_06, Member: 006, Forecast: 156
+Retrieving date: 20250505_06, Member: 007, Forecast: 156
+Retrieving date: 20250505_06, Member: 008, Forecast: 156
+Retrieving date: 20250505_06, Member: 009, Forecast: 156
+Retrieving date: 20250505_06, Member: 010, Forecast: 156
+Retrieving date: 20250505_06, Member: 011, Forecast: 156
+Retrieving date: 20250505_06, Member: 012, Forecast: 156
+Retrieving date: 20250505_06, Member: 013, Forecast: 156
+Retrieving date: 20250505_06, Member: 014, Forecast: 156
+Retrieving date: 20250505_06, Member: 015, Forecast: 156
+Retrieving date: 20250505_06, Member: 016, Forecast: 156
+Retrieving date: 20250505_06, Member: 017, Forecast: 156
+Retrieving date: 20250505_06, Member: 000, Forecast: 162
+Retrieving date: 20250505_06, Member: 001, Forecast: 162
+Retrieving date: 20250505_06, Member: 002, Forecast: 162
+Retrieving date: 20250505_06, Member: 003, Forecast: 162
+Retrieving date: 20250505_06, Member: 004, Forecast: 162
+Retrieving date: 20250505_06, Member: 005, Forecast: 162
+Retrieving date: 20250505_06, Member: 006, Forecast: 162
+Retrieving date: 20250505_06, Member: 007, Forecast: 162
+Retrieving date: 20250505_06, Member: 008, Forecast: 162
+Retrieving date: 20250505_06, Member: 009, Forecast: 162
+Retrieving date: 20250505_06, Member: 010, Forecast: 162
+Retrieving date: 20250505_06, Member: 011, Forecast: 162
+Retrieving date: 20250505_06, Member: 012, Forecast: 162
+Retrieving date: 20250505_06, Member: 013, Forecast: 162
+Retrieving date: 20250505_06, Member: 014, Forecast: 162
+Retrieving date: 20250505_06, Member: 015, Forecast: 162
+Retrieving date: 20250505_06, Member: 016, Forecast: 162
+Retrieving date: 20250505_06, Member: 017, Forecast: 162
+Retrieving date: 20250505_06, Member: 000, Forecast: 168
+Retrieving date: 20250505_06, Member: 001, Forecast: 168
+Retrieving date: 20250505_06, Member: 002, Forecast: 168
+Retrieving date: 20250505_06, Member: 003, Forecast: 168
+Retrieving date: 20250505_06, Member: 004, Forecast: 168
+Retrieving date: 20250505_06, Member: 005, Forecast: 168
+Retrieving date: 20250505_06, Member: 006, Forecast: 168
+Retrieving date: 20250505_06, Member: 007, Forecast: 168
+Retrieving date: 20250505_06, Member: 008, Forecast: 168
+Retrieving date: 20250505_06, Member: 009, Forecast: 168
+Retrieving date: 20250505_06, Member: 010, Forecast: 168
+Retrieving date: 20250505_06, Member: 011, Forecast: 168
+Retrieving date: 20250505_06, Member: 012, Forecast: 168
+Retrieving date: 20250505_06, Member: 013, Forecast: 168
+Retrieving date: 20250505_06, Member: 014, Forecast: 168
+Retrieving date: 20250505_06, Member: 015, Forecast: 168
+Retrieving date: 20250505_06, Member: 016, Forecast: 168
+Retrieving date: 20250505_06, Member: 017, Forecast: 168
+Progress: [0.00%]analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/x_wind_combined_20250505_06Z_000.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/y_wind_combined_20250505_06Z_000.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/geopotential_height_combined_20250505_06Z_000.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 49, 360) (28, 49, 360)
+(360, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/precipitation_amount_combined_20250505_06Z_000.nc
+Progress: [5.56%]analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/x_wind_combined_20250505_06Z_001.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/y_wind_combined_20250505_06Z_001.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/geopotential_height_combined_20250505_06Z_001.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 49, 360) (28, 49, 360)
+(360, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/precipitation_amount_combined_20250505_06Z_001.nc
+Progress: [11.11%]analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/x_wind_combined_20250505_06Z_002.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/y_wind_combined_20250505_06Z_002.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/geopotential_height_combined_20250505_06Z_002.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 49, 360) (28, 49, 360)
+(360, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/precipitation_amount_combined_20250505_06Z_002.nc
+Progress: [16.67%]analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/x_wind_combined_20250505_06Z_003.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/y_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/y_wind_combined_20250505_06Z_003.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/geopotential_height_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (28, 2, 49, 360)
+(360, 2, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/geopotential_height_combined_20250505_06Z_003.nc
+analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/precipitation_amount_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+Cube 27 forecast_period: hours since 2025-05-05 06:00:00
+(332, 49, 360) (28, 49, 360)
+(360, 49, 360)
+Written /data/scratch/prince.xavier/SALMON/processed_SEA_data/mogreps/eqwaves/20250505_06/precipitation_amount_combined_20250505_06Z_003.nc
+Progress: [22.22%]analysis_combined_file: /data/scratch/prince.xavier/SALMON/processed_SEA_data/analysis/eqwaves/x_wind_analysis_20250505_06.nc
+Cube 0 forecast_period: hours since 2025-05-05 06:00:00
+Cube 1 forecast_period: hours since 2025-05-05 06:00:00
+Cube 2 forecast_period: hours since 2025-05-05 06:00:00
+Cube 3 forecast_period: hours since 2025-05-05 06:00:00
+Cube 4 forecast_period: hours since 2025-05-05 06:00:00
+Cube 5 forecast_period: hours since 2025-05-05 06:00:00
+Cube 6 forecast_period: hours since 2025-05-05 06:00:00
+Cube 7 forecast_period: hours since 2025-05-05 06:00:00
+Cube 8 forecast_period: hours since 2025-05-05 06:00:00
+Cube 9 forecast_period: hours since 2025-05-05 06:00:00
+Cube 10 forecast_period: hours since 2025-05-05 06:00:00
+Cube 11 forecast_period: hours since 2025-05-05 06:00:00
+Cube 12 forecast_period: hours since 2025-05-05 06:00:00
+Cube 13 forecast_period: hours since 2025-05-05 06:00:00
+Cube 14 forecast_period: hours since 2025-05-05 06:00:00
+Cube 15 forecast_period: hours since 2025-05-05 06:00:00
+Cube 16 forecast_period: hours since 2025-05-05 06:00:00
+Cube 17 forecast_period: hours since 2025-05-05 06:00:00
+Cube 18 forecast_period: hours since 2025-05-05 06:00:00
+Cube 19 forecast_period: hours since 2025-05-05 06:00:00
+Cube 20 forecast_period: hours since 2025-05-05 06:00:00
+Cube 21 forecast_period: hours since 2025-05-05 06:00:00
+Cube 22 forecast_period: hours since 2025-05-05 06:00:00
+Cube 23 forecast_period: hours since 2025-05-05 06:00:00
+Cube 24 forecast_period: hours since 2025-05-05 06:00:00
+Cube 25 forecast_period: hours since 2025-05-05 06:00:00
+Cube 26 forecast_period: hours since 2025-05-05 06:00:00
+(332, 2, 49, 360) (27, 2, 49, 360)
+(359, 2, 49, 360)
