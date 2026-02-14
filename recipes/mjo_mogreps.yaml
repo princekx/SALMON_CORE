@@ -1,0 +1,28 @@
+name: "MJO MOGREPS Forecast"
+description: "Runs MJO analysis and MOGREPS forecast."
+
+defaults:
+  model: mogreps
+
+tasks:
+  - name: "Retrieve Analysis Data"
+    module: salmon.modules.mjo.tasks
+    class: RetrieveAnalysisData
+    config:
+      num_prev_days: 201
+      parallel: true
+
+  - name: "Combine Analysis Data"
+    module: salmon.modules.mjo.tasks
+    class: CombineAnalysisData
+
+  - name: "Retrieve MOGREPS Data"
+    module: salmon.modules.mjo.tasks
+    class: RetrieveMogrepsData
+    config:
+      members: 36
+      parallel: true
+
+  - name: "Compute MJO Indices"
+    module: salmon.modules.mjo.tasks
+    class: ComputeMJOIndices

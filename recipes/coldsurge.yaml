@@ -1,0 +1,16 @@
+name: "Cold Surge Forecast"
+description: "Runs Cold Surge index computation for MOGREPS."
+
+defaults:
+  model: mogreps
+
+tasks:
+  - name: "Retrieve Cold Surge Data"
+    module: salmon.modules.coldsurge.tasks
+    class: RetrieveColdSurgeData
+    config:
+      members: 36
+
+  - name: "Compute Cold Surge Indices"
+    module: salmon.modules.coldsurge.tasks
+    class: ComputeColdSurgeIndices

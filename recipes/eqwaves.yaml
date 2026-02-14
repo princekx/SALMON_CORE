@@ -1,0 +1,16 @@
+name: "EqWaves Forecast"
+description: "Runs Equatorial Wave analysis for MOGREPS."
+
+defaults:
+  model: mogreps
+
+tasks:
+  - name: "Retrieve EqWaves Data"
+    module: salmon.modules.eqwaves.tasks
+    class: RetrieveEqWavesData
+    config:
+      members: 36
+
+  - name: "Compute Wave Indices"
+    module: salmon.modules.eqwaves.tasks
+    class: ComputeEqWavesIndices

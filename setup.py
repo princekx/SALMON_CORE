@@ -1,12 +1,25 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='SALMON',
-    version='1.1',
-    packages=['MJO', 'MJO.glosea', 'MJO.display', 'MJO.mogreps', 'MJO.analysis', 'FEATURES'],
-    url='https://github.com/princekx/SALMON',
-    license='',
-    author='prince.xavier',
-    author_email='prince.xavier@metoffice.gov.uk',
-    description='Southeast Asia Large Scale Monitoring'
+    name="salmon",
+    version="2.0.0",
+    description="SALMON v2: Southeast Asia Large Scale Monitoring tool",
+    author="Prince Xavier",
+    packages=find_packages(),
+    install_requires=[
+        "iris",
+        "numpy",
+        "pyyaml",
+        "click",
+        "pandas",
+        "pydantic",
+        "scipy",
+        "scikit-image",
+        "tqdm"
+    ],
+    entry_points={
+        'console_scripts': [
+            'salmon=salmon.cli:main',
+        ],
+    },
 )
