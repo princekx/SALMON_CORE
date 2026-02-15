@@ -1,6 +1,6 @@
-# SALMON v2.0 - Southeast Asia Large Scale Monitoring tool
+# SALMON_CORE - Southeast Asia Large Scale Monitoring tool
 
-SALMON is a suite of tools for sub-seasonal to seasonal (S3) climate analysis in Southeast Asia, serving as a Southeast Asia Large Scale Monitoring tool.
+SALMON_CORE is a suite of tools for sub-seasonal to seasonal (S3) climate analysis in Southeast Asia.
 
 ## Key Features
 - **Modular Architecture**: Re-engineered into a `salmon` package with clear separation of core logic, utilities, and scientific modules.
