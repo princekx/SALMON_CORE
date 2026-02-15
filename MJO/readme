@@ -1,3 +1,0 @@
-Link /home/h03/hadpx/public_html/Monitoring_dashboard/mjo to the folders
-1. ln -s /project/MJO_GCSS/MJO_monitoring/processed_MJO_data/mogreps/plot_ens_new mogreps
-2. ln -s /project/MJO_GCSS/MJO_monitoring/processed_MJO_data/glosea/plot_ens_new/ glosea

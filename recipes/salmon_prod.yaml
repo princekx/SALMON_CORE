@@ -1,0 +1,49 @@
+name: "SALMON Standard Production"
+description: "Full production suite for SALMON v2.0."
+
+defaults:
+  model: mogreps
+
+tasks:
+  # 1. MJO Pipeline
+  - name: "Retrieve MJO Analysis"
+    module: salmon.modules.mjo.tasks
+    class: RetrieveAnalysisData
+  - name: "Retrieve MJO Forecast"
+    module: salmon.modules.mjo.tasks
+    class: RetrieveMogrepsData
+  - name: "Compute MJO Indices"
+    module: salmon.modules.mjo.tasks
+    class: ComputeMJOIndices
+
+  # 2. Cold Surge & 24h Precip
+  - name: "Retrieve Cold Surge Data"
+    module: salmon.modules.coldsurge.tasks
+    class: RetrieveColdSurgeData
+  - name: "Compute Cold Surge Indices"
+    module: salmon.modules.coldsurge.tasks
+    class: ComputeColdSurgeIndices
+
+  # 3. Equatorial Waves
+  - name: "Retrieve EqWaves Data"
+    module: salmon.modules.eqwaves.tasks
+    class: RetrieveEqWavesData
+  - name: "Compute Wave Indices"
+    module: salmon.modules.eqwaves.tasks
+    class: ComputeEqWavesIndices
+
+  # 4. BSISO & Monsoon Indices
+  - name: "Compute Monsoon Indices"
+    module: salmon.modules.indices.tasks
+    class: ComputeMonsoonIndices
+  - name: "Compute BSISO Indices"
+    module: salmon.modules.bsiso.tasks
+    class: ComputeBSISOIndices
+
+  # 5. Feature Detection
+  - name: "Compute Convergence Lines"
+    module: salmon.modules.convlines.tasks
+    class: ComputeConvLines
+  - name: "Compute Weather Features"
+    module: salmon.modules.features.tasks
+    class: ComputeFeatureObjects

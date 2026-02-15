@@ -1,0 +1,26 @@
+name: "Monsoon Monitoring"
+description: "Computes Monsoon Indices, BSISO, and Convergence Lines."
+
+defaults:
+  model: mogreps
+
+tasks:
+  - name: "Compute Monsoon Indices"
+    module: salmon.modules.indices.tasks
+    class: ComputeMonsoonIndices
+
+  - name: "Compute BSISO Indices"
+    module: salmon.modules.bsiso.tasks
+    class: ComputeBSISOIndices
+    config:
+      members: 18
+
+  - name: "Compute Convergence Lines"
+    module: salmon.modules.convlines.tasks
+    class: ComputeConvLines
+
+  - name: "Compute Weather Features"
+    module: salmon.modules.features.tasks
+    class: ComputeFeatureObjects
+    config:
+      thresholds: [1.0, 5.0, 10.0, 20.0, 50.0]
