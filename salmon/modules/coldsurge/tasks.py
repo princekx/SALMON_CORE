@@ -20,250 +20,181 @@ warnings.simplefilter("ignore")
 logger = logging.getLogger(__name__)
 
 class RetrieveColdSurgeData(Task):
-    """Task to retrieve data required for Cold Surge indices."""
-    def run(self):
-        date = self.context.date
-        parallel = self.config.get('parallel', True)
-        
-        global_config = load_global_config()
-        mogreps_config = global_config.get('mogreps', {})
-        
-        self._init_config_values()
-        
-        logger.info(f"Retrieving MOGREPS data for Cold Surge on {date}...")
-        
-        hr_list = [12, 18]
-        fc_times = np.arange(0, 174, 24)
-        
-        tasks_to_run = []
-        for hr in hr_list:
-            members = self._get_all_members(hr)
-            for fc in fc_times:
-                for mem in members:
-                    tasks_to_run.append((date, hr, fc, mem, self.config_values["mogreps_moose_dir"], self.config_values["mogreps_raw_dir"], self.config_values["mogreps_combined_queryfile"], self.config_values["mogreps_dummy_queryfiles_dir"]))
-        
-        if parallel:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-                futures = [executor.submit(self._retrieve_for_member, *t) for t in tasks_to_run]
-                concurrent.futures.wait(futures)
-        else:
-            for t in tasks_to_run:
-                self._retrieve_for_member(*t)
+    """
+    Retrieve MOGREPS files needed for Cold Surge processing.
 
-        logger.info("Cold Surge data retrieval complete.")
+    Notes
+    -----
+    - Members are split by cycle:
+      * 12Z -> 00..17
+      * 18Z -> 18..34 plus '00' (mapped to directory member 035)
+    - Forecast steps are 24-hourly from 0 to 168 hours.
+    """
+
+    HR_LIST = (12, 18)
+    FC_TIMES = tuple(np.arange(0, 174, 24))
+
+    def run(self):
+        """Task entrypoint."""
+        date = self.context.date
+        parallel = self.config.get("parallel", True)
+        success = self.retrieve_mogreps_data(date=date, parallel=parallel)
+        if success:
+            logger.info("Cold Surge data retrieval complete.")
+        else:
+            logger.warning("Cold Surge data retrieval completed with errors.")
 
     def _init_config_values(self):
-        """Initialize legacy-style config_values used by retrieval helpers."""
+        """Load and cache retrieval paths/config used by helper methods."""
         if hasattr(self, "config_values"):
             return
 
-        global_config = load_global_config()
-        mogreps_config = global_config.get("mogreps", {})
+        mogreps = load_global_config().get("mogreps", {})
         self.config_values = {
-            "mogreps_moose_dir": mogreps_config.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
-            "mogreps_raw_dir": mogreps_config.get("raw", "/tmp/salmon_raw/mogreps"),
-            "mogreps_combined_queryfile": mogreps_config.get("query"),
-            "mogreps_dummy_queryfiles_dir": mogreps_config.get("temp", "/tmp/salmon_temp"),
+            "mogreps_moose_dir": mogreps.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
+            "mogreps_raw_dir": mogreps.get("raw", "/tmp/salmon_raw/mogreps"),
+            "mogreps_combined_queryfile": mogreps.get("query"),
+            "mogreps_dummy_queryfiles_dir": mogreps.get("temp", "/tmp/salmon_temp"),
         }
         os.makedirs(self.config_values["mogreps_dummy_queryfiles_dir"], exist_ok=True)
 
     def _get_all_members(self, hr):
+        """Return 2-digit member IDs for a given model cycle hour."""
         if hr == 12:
-            return [str('%02d' % mem) for mem in range(18)]
-        elif hr == 18:
-            return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
+            return [f"{mem:02d}" for mem in range(18)]
+        if hr == 18:
+            return [f"{mem:02d}" for mem in range(18, 35)] + ["00"]
         return []
 
-    def _retrieve_for_member(self, date, hr, fc, digit2_mem, moose_base, raw_dir, query_template, temp_dir):
-        """Check if the date is after the OS47 date (21-01-2026)."""
-        os47_date = datetime.datetime(2026, 1, 21)
-        # This check was added when they had messed up the folders. Looks like they have fixed it now,
-        # but keeping the check just in case.
-        """
-        if date > os47_date:
-            # monthly folders are not used after OS47
-            print('Date is after OS47 date. Proceeding with retrieval without monthly folders.')
-            moose_dir = os.path.join(self.config_values['mogreps_moose_dir'], f'{date.strftime("%Y")}.pp')
-        else:
-            print('Date is before OS47 date. Proceeding with retrieval.')
-            moose_dir = os.path.join(self.config_values['mogreps_moose_dir'], f'{date.strftime("%Y%m")}.pp')
-        """
-        moose_dir = os.path.join(self.config_values["mogreps_moose_dir"], f'{date.strftime("%Y%m")}.pp')
+    def _iter_tasks(self, date):
+        """Yield (date, hr, fc, member) combinations to retrieve."""
+        for hr in self.HR_LIST:
+            for fc in self.FC_TIMES:
+                for mem in self._get_all_members(hr):
+                    yield (date, hr, fc, mem)
 
-        digit3_mem = "035" if (hr == 18 and digit2_mem == "00") else str("%03d" % int(digit2_mem))
+    def _resolve_moose_dir(self, date):
+        """
+        Resolve source MOOSE directory.
+
+        Historical OS47 fallback logic is intentionally left disabled.
+        """
+        return os.path.join(self.config_values["mogreps_moose_dir"], f"{date:%Y%m}.pp")
+
+    def _map_member_to_dir(self, hr, digit2_mem):
+        """Map 2-digit member ID to 3-digit on-disk directory name."""
+        return "035" if (hr == 18 and digit2_mem == "00") else f"{int(digit2_mem):03d}"
+
+    def _retrieve_fc_data(self, date, hr, fc, digit2_mem):
+        """Retrieve one forecast file for one member/cycle."""
+        self._init_config_values()
+
+        moose_dir = self._resolve_moose_dir(date)
+        digit3_mem = self._map_member_to_dir(hr, digit2_mem)
+        fct = f"{fc:03d}"
 
         remote_data_dir = os.path.join(
             self.config_values["mogreps_raw_dir"], date.strftime("%Y%m%d"), digit3_mem
         )
-        if not os.path.exists(remote_data_dir):
-            os.makedirs(remote_data_dir, exist_ok=True)
+        os.makedirs(remote_data_dir, exist_ok=True)
 
-        print(f"Retrieving hr: {fc}")
-        fct = f"{fc:03d}"
-
-        # File names changed on moose on 25/09/2018
-        filemoose = f"prods_op_mogreps-g_{date.strftime('%Y%m%d')}_{hr}_{digit2_mem}_{fct}.pp"
+        filemoose = f"prods_op_mogreps-g_{date:%Y%m%d}_{hr}_{digit2_mem}_{fct}.pp"
         outfile = f"englaa_pd{fct}.pp"
-
-        # Generate a unique query file
-        local_query_file1 = os.path.join(
-            self.config_values["mogreps_dummy_queryfiles_dir"], f"localquery_{uuid.uuid1()}"
-        )
-        self.create_query_file(local_query_file1, filemoose, fct)
-
         outfile_path = os.path.join(remote_data_dir, outfile)
+
+        # Remove corrupt empty file before retry
+        if os.path.exists(outfile_path) and os.path.getsize(outfile_path) == 0:
+            logger.warning("Deleting empty file: %s", outfile_path)
+            os.remove(outfile_path)
 
         if os.path.exists(outfile_path):
-            if os.path.getsize(outfile_path) == 0:
-                print(os.path.getsize(outfile_path))
-                print(f"Deleting empty file {outfile_path}")
-                os.remove(outfile_path)
+            logger.debug("%s exists. Skip.", outfile_path)
+            return True
 
-        if not os.path.exists(outfile_path):
-            print("EXECCCC")
-            command = (
-                f"/opt/moose-client-wrapper/bin/moo select --fill-gaps "
-                f"{local_query_file1} {moose_dir} {os.path.join(remote_data_dir, outfile)}"
-            )
-            logger.info("Executing command: %s", command)
+        local_query_file = os.path.join(
+            self.config_values["mogreps_dummy_queryfiles_dir"], f"localquery_{uuid.uuid1()}"
+        )
 
-            try:
-                subprocess.run(command, shell=True, check=True)
-                logger.info("Data retrieval successful.")
-            except subprocess.CalledProcessError as e:
-                logger.error("Error during data retrieval: %s", e)
-            except Exception as e:
-                logger.error("An unexpected error occurred: %s", e)
-        else:
-            print(f"{os.path.join(remote_data_dir, outfile)} exists. Skip...")
+        try:
+            self.create_query_file(local_query_file, filemoose, fct)
 
-        if os.path.exists(local_query_file1):
-            os.remove(local_query_file1)
+            command = [
+                "/opt/moose-client-wrapper/bin/moo",
+                "select",
+                "--fill-gaps",
+                local_query_file,
+                moose_dir,
+                outfile_path,
+            ]
+            logger.info("Executing command: %s", " ".join(command))
+            subprocess.run(command, check=True)
+            return True
+
+        except subprocess.CalledProcessError as exc:
+            logger.error("Data retrieval failed for %s: %s", outfile_path, exc)
+            return False
+        except Exception as exc:
+            logger.error("Unexpected retrieval error for %s: %s", outfile_path, exc)
+            return False
+        finally:
+            if os.path.exists(local_query_file):
+                os.remove(local_query_file)
+
+    # Backward-compatible method name used elsewhere in code.
+    def retrieve_fc_data_parallel(self, date, hr, fc, digit2_mem):
+        """Compatibility wrapper around the streamlined retrieval function."""
+        return self._retrieve_fc_data(date, hr, fc, digit2_mem)
+
+    # Backward-compatible signature used by old run() style.
+    def _retrieve_for_member(self, date, hr, fc, digit2_mem, *_unused):
+        """Compatibility wrapper for legacy tuple-based submit arguments."""
+        return self._retrieve_fc_data(date, hr, fc, digit2_mem)
 
     def check_if_all_data_exist(self, date, hr, fc, digit2_mem):
+        """Check if one retrieved file exists and is non-empty."""
         self._init_config_values()
-        digit3_mem = str("%03d" % int(digit2_mem))
-        remote_data_dir = os.path.join(
-            self.config_values["mogreps_raw_dir"], date.strftime("%Y%m%d"), digit3_mem
+        digit3_mem = self._map_member_to_dir(hr, digit2_mem)
+        outfile_path = os.path.join(
+            self.config_values["mogreps_raw_dir"],
+            date.strftime("%Y%m%d"),
+            digit3_mem,
+            f"englaa_pd{fc:03d}.pp",
         )
-        fct = f"{fc:03d}"
-        outfile = f"englaa_pd{fct}.pp"
-        outfile_path = os.path.join(remote_data_dir, outfile)
-        outfile_status = os.path.exists(outfile_path) and os.path.getsize(outfile_path) > 0
-        return outfile_status
+        return os.path.exists(outfile_path) and os.path.getsize(outfile_path) > 0
 
     def create_query_file(self, local_query_file1, filemoose, fct):
+        """Create a per-request query file from the configured template."""
         self._init_config_values()
         query_file = self.config_values["mogreps_combined_queryfile"]
-
         replacements = {"fctime": fct, "filemoose": filemoose}
+
         with open(query_file) as query_infile, open(local_query_file1, "w") as query_outfile:
             for line in query_infile:
                 for src, target in replacements.items():
                     line = line.replace(src, target)
                 query_outfile.write(line)
 
-    def retrieve_fc_data_parallel(self, date, hr, fc, digit2_mem):
-        print("In retrieve_fc_data_parallel()")
-        self._init_config_values()
-
-        """Check if the date is after the OS47 date (21-01-2026)."""
-        os47_date = datetime.datetime(2026, 1, 21)
-        # This check was added when they had messed up the folders. Looks like they have fixed it now,
-        # but keeping the check just in case.
-        """
-        if date > os47_date:
-            # monthly folders are not used after OS47
-            print('Date is after OS47 date. Proceeding with retrieval without monthly folders.')
-            moose_dir = os.path.join(self.config_values['mogreps_moose_dir'], f'{date.strftime("%Y")}.pp')
-        else:
-            print('Date is before OS47 date. Proceeding with retrieval.')
-            moose_dir = os.path.join(self.config_values['mogreps_moose_dir'], f'{date.strftime("%Y%m")}.pp')
-        """
-        moose_dir = os.path.join(self.config_values["mogreps_moose_dir"], f'{date.strftime("%Y%m")}.pp')
-
-        digit3_mem = "035" if (hr == 18 and digit2_mem == "00") else str("%03d" % int(digit2_mem))
-
-        remote_data_dir = os.path.join(
-            self.config_values["mogreps_raw_dir"], date.strftime("%Y%m%d"), digit3_mem
-        )
-        if not os.path.exists(remote_data_dir):
-            os.makedirs(remote_data_dir, exist_ok=True)
-
-        print(f"Retrieving hr: {fc}")
-        fct = f"{fc:03d}"
-
-        # File names changed on moose on 25/09/2018
-        filemoose = f"prods_op_mogreps-g_{date.strftime('%Y%m%d')}_{hr}_{digit2_mem}_{fct}.pp"
-        outfile = f"englaa_pd{fct}.pp"
-
-        # Generate a unique query file
-        local_query_file1 = os.path.join(
-            self.config_values["mogreps_dummy_queryfiles_dir"], f"localquery_{uuid.uuid1()}"
-        )
-        self.create_query_file(local_query_file1, filemoose, fct)
-
-        outfile_path = os.path.join(remote_data_dir, outfile)
-
-        if os.path.exists(outfile_path):
-            if os.path.getsize(outfile_path) == 0:
-                print(os.path.getsize(outfile_path))
-                print(f"Deleting empty file {outfile_path}")
-                os.remove(outfile_path)
-
-        if not os.path.exists(outfile_path):
-            print("EXECCCC")
-            command = (
-                f"/opt/moose-client-wrapper/bin/moo select --fill-gaps "
-                f"{local_query_file1} {moose_dir} {os.path.join(remote_data_dir, outfile)}"
-            )
-            logger.info("Executing command: %s", command)
-
-            try:
-                subprocess.run(command, shell=True, check=True)
-                logger.info("Data retrieval successful.")
-            except subprocess.CalledProcessError as e:
-                logger.error("Error during data retrieval: %s", e)
-            except Exception as e:
-                logger.error("An unexpected error occurred: %s", e)
-        else:
-            print(f"{os.path.join(remote_data_dir, outfile)} exists. Skip...")
-
-        if os.path.exists(local_query_file1):
-            os.remove(local_query_file1)
-
     def retrieve_mogreps_data(self, date, parallel=True):
-        print("Retrieving data for date:", date)
+        """
+        Retrieve all required MOGREPS files for one date.
+
+        Returns
+        -------
+        bool
+            True if all retrieval jobs succeeded, else False.
+        """
         self._init_config_values()
+        logger.info("Retrieving MOGREPS data for Cold Surge on %s", date)
 
-        hr_list = [12, 18]
-        fc_times = np.arange(0, 174, 24)
-        print(fc_times)
+        tasks = list(self._iter_tasks(date))
 
-        # Create a list of tuples for all combinations of hr and mem
-        tasks = [
-            (date, hr, fc, digit2_mem)
-            for hr in hr_list
-            for fc in fc_times
-            for digit2_mem in self._get_all_members(hr)
-        ]
+        if not parallel:
+            return all(self._retrieve_fc_data(*task) for task in tasks)
 
-        if parallel:
-            # Use ThreadPoolExecutor to run tasks in parallel
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                # Submit tasks to the executor
-                futures = [executor.submit(self.retrieve_fc_data_parallel, *task) for task in tasks]
-
-                # Wait for all tasks to complete
-                concurrent.futures.wait(futures)
-
-            # Check if all tasks are completed
-            all_tasks_completed = all(future.done() for future in futures)
-            return all_tasks_completed
-        else:
-            for task in tasks:
-                self.retrieve_fc_data_parallel(*task)
-            return True
+        max_workers = int(self.config.get("max_workers", 10))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = [executor.submit(self._retrieve_fc_data, *task) for task in tasks]
+            return all(f.result() for f in concurrent.futures.as_completed(futures))
 
 class ComputeColdSurgeIndices(Task):
     """Task to compute Cold Surge indices (v-wind 850hPa and precipitation)."""
