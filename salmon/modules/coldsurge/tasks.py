@@ -197,93 +197,282 @@ class RetrieveColdSurgeData(Task):
             return all(f.result() for f in concurrent.futures.as_completed(futures))
 
 class ComputeColdSurgeIndices(Task):
-    """Task to compute Cold Surge indices (v-wind 850hPa and precipitation)."""
+    """
+    Compute Cold Surge indices from retrieved MOGREPS PP files.
+
+    Outputs
+    -------
+    NetCDF files (one per variable) containing all available members:
+      - precip
+      - u850
+      - v850
+
+    Notes
+    -----
+    - Expects input files in: <raw_dir>/<YYYYMMDD>/<member3>/englaa_pd<fc>.pp
+    - Forecast steps are 24-hourly from 0 to 168 hours.
+    - Member directories are expected as 000..035.
+    """
+
+    FC_TIMES = tuple(np.arange(0, 174, 24))
+    VAR_SPECS = {
+        "precip": {"iris_var": "precipitation_amount"},
+        "u850": {"iris_var": "x_wind", "pressure_level": 850},
+        "v850": {"iris_var": "y_wind", "pressure_level": 850},
+    }
+
     def run(self):
+        """Task entrypoint."""
         date = self.context.date
-        model = self.context.get_config('model', 'mogreps')
-        
-        global_config = load_global_config()
-        model_config = global_config.get(model, {})
-        
-        raw_dir = model_config.get('raw', '/tmp/salmon_raw/mogreps')
-        processed_base = model_config.get('processed', f'/tmp/salmon_processed/{model}')
-        
-        output_dir = os.path.join(processed_base, 'coldsurge', self.context.recipe_name)
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-            
-        logger.info(f"Computing Cold Surge indices for {date}...")
-        
-        # Original logic uses 12Z and 18Z members
-        members = []
-        for hr in [12, 18]:
-            members.extend(self._get_all_members(hr))
-            
-        fc_times = [f"{fct:03d}" for fct in np.arange(0, 174, 24)]
-        
-        for varname in ['precip', 'u850', 'v850']:
-            var_dir = os.path.join(output_dir, varname)
-            if not os.path.exists(var_dir):
-                os.makedirs(var_dir, exist_ok=True)
-                
-            output_file = os.path.join(var_dir, f"{varname}_ColdSurge_24h_allMember_{date.strftime('%Y%m%d')}.nc")
-            
-            if os.path.exists(output_file):
-                logger.info(f"{output_file} already exists. Skipping.")
+        self._init_config_values()
+        self.process_forecast_data(date=date, members=self._member_directories())
+
+    def _init_config_values(self):
+        """Load and cache model paths used by this task."""
+        if hasattr(self, "config_values"):
+            return
+
+        model = self.context.get_config("model", "mogreps")
+        model_config = load_global_config().get(model, {})
+
+        raw_dir = model_config.get("raw", "/tmp/salmon_raw/mogreps")
+        processed_base = model_config.get("processed", f"/tmp/salmon_processed/{model}")
+        cs_processed_dir = os.path.join(processed_base, "coldsurge", self.context.recipe_name)
+
+        self.config_values = {
+            "model": model,
+            "mogreps_raw_dir": raw_dir,
+            "mogreps_cs_processed_dir": cs_processed_dir,
+            "obsgrid_file": self.config.get(
+                "obsgrid_file", os.path.join(os.getcwd(), "data", "obsgrid_145x73.nc")
+            ),
+        }
+        os.makedirs(cs_processed_dir, exist_ok=True)
+
+    def _member_directories(self):
+        """Return expected 3-digit member directories (000..035)."""
+        return [f"{m:03d}" for m in range(36)]
+
+    def _forecast_steps(self):
+        """Return forecast-step strings ['000', '024', ..., '168']."""
+        return [f"{fct:03d}" for fct in self.FC_TIMES]
+
+    def load_base_cube(self):
+        """
+        Load observational target grid used for optional regridding.
+        """
+        base_cube = iris.load_cube(self.config_values["obsgrid_file"])
+        for coord_name, units in (("latitude", "degrees_north"), ("longitude", "degrees_east")):
+            base_cube.coord(coord_name).units = units
+            base_cube.coord(coord_name).coord_system = None
+        return base_cube
+
+    def regrid2obs(self, cube):
+        """
+        Regrid cube to the observational grid using linear interpolation.
+        """
+        base_cube = self.load_base_cube()
+
+        for coord_name, units in (("latitude", "degrees_north"), ("longitude", "degrees_east")):
+            coord = cube.coord(coord_name)
+            coord.units = units
+            coord.coord_system = None
+            if coord.bounds is None:
+                coord.guess_bounds()
+
+        return cube.regrid(base_cube, iris.analysis.Linear())
+
+    def subset_seasia(self, cube):
+        """Subset cube to Southeast Asia domain."""
+        return cube.intersection(latitude=(-10, 25), longitude=(85, 145))
+
+    def _normalise_for_merge(self, cube):
+        """Remove known problematic scalar coords before merging."""
+        for coord in ("forecast_reference_time", "realization", "time"):
+            if cube.coords(coord):
+                cube.remove_coord(coord)
+        return cube
+
+    def _ensure_bounds(self, cube):
+        """Ensure forecast_period/time bounds exist for consistent metadata."""
+        for coord_name in ("forecast_period", "time"):
+            if cube.coords(coord_name):
+                coord = cube.coord(coord_name)
+                if coord.bounds is None:
+                    p = coord.points[0]
+                    coord.bounds = [[p - 1.0, p + 1.0]]
+        return cube
+
+    def read_precip_correctly(self, data_files, varname="precipitation_amount", lbproc=0):
+        """
+        Read and merge precipitation cubes across forecast steps.
+
+        Parameters
+        ----------
+        data_files : list[str]
+            Input PP files.
+        varname : str
+            Variable name to load from files.
+        lbproc : int
+            Kept for compatibility; unused in this implementation.
+        """
+        cubes = []
+        for data_file in sorted(data_files):
+            cube = iris.load_cube(data_file, varname)
+            if cube.ndim == 3:
+                cube = cube.collapsed("time", iris.analysis.MEAN)
+            cube = self._ensure_bounds(cube)
+            cube = self._normalise_for_merge(cube)
+            cubes.append(cube)
+
+        if not cubes:
+            raise ValueError("No precipitation cubes loaded.")
+
+        # Align metadata to avoid merge issues
+        ref_cell_methods = cubes[0].cell_methods
+        for cube in cubes:
+            cube.cell_methods = ref_cell_methods
+            if cube.coords("forecast_period"):
+                fp = cube.coord("forecast_period")
+                cube.replace_coord(
+                    iris.coords.DimCoord(
+                        fp.points, standard_name="forecast_period", units=fp.units
+                    )
+                )
+
+        merged = iris.cube.CubeList(cubes).merge_cube()
+        return self.subset_seasia(merged)
+
+    def read_olr_correctly(self, data_files, varname="olr", lbproc=0):
+        """
+        Read and merge OLR cubes.
+
+        Notes
+        -----
+        This keeps compatibility with STASH-based PP filtering.
+        """
+        if varname != "olr":
+            raise ValueError("read_olr_correctly currently supports varname='olr' only.")
+
+        from iris.fileformats.rules import load_pairs_from_fields
+
+        stash_code = "m01s02i205"
+        cubes = []
+
+        for data_file in sorted(data_files):
+            if not os.path.exists(data_file):
+                raise FileNotFoundError(f"{data_file} does not exist.")
+
+            filtered_fields = []
+            for field in iris.fileformats.pp.load(data_file):
+                if field.stash == stash_code and field.lbproc == lbproc:
+                    filtered_fields.append(field)
+
+            cube_field_pairs = load_pairs_from_fields(filtered_fields)
+            for cube, field in cube_field_pairs:
+                cube.attributes["lbproc"] = field.lbproc
+                cubes.append(cube)
+
+        if not cubes:
+            raise ValueError("No OLR cubes loaded.")
+
+        iris.util.equalise_attributes(cubes)
+        merged = iris.cube.CubeList(cubes).merge_cube()
+        return self.subset_seasia(merged)
+
+    def read_winds_correctly(self, data_files, varname, pressure_level=None):
+        """
+        Read and merge wind cubes across forecast steps.
+        """
+        cubes = []
+        for data_file in sorted(data_files):
+            cube = iris.load_cube(data_file, varname)
+            if pressure_level is not None:
+                cube = cube.extract(iris.Constraint(pressure=pressure_level))
+            if cube.ndim == 3:
+                cube = cube.collapsed("time", iris.analysis.MEAN)
+            cube = self._ensure_bounds(cube)
+            cubes.append(cube)
+
+        if not cubes:
+            raise ValueError(f"No wind cubes loaded for {varname}.")
+
+        iris.util.equalise_attributes(cubes)
+        for cube in cubes:
+            cube.cell_methods = ()
+
+        merged = iris.cube.CubeList(cubes).merge_cube()
+        return self.subset_seasia(merged)
+
+    def process_forecast_data(self, date, members):
+        """
+        Build and save all-member Cold Surge files for precip, u850, and v850.
+        """
+        fc_times = self._forecast_steps()
+        raw_root = self.config_values["mogreps_raw_dir"]
+        out_root = self.config_values["mogreps_cs_processed_dir"]
+        regrid_to_obs = bool(self.config.get("regrid_to_obs", False))
+
+        logger.info("Computing Cold Surge indices for %s", date.strftime("%Y-%m-%d"))
+
+        for varname, spec in self.VAR_SPECS.items():
+            out_dir = os.path.join(out_root, varname)
+            os.makedirs(out_dir, exist_ok=True)
+
+            out_file = os.path.join(
+                out_dir, f"{varname}_ColdSurge_24h_allMember_{date.strftime('%Y%m%d')}.nc"
+            )
+            if os.path.exists(out_file):
+                logger.info("%s already exists. Skipping.", out_file)
                 continue
 
             cubes = []
             for mem in members:
-                digit3_mem = '035' if mem == '00' else str('%03d' % int(mem)) # Simplified mapping
-                # Re-evaluating member mapping to match retrieval
-                # Actually, digit3_mem depends on 'hr' as well in retrieval.
-                # However, raw_dir/YYYYMMDD/MEM3 should be unique.
-                # Let's search for the member folder
-                mem_path = os.path.join(raw_dir, date.strftime("%Y%m%d"), digit3_mem)
-                if not os.path.exists(mem_path):
-                    # Try alternate mapping for member 00 if it was from hr 12
-                    digit3_mem = '000'
-                    mem_path = os.path.join(raw_dir, date.strftime("%Y%m%d"), digit3_mem)
-                
-                mog_files = [os.path.join(raw_dir, date.strftime("%Y%m%d"), digit3_mem, f"englaa_pd{fct}.pp") 
-                             for fct in fc_times]
-                
-                # Filter files that exist
-                existing_files = [f for f in mog_files if os.path.exists(f)]
+                files = [
+                    os.path.join(raw_root, date.strftime("%Y%m%d"), mem, f"englaa_pd{fct}.pp")
+                    for fct in fc_times
+                ]
+                existing_files = [f for f in files if os.path.exists(f)]
                 if not existing_files:
-                    logger.warning(f"No files found for member {mem} at {mem_path}")
+                    logger.warning("No files found for member %s", mem)
                     continue
 
-                realiz_coord = iris.coords.DimCoord([int(mem)], standard_name='realization', var_name='realization')
-                
-                if varname == 'precip':
-                    cube = read_precip_correctly(existing_files)
+                if varname == "precip":
+                    cube = self.read_precip_correctly(existing_files, spec["iris_var"])
                     if cube.shape[0] > 1:
                         cube.data[1:] -= cube.data[:-1]
-                elif varname == 'u850':
-                    cube = read_winds_correctly(existing_files, 'x_wind', pressure_level=850)
-                elif varname == 'v850':
-                    cube = read_winds_correctly(existing_files, 'y_wind', pressure_level=850)
-                
-                cube = subset_seasia(cube)
-                
-                # Cleanup coordinates for merging
-                for coord in ['forecast_reference_time', 'realization', 'time']:
-                    if cube.coords(coord):
-                        cube.remove_coord(coord)
-                cube.add_aux_coord(realiz_coord)
+                else:
+                    cube = self.read_winds_correctly(
+                        existing_files,
+                        spec["iris_var"],
+                        pressure_level=spec.get("pressure_level"),
+                    )
+
+                self._normalise_for_merge(cube)
+                cube.add_aux_coord(
+                    iris.coords.DimCoord(
+                        [int(mem)], standard_name="realization", var_name="realization"
+                    )
+                )
                 cubes.append(cube)
 
-            if cubes:
-                merged_cube = iris.cube.CubeList(cubes).merge_cube()
-                iris.save(merged_cube, output_file, netcdf_format='NETCDF4_CLASSIC')
-                logger.info(f"Saved merged members to {output_file}")
-            else:
-                logger.error(f"No cubes found to merge for {varname}")
+            if not cubes:
+                logger.error("No cubes found to merge for %s on %s", varname, date.strftime("%Y%m%d"))
+                continue
+
+            merged = iris.cube.CubeList(cubes).merge_cube()
+            if regrid_to_obs:
+                merged = self.regrid2obs(merged)
+
+            iris.save(merged, out_file, netcdf_format="NETCDF4_CLASSIC")
+            logger.info("Saved merged members to %s", out_file)
 
     def _get_all_members(self, hr):
+        """
+        Backward-compatible helper retained for external callers.
+        """
         if hr == 12:
-            return [str('%02d' % mem) for mem in range(18)]
-        elif hr == 18:
-            return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
+            return [f"{mem:02d}" for mem in range(18)]
+        if hr == 18:
+            return [f"{mem:02d}" for mem in range(18, 35)] + ["00"]
         return []
