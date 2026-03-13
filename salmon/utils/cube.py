@@ -1,4 +1,10 @@
 import iris
+import iris.cube
+import iris.coords
+import iris.analysis
+import iris.util
+import iris.coord_systems
+import iris.coord_categorisation
 import os
 from typing import List, Optional
 

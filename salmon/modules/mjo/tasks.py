@@ -6,6 +6,11 @@ import subprocess
 import concurrent.futures
 from typing import Dict, Any, List
 import iris
+import iris.cube
+import iris.coords
+import iris.analysis
+import iris.analysis.maths
+import iris.coord_categorisation
 import numpy as np
 import pandas as pd
 from salmon.core.task import Task

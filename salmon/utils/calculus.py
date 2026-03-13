@@ -1,4 +1,5 @@
 import iris
+import iris.cube
 import numpy as np
 import iris.analysis.maths
 import iris.coords

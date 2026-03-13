@@ -7,7 +7,7 @@ setup(
     author="Prince Xavier",
     packages=find_packages(),
     install_requires=[
-        "iris",
+        "scitools-iris",  # IMPORTANT: use 'scitools-iris', NOT bare 'iris' (that is illumon-iris)
         "numpy",
         "pyyaml",
         "click",
