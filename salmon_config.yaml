@@ -15,6 +15,7 @@ mogreps:
   processed: $SCRATCH/SALMON/processed_SEA_data/mogreps
   archive: $DATA/SALMON/processed_SEA_data/mogreps
   plots: $DATA/SALMON/processed_SEA_data/mogreps
+  mock_retrieval: False
 
 glosea:
   raw: $SCRATCH/SALMON/raw_data/glosea/glosea_bucket
