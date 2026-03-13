@@ -7,11 +7,16 @@ import subprocess
 from typing import Dict, Any, List
 import numpy as np
 import iris
-import iris.coords
+import json
+from bokeh.plotting import figure, save, output_file
+from bokeh.models import ColumnDataSource, Title, Range1d, LinearColorMapper, ColorBar, GeoJSONDataSource
+from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
+from .bokeh_vector import vector
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
 from salmon.utils.cube import read_winds_correctly, read_precip_correctly, subset_seasia
+
 import sys
 import warnings
 # Set the global warning filter to ignore all warnings
@@ -237,7 +242,7 @@ class ComputeColdSurgeIndices(Task):
 
         raw_dir = model_config.get("raw", "/tmp/salmon_raw/mogreps")
         processed_base = model_config.get("processed", f"/tmp/salmon_processed/{model}")
-        cs_processed_dir = os.path.join(processed_base, "coldsurge", self.context.recipe_name)
+        cs_processed_dir = os.path.join(processed_base, "coldsurge")
 
         self.config_values = {
             "model": model,
@@ -282,10 +287,6 @@ class ComputeColdSurgeIndices(Task):
 
         return cube.regrid(base_cube, iris.analysis.Linear())
 
-    def subset_seasia(self, cube):
-        """Subset cube to Southeast Asia domain."""
-        return cube.intersection(latitude=(-10, 25), longitude=(85, 145))
-
     def _normalise_for_merge(self, cube):
         """Remove known problematic scalar coords before merging."""
         for coord in ("forecast_reference_time", "realization", "time"):
@@ -303,107 +304,7 @@ class ComputeColdSurgeIndices(Task):
                     coord.bounds = [[p - 1.0, p + 1.0]]
         return cube
 
-    def read_precip_correctly(self, data_files, varname="precipitation_amount", lbproc=0):
-        """
-        Read and merge precipitation cubes across forecast steps.
-
-        Parameters
-        ----------
-        data_files : list[str]
-            Input PP files.
-        varname : str
-            Variable name to load from files.
-        lbproc : int
-            Kept for compatibility; unused in this implementation.
-        """
-        cubes = []
-        for data_file in sorted(data_files):
-            cube = iris.load_cube(data_file, varname)
-            if cube.ndim == 3:
-                cube = cube.collapsed("time", iris.analysis.MEAN)
-            cube = self._ensure_bounds(cube)
-            cube = self._normalise_for_merge(cube)
-            cubes.append(cube)
-
-        if not cubes:
-            raise ValueError("No precipitation cubes loaded.")
-
-        # Align metadata to avoid merge issues
-        ref_cell_methods = cubes[0].cell_methods
-        for cube in cubes:
-            cube.cell_methods = ref_cell_methods
-            if cube.coords("forecast_period"):
-                fp = cube.coord("forecast_period")
-                cube.replace_coord(
-                    iris.coords.DimCoord(
-                        fp.points, standard_name="forecast_period", units=fp.units
-                    )
-                )
-
-        merged = iris.cube.CubeList(cubes).merge_cube()
-        return self.subset_seasia(merged)
-
-    def read_olr_correctly(self, data_files, varname="olr", lbproc=0):
-        """
-        Read and merge OLR cubes.
-
-        Notes
-        -----
-        This keeps compatibility with STASH-based PP filtering.
-        """
-        if varname != "olr":
-            raise ValueError("read_olr_correctly currently supports varname='olr' only.")
-
-        from iris.fileformats.rules import load_pairs_from_fields
-
-        stash_code = "m01s02i205"
-        cubes = []
-
-        for data_file in sorted(data_files):
-            if not os.path.exists(data_file):
-                raise FileNotFoundError(f"{data_file} does not exist.")
-
-            filtered_fields = []
-            for field in iris.fileformats.pp.load(data_file):
-                if field.stash == stash_code and field.lbproc == lbproc:
-                    filtered_fields.append(field)
-
-            cube_field_pairs = load_pairs_from_fields(filtered_fields)
-            for cube, field in cube_field_pairs:
-                cube.attributes["lbproc"] = field.lbproc
-                cubes.append(cube)
-
-        if not cubes:
-            raise ValueError("No OLR cubes loaded.")
-
-        iris.util.equalise_attributes(cubes)
-        merged = iris.cube.CubeList(cubes).merge_cube()
-        return self.subset_seasia(merged)
-
-    def read_winds_correctly(self, data_files, varname, pressure_level=None):
-        """
-        Read and merge wind cubes across forecast steps.
-        """
-        cubes = []
-        for data_file in sorted(data_files):
-            cube = iris.load_cube(data_file, varname)
-            if pressure_level is not None:
-                cube = cube.extract(iris.Constraint(pressure=pressure_level))
-            if cube.ndim == 3:
-                cube = cube.collapsed("time", iris.analysis.MEAN)
-            cube = self._ensure_bounds(cube)
-            cubes.append(cube)
-
-        if not cubes:
-            raise ValueError(f"No wind cubes loaded for {varname}.")
-
-        iris.util.equalise_attributes(cubes)
-        for cube in cubes:
-            cube.cell_methods = ()
-
-        merged = iris.cube.CubeList(cubes).merge_cube()
-        return self.subset_seasia(merged)
-
+    
     def process_forecast_data(self, date, members):
         """
         Build and save all-member Cold Surge files for precip, u850, and v850.
@@ -438,11 +339,11 @@ class ComputeColdSurgeIndices(Task):
                     continue
 
                 if varname == "precip":
-                    cube = self.read_precip_correctly(existing_files, spec["iris_var"])
+                    cube = read_precip_correctly(existing_files, spec["iris_var"])
                     if cube.shape[0] > 1:
                         cube.data[1:] -= cube.data[:-1]
                 else:
-                    cube = self.read_winds_correctly(
+                    cube = read_winds_correctly(
                         existing_files,
                         spec["iris_var"],
                         pressure_level=spec.get("pressure_level"),
@@ -476,3 +377,303 @@ class ComputeColdSurgeIndices(Task):
         if hr == 18:
             return [f"{mem:02d}" for mem in range(18, 35)] + ["00"]
         return []
+
+
+class DisplayColdSurgeMaps(Task):
+    """
+    Create Bokeh map products from processed Cold Surge NetCDF files.
+
+    Products
+    --------
+    - Ensemble-mean precip + 850hPa wind vectors (HTML)
+    - Ensemble probability precip maps for configured thresholds (HTML)
+    """
+
+    def run(self):
+        """Task entrypoint."""
+        date = self.context.date
+        self._init_config_values()
+
+        do_ensmean = bool(self.config.get("plot_ensmean", True))
+        do_probmaps = bool(self.config.get("plot_probmaps", True))
+        precip_thresholds = self.config.get("precip_thresholds", [10, 20, 30])
+
+        if do_ensmean:
+            self.bokeh_plot_forecast_ensemble_mean(date)
+        if do_probmaps:
+            self.bokeh_plot_forecast_probability_precip(date, precip_thresholds=precip_thresholds)
+
+    def _init_config_values(self):
+        """Load and cache plotting/config paths."""
+        if hasattr(self, "config_values"):
+            return
+
+        model = self.context.get_config("model", "mogreps")
+        model_cfg = load_global_config().get(model, {})
+
+        processed_base = model_cfg.get("processed", f"/tmp/salmon_processed/{model}")
+        cs_processed_dir = os.path.join(processed_base, "coldsurge", self.context.recipe_name)
+        cs_plot_ens_dir = self.config.get(
+            "plot_dir",
+            os.path.join(processed_base, "coldsurge", self.context.recipe_name, "plots", "ens"),
+        )
+
+        self.config_values = {
+            "model": model,
+            f"{model}_cs_processed_dir": cs_processed_dir,
+            f"{model}_cs_plot_ens": cs_plot_ens_dir,
+            f"{model}_cs_plot_prob": os.path.join(cs_plot_ens_dir, "prob"),
+            "map_outline_json_file": self.config.get(
+                "map_outline_json_file",
+                os.path.join(os.getcwd(), "display", "data", "custom.geo.json"),
+            ),
+        }
+        os.makedirs(cs_plot_ens_dir, exist_ok=True)
+
+        # vector thinning by model
+        if model == "glosea":
+            self.xSkip, self.ySkip = 2, 2
+        else:
+            self.xSkip, self.ySkip = 5, 5
+
+    def write_dates_json(self, date, json_file):
+        """Append YYYYMMDD to a JSON date list (unique + sorted)."""
+        new_date = date.strftime("%Y%m%d")
+        if not os.path.exists(json_file):
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump([new_date], f, indent=2)
+            return
+
+        with open(json_file, "r", encoding="utf-8") as f:
+            existing_dates = json.load(f)
+
+        if new_date not in existing_dates:
+            existing_dates.append(new_date)
+            existing_dates.sort()
+
+        with open(json_file, "w", encoding="utf-8") as f:
+            json.dump(existing_dates, f, indent=2)
+
+    def plot_image_map(self, plot, cube, **kwargs):
+        """Draw gridded data as image and attach a colorbar."""
+        palette = kwargs.get("palette", GnBu9)
+        if kwargs.get("palette_reverse", False):
+            palette = palette[::-1]
+
+        lons = cube.coord("longitude").points
+        lats = cube.coord("latitude").points
+
+        color_mapper = LinearColorMapper(
+            palette=palette, low=kwargs.get("low", 0.0), high=kwargs.get("high", 1.0)
+        )
+        plot.image(
+            image=[cube.data],
+            x=min(lons),
+            y=min(lats),
+            dw=max(lons) - min(lons),
+            dh=max(lats) - min(lats),
+            color_mapper=color_mapper,
+            alpha=0.7,
+        )
+        plot.x_range = Range1d(start=min(lons), end=max(lons))
+        plot.y_range = Range1d(start=min(lats), end=max(lats))
+
+        color_bar = ColorBar(
+            color_mapper=color_mapper,
+            label_standoff=12,
+            border_line_color=None,
+            location=(0, 0),
+            orientation="vertical",
+            title=kwargs.get("cbar_title"),
+        )
+        plot.add_layout(color_bar, "right")
+        return plot
+
+    def plot_vectors(self, plot, u, v, **kwargs):
+        """Draw vector arrows using the local Bokeh vector helper."""
+        vec = vector(
+            u,
+            v,
+            xSkip=kwargs.get("xSkip", self.xSkip),
+            ySkip=kwargs.get("ySkip", self.ySkip),
+            maxSpeed=kwargs.get("maxSpeed", 10.0),
+            arrowType=kwargs.get("arrowType", "barbed"),
+            arrowHeadScale=kwargs.get("arrowHeadScale", 0.1),
+            palette=kwargs.get("palette", TolRainbow12),
+            palette_reverse=kwargs.get("palette_reverse", False),
+        )
+        source = ColumnDataSource(dict(xs=vec.xs, ys=vec.ys, colors=vec.colors))
+        plot.patches(xs="xs", ys="ys", fill_color="colors", line_color="colors", alpha=0.5, source=source)
+        return plot
+
+    def extract_and_collapse(self, cube, box):
+        """Area-mean over [lon0, lon1, lat0, lat1]."""
+        sub = cube.intersection(latitude=(box[2], box[3]), longitude=(box[0], box[1]))
+        return sub.collapsed(("latitude", "longitude"), iris.analysis.MEAN)
+
+    def cold_surge_probabilities(self, u850_cube, v850_cube, speed_cube):
+        """
+        Compute CS and CES ensemble probabilities (%) by lead time.
+        """
+        chang_box = [107, 115, 5, 10]
+        hattori_box = [105, 115, -5, 5]
+        chang_threshold = 9.0
+        hattori_threshold = -2.0
+
+        u850_ba = self.extract_and_collapse(u850_cube, chang_box)
+        v850_ba = self.extract_and_collapse(v850_cube, chang_box)
+        speed_ba = self.extract_and_collapse(speed_cube, chang_box)
+        v850_hattori = self.extract_and_collapse(v850_cube, hattori_box)
+
+        mask_cs = (u850_ba.data < 0.0) & (v850_ba.data < 0.0) & (speed_ba.data >= chang_threshold)
+        mask_ces = mask_cs & (v850_hattori.data <= hattori_threshold)
+
+        cs_prob = [round(p, 1) for p in 100.0 * np.sum(mask_cs, axis=0) / float(len(mask_cs))]
+        ces_prob = [round(p, 1) for p in 100.0 * np.sum(mask_ces, axis=0) / float(len(mask_ces))]
+        return cs_prob, ces_prob
+
+    def get_file_name(self, date, varname):
+        """Return processed NetCDF file path for variable/date."""
+        model = self.config_values["model"]
+        root = self.config_values[f"{model}_cs_processed_dir"]
+        return os.path.join(root, varname, f"{varname}_ColdSurge_24h_allMember_{date:%Y%m%d}.nc")
+
+    def _load_required_cubes(self, date):
+        """Load precip/u850/v850 cubes and compute speed cube."""
+        precip_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "precip")))
+        u850_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "u850")))
+        v850_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "v850")))
+        speed_cube = (u850_cube ** 2 + v850_cube ** 2) ** 0.5
+        return precip_cube, u850_cube, v850_cube, speed_cube
+
+    def _add_map_outline(self, plot):
+        """Overlay coast/country outline from GeoJSON, if present."""
+        outline = self.config_values["map_outline_json_file"]
+        if not os.path.exists(outline):
+            logger.warning("Map outline not found: %s", outline)
+            return plot
+
+        with open(outline, "r", encoding="utf-8") as f:
+            countries = GeoJSONDataSource(geojson=f.read())
+        plot.patches("xs", "ys", color=None, line_color="black", fill_color=None, fill_alpha=0.2, source=countries, alpha=0.5)
+        return plot
+
+    def bokeh_plot_forecast_ensemble_mean(self, date, plot_width=700):
+        """Generate ensemble-mean precip+wind HTML maps for all lead times."""
+        precip_cube, u850_cube, v850_cube, speed_cube = self._load_required_cubes(date)
+        cs_prob, ces_prob = self.cold_surge_probabilities(u850_cube, v850_cube, speed_cube)
+
+        precip_mean = precip_cube.collapsed("realization", iris.analysis.MEAN)
+        u850_mean = u850_cube.collapsed("realization", iris.analysis.MEAN)
+        v850_mean = v850_cube.collapsed("realization", iris.analysis.MEAN)
+
+        lons = precip_mean[0].coord("longitude").points
+        lats = precip_mean[0].coord("latitude").points
+        height = int(plot_width / (((max(lons) - min(lons)) / (max(lats) - min(lats))) * 1.0))
+        date_label = date.strftime("%Y%m%d")
+        ntimes = len(precip_cube.coord("forecast_period").points)
+
+        model = self.config_values["model"]
+        html_dir = os.path.join(self.config_values[f"{model}_cs_plot_ens"], date_label)
+        os.makedirs(html_dir, exist_ok=True)
+
+        for t in np.arange(ntimes):
+            valid_date = date + datetime.timedelta(days=int(t))
+            title = f"Ensemble mean P, UV850 [CS:{cs_prob[t]}%, CES:{ces_prob[t]}%]"
+            subtitle = (
+                f"Forecast start: {date_label}, Lead: T+{t}d "
+                f"Valid for 24H up to {valid_date:%Y%m%d}"
+            )
+
+            plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom,hover")
+            plot = self.plot_image_map(
+                plot,
+                precip_mean[t],
+                palette=GnBu9,
+                palette_reverse=True,
+                low=5,
+                high=30,
+                cbar_title="Precipitation (mm/day)",
+            )
+            plot = self.plot_vectors(
+                plot,
+                u850_mean[t],
+                v850_mean[t],
+                palette=RdPu9,
+                palette_reverse=True,
+                maxSpeed=5,
+                arrowHeadScale=0.2,
+                arrowType="barbed",
+            )
+            plot = self._add_map_outline(plot)
+            plot.add_layout(Title(text=subtitle, text_font_style="italic"), "above")
+            plot.add_layout(Title(text=title, text_font_size="12pt"), "above")
+
+            out_html = os.path.join(html_dir, f"Cold_surge_EnsMean_{date_label}_T{t * 24}h.html")
+            output_file(out_html)
+            save(plot)
+            logger.info("Plotted %s", out_html)
+
+        self.write_dates_json(
+            date,
+            os.path.join(self.config_values[f"{model}_cs_plot_ens"], f"{model}_ensmean_plot_dates.json"),
+        )
+
+    def bokeh_plot_forecast_probability_precip(self, date, precip_thresholds=None, plot_width=700):
+        """Generate precip exceedance-probability HTML maps for all lead times."""
+        if precip_thresholds is None:
+            precip_thresholds = [10, 20, 30]
+
+        precip_cube, u850_cube, v850_cube, speed_cube = self._load_required_cubes(date)
+        cs_prob, ces_prob = self.cold_surge_probabilities(u850_cube, v850_cube, speed_cube)
+
+        lons = precip_cube.coord("longitude").points
+        lats = precip_cube.coord("latitude").points
+        height = int(plot_width / (((max(lons) - min(lons)) / (max(lats) - min(lats))) * 1.0))
+        date_label = date.strftime("%Y%m%d")
+        ntimes = len(precip_cube.coord("forecast_period").points)
+
+        model = self.config_values["model"]
+        html_dir = os.path.join(self.config_values[f"{model}_cs_plot_ens"], date_label)
+        os.makedirs(html_dir, exist_ok=True)
+
+        for threshold in precip_thresholds:
+            precip_prob = precip_cube.collapsed(
+                "realization",
+                iris.analysis.PROPORTION,
+                function=lambda values, thr=threshold: values > thr,
+            )
+
+            for t in np.arange(ntimes):
+                valid_date = date + datetime.timedelta(days=int(t))
+                title = f"Ensemble probability of Precipitation [CS:{cs_prob[t]}%, CES:{ces_prob[t]}%]"
+                subtitle = (
+                    f"Forecast start: {date_label}, Lead: T+{t}d "
+                    f"Valid for 24H up to {valid_date:%Y%m%d}"
+                )
+
+                plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom,hover")
+                plot = self.plot_image_map(
+                    plot,
+                    precip_prob[t],
+                    palette=GnBu9,
+                    palette_reverse=True,
+                    low=0.1,
+                    high=1.0,
+                    cbar_title=f"Precipitation probability (p >= {threshold} mm/day)",
+                )
+                plot = self._add_map_outline(plot)
+                plot.add_layout(Title(text=subtitle, text_font_style="italic"), "above")
+                plot.add_layout(Title(text=title, text_font_size="12pt"), "above")
+
+                out_html = os.path.join(
+                    html_dir, f"Cold_surge_ProbMaps_{date_label}_T{t * 24}h_Pr{threshold}.html"
+                )
+                output_file(out_html)
+                save(plot)
+                logger.info("Plotted %s", out_html)
+
+        self.write_dates_json(
+            date,
+            os.path.join(self.config_values[f"{model}_cs_plot_ens"], f"{model}_ProbMaps_plot_dates.json"),
+        )

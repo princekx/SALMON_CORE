@@ -14,3 +14,7 @@ tasks:
   - name: "Compute Cold Surge Indices"
     module: salmon.modules.coldsurge.tasks
     class: ComputeColdSurgeIndices
+
+  - name: "Generate Cold Surge Plots"
+    module: salmon.modules.coldsurge.tasks
+    class: DisplayColdSurgeMaps

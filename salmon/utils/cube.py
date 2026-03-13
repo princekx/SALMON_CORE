@@ -163,3 +163,4 @@ def create_latlon_grid(latitudes: tuple = (-90.5, 90.5),
     data = np.zeros((n_lat, n_lon))
     cube = iris.cube.Cube(data, dim_coords_and_dims=[(lat_coord, 0), (lon_coord, 1)])
     return cube
+
