@@ -1,0 +1,25 @@
+# This is a transfigured version of the mass-r filtering codes present in the
+# GsppScr_GetOnsetData script.
+[header]
+mode = MODE
+suite = SUITE          # forecast
+psnum = PSNUM
+system = SYSTEM    # glosea4|glosea4new|glosea5 [OPTIONAL]
+start_date = START_DATE  # First initialisation date to extract [REQUIRED]
+final_date = FINAL_DATE  # Last ini
+output_dir = OUTPUT_DIR
+
+[stash1]
+stash_num = 30201, 30202
+stream = apd
+submodel = atmos
+levels = 200, 850
+proc_type = 128
+meaning_period = daily
+
+[stash2]
+stash_num = 05216, 03332
+stream = apd
+submodel = atmos
+proc_type = 128
+meaning_period = daily

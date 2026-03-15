@@ -11,18 +11,31 @@ import json
 from bokeh.plotting import figure, save, output_file
 from bokeh.models import ColumnDataSource, Title, Range1d, LinearColorMapper, ColorBar, GeoJSONDataSource
 from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
-from .bokeh_vector import vector
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
 from salmon.utils.cube import read_winds_correctly, read_precip_correctly, subset_seasia
-
+from salmon.utils.bokeh_utils import Vector
 import sys
 import warnings
 # Set the global warning filter to ignore all warnings
 warnings.simplefilter("ignore")
 
 logger = logging.getLogger(__name__)
+
+def _describe_task(task_obj):
+    """Return normalized task metadata for logging/debug."""
+    cls = task_obj.__class__
+    return {
+        "task": (
+            getattr(task_obj.context, "task_name", None)
+            or task_obj.config.get("name")
+            or cls.__name__
+        ),
+        "module": cls.__module__,
+        "class": cls.__name__,
+        "config": dict(task_obj.config),
+    }
 
 class RetrieveColdSurgeData(Task):
     """
@@ -41,9 +54,19 @@ class RetrieveColdSurgeData(Task):
 
     def run(self):
         """Task entrypoint."""
+        meta = _describe_task(self)
+        logger.info(
+            "Task: %s, Module: %s, Class: %s, Config: %s",
+            meta["task"], meta["module"], meta["class"], meta["config"]
+        )
+
         date = self.context.date
+        print(meta["config"].get("query"))  # Debug print to check context config values
+        sys.exit(0)
+
         parallel = self.config.get("parallel", True)
         success = self.retrieve_mogreps_data(date=date, parallel=parallel)
+
         if success:
             logger.info("Cold Surge data retrieval complete.")
         else:
@@ -54,6 +77,7 @@ class RetrieveColdSurgeData(Task):
         if hasattr(self, "config_values"):
             return
 
+        
         mogreps = load_global_config().get("mogreps", {})
         self.config_values = {
             "mogreps_moose_dir": mogreps.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
@@ -61,6 +85,8 @@ class RetrieveColdSurgeData(Task):
             "mogreps_combined_queryfile": mogreps.get("query"),
             "mogreps_dummy_queryfiles_dir": mogreps.get("temp", "/tmp/salmon_temp"),
         }
+        print(f"Config values for retrieval: {self.config_values}")
+        sys.exit(0)
         os.makedirs(self.config_values["mogreps_dummy_queryfiles_dir"], exist_ok=True)
 
     def _get_all_members(self, hr):
@@ -410,14 +436,20 @@ class DisplayColdSurgeMaps(Task):
 
         model = self.context.get_config("model", "mogreps")
         model_cfg = load_global_config().get(model, {})
-
+        #print(model_cfg)
+        #print(self.config)
+        #print('**************************')
         processed_base = model_cfg.get("processed", f"/tmp/salmon_processed/{model}")
-        cs_processed_dir = os.path.join(processed_base, "coldsurge", self.context.recipe_name)
+        cs_processed_dir = os.path.join(processed_base, "coldsurge")
         cs_plot_ens_dir = self.config.get(
-            "plot_dir",
-            os.path.join(processed_base, "coldsurge", self.context.recipe_name, "plots", "ens"),
+            "plots",
+            os.path.join(processed_base, "coldsurge", "plot_ens"),
         )
-
+        #print(f'cs_processed_dir: {cs_processed_dir}')
+        #print(f'processed_base: {processed_base}')
+        #print(f'cs_plot_ens_dir: {self.config.get("plots")}')
+        #print('**************************')
+        
         self.config_values = {
             "model": model,
             f"{model}_cs_processed_dir": cs_processed_dir,
@@ -425,11 +457,12 @@ class DisplayColdSurgeMaps(Task):
             f"{model}_cs_plot_prob": os.path.join(cs_plot_ens_dir, "prob"),
             "map_outline_json_file": self.config.get(
                 "map_outline_json_file",
-                os.path.join(os.getcwd(), "display", "data", "custom.geo.json"),
+                os.path.normpath(_DEFAULT_MAP_JSON),
             ),
         }
         os.makedirs(cs_plot_ens_dir, exist_ok=True)
-
+        print(self.config_values)
+        
         # vector thinning by model
         if model == "glosea":
             self.xSkip, self.ySkip = 2, 2
@@ -491,7 +524,7 @@ class DisplayColdSurgeMaps(Task):
 
     def plot_vectors(self, plot, u, v, **kwargs):
         """Draw vector arrows using the local Bokeh vector helper."""
-        vec = vector(
+        vec = Vector(
             u,
             v,
             xSkip=kwargs.get("xSkip", self.xSkip),

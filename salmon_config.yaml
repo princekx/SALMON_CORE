@@ -11,10 +11,9 @@ mogreps:
   raw: $SCRATCH/SALMON/raw_data/mogreps/mogreps_bucket
   moose: moose:/opfc/atm/mogreps-g/prods/
   temp: $SCRATCH/SALMON/temp
-  query: $HOME/MJO/SALMON/RETRIEVALS/mogreps_combined.query
   processed: $SCRATCH/SALMON/processed_SEA_data/mogreps
   archive: $DATA/SALMON/processed_SEA_data/mogreps
-  plots: $DATA/SALMON/processed_SEA_data/mogreps
+  plots: $DATA/SALMON/processed_SEA_data/mogreps/CORE_TEST_PLOTS
   mock_retrieval: False
 
 glosea:
@@ -26,3 +25,4 @@ glosea:
 
 global:
   forecast_out_dir: $SCRATCH/SALMON/processed_SEA_data/mogreps
+  map_outline_json_file: $HOME/MJO/MJO/SALMON_v2/SALMON_CORE/utils/map_files/map_outline.json

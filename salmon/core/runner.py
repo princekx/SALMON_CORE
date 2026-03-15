@@ -83,6 +83,8 @@ class Runner:
             class_name = task_conf.get('class')
             task_config = task_conf.get('config', {})
             
+            print(f"Task: {task_name}, Module: {module_name}, Class: {class_name}, Config: {task_config}")
+            
             logger.info(f"Running task: {task_name}")
             try:
                 TaskClass = Registry.load_task_class(module_name, class_name)

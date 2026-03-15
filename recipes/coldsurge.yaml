@@ -10,6 +10,7 @@ tasks:
     class: RetrieveColdSurgeData
     config:
       members: 36
+      query: "mogreps_combined.query"
 
   - name: "Compute Cold Surge Indices"
     module: salmon.modules.coldsurge.tasks
