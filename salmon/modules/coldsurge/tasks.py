@@ -23,6 +23,16 @@ warnings.simplefilter("ignore")
 
 logger = logging.getLogger(__name__)
 
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_UTILS_DIR = os.path.normpath(os.path.join(_THIS_DIR, "..", "..", "utils"))
+
+_DEFAULT_MAP_JSON = os.path.normpath(
+    os.path.join(_UTILS_DIR, "map_data", "custom.geo.json")
+)
+_DEFAULT_QUERY_DIR = os.path.normpath(
+    os.path.join(_UTILS_DIR, "query_files")
+)
+
 class RetrieveColdSurgeData(Task):
     """
     Retrieve MOGREPS files needed for Cold Surge processing.
@@ -54,20 +64,18 @@ class RetrieveColdSurgeData(Task):
         """Load and cache retrieval paths/config used by helper methods."""
         if hasattr(self, "config_values"):
             return
-
         
         mogreps = load_global_config().get("mogreps", {})
         self.config_values = {
             "mogreps_moose_dir": mogreps.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
             "mogreps_raw_dir": mogreps.get("raw", "/tmp/salmon_raw/mogreps"),
-            "mogreps_combined_queryfile": self.config.get(
-                "query",
-                mogreps.get("query"),
+            "mogreps_combined_queryfile": os.path.join(
+                _DEFAULT_QUERY_DIR,
+                self.config.get("query", mogreps.get("query"))
             ),
             "mogreps_dummy_queryfiles_dir": mogreps.get("temp", "/tmp/salmon_temp"),
         }
         print(f"Config values for retrieval: {self.config_values}")
-        sys.exit(0)
         os.makedirs(self.config_values["mogreps_dummy_queryfiles_dir"], exist_ok=True)
 
     def _get_all_members(self, hr):
@@ -311,7 +319,6 @@ class ComputeColdSurgeIndices(Task):
                     coord.bounds = [[p - 1.0, p + 1.0]]
         return cube
 
-    
     def process_forecast_data(self, date, members):
         """
         Build and save all-member Cold Surge files for precip, u850, and v850.
@@ -417,19 +424,13 @@ class DisplayColdSurgeMaps(Task):
 
         model = self.context.get_config("model", "mogreps")
         model_cfg = load_global_config().get(model, {})
-        #print(model_cfg)
-        #print(self.config)
-        #print('**************************')
+        
         processed_base = model_cfg.get("processed", f"/tmp/salmon_processed/{model}")
         cs_processed_dir = os.path.join(processed_base, "coldsurge")
         cs_plot_ens_dir = self.config.get(
             "plots",
             os.path.join(processed_base, "coldsurge", "plot_ens"),
         )
-        #print(f'cs_processed_dir: {cs_processed_dir}')
-        #print(f'processed_base: {processed_base}')
-        #print(f'cs_plot_ens_dir: {self.config.get("plots")}')
-        #print('**************************')
         
         self.config_values = {
             "model": model,
@@ -442,7 +443,6 @@ class DisplayColdSurgeMaps(Task):
             ),
         }
         os.makedirs(cs_plot_ens_dir, exist_ok=True)
-        print(self.config_values)
         
         # vector thinning by model
         if model == "glosea":
