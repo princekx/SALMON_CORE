@@ -23,20 +23,6 @@ warnings.simplefilter("ignore")
 
 logger = logging.getLogger(__name__)
 
-def _describe_task(task_obj):
-    """Return normalized task metadata for logging/debug."""
-    cls = task_obj.__class__
-    return {
-        "task": (
-            getattr(task_obj.context, "task_name", None)
-            or task_obj.config.get("name")
-            or cls.__name__
-        ),
-        "module": cls.__module__,
-        "class": cls.__name__,
-        "config": dict(task_obj.config),
-    }
-
 class RetrieveColdSurgeData(Task):
     """
     Retrieve MOGREPS files needed for Cold Surge processing.
@@ -54,16 +40,8 @@ class RetrieveColdSurgeData(Task):
 
     def run(self):
         """Task entrypoint."""
-        meta = _describe_task(self)
-        logger.info(
-            "Task: %s, Module: %s, Class: %s, Config: %s",
-            meta["task"], meta["module"], meta["class"], meta["config"]
-        )
-
         date = self.context.date
-        print(meta["config"].get("query"))  # Debug print to check context config values
-        sys.exit(0)
-
+        print(self.context)  # Debug print to check context config values
         parallel = self.config.get("parallel", True)
         success = self.retrieve_mogreps_data(date=date, parallel=parallel)
 
@@ -82,7 +60,10 @@ class RetrieveColdSurgeData(Task):
         self.config_values = {
             "mogreps_moose_dir": mogreps.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
             "mogreps_raw_dir": mogreps.get("raw", "/tmp/salmon_raw/mogreps"),
-            "mogreps_combined_queryfile": mogreps.get("query"),
+            "mogreps_combined_queryfile": self.config.get(
+                "query",
+                mogreps.get("query"),
+            ),
             "mogreps_dummy_queryfiles_dir": mogreps.get("temp", "/tmp/salmon_temp"),
         }
         print(f"Config values for retrieval: {self.config_values}")
