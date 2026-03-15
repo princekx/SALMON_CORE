@@ -427,10 +427,13 @@ class DisplayColdSurgeMaps(Task):
         
         processed_base = model_cfg.get("processed", f"/tmp/salmon_processed/{model}")
         cs_processed_dir = os.path.join(processed_base, "coldsurge")
-        cs_plot_ens_dir = self.config.get(
-            "plots",
-            os.path.join(processed_base, "coldsurge", "plot_ens"),
-        )
+        
+        # Allow model-specific plot directory from config, else default to processed_dir/coldsurge/plot_ens
+        if model_cfg.get('plots'):
+            print(f"Using model-specific plot directory from config: {model_cfg.get('plots')}")
+            cs_plot_ens_dir = os.path.join(model_cfg.get('plots'), "coldsurge", "plot_ens")
+        else:
+            cs_plot_ens_dir = os.path.join(processed_base, "coldsurge", "plot_ens")
         
         self.config_values = {
             "model": model,

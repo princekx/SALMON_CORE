@@ -13,7 +13,7 @@ mogreps:
   temp: $SCRATCH/SALMON/temp
   processed: $SCRATCH/SALMON/processed_SEA_data/mogreps
   archive: $DATA/SALMON/processed_SEA_data/mogreps
-  plots: $DATA/SALMON/processed_SEA_data/mogreps/CORE_TEST_PLOTS
+  #plots: $DATA/SALMON/processed_SEA_data/mogreps/CORE_TEST_PLOTS
   mock_retrieval: False
 
 glosea:
