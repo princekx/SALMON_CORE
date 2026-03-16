@@ -32,6 +32,14 @@ _DEFAULT_MAP_JSON = os.path.normpath(
 _DEFAULT_QUERY_DIR = os.path.normpath(
     os.path.join(_UTILS_DIR, "query_files")
 )
+HR_LIST = (12, 18)
+FC_TIMES = tuple(np.arange(0, 174, 24))
+
+VAR_SPECS = {
+    "precip": {"iris_var": "precipitation_amount"},
+    "u850": {"iris_var": "x_wind", "pressure_level": 850},
+    "v850": {"iris_var": "y_wind", "pressure_level": 850},
+}
 
 class RetrieveColdSurgeData(Task):
     """
@@ -44,9 +52,6 @@ class RetrieveColdSurgeData(Task):
       * 18Z -> 18..34 plus '00' (mapped to directory member 035)
     - Forecast steps are 24-hourly from 0 to 168 hours.
     """
-
-    HR_LIST = (12, 18)
-    FC_TIMES = tuple(np.arange(0, 174, 24))
 
     def run(self):
         """Task entrypoint."""
@@ -88,8 +93,8 @@ class RetrieveColdSurgeData(Task):
 
     def _iter_tasks(self, date):
         """Yield (date, hr, fc, member) combinations to retrieve."""
-        for hr in self.HR_LIST:
-            for fc in self.FC_TIMES:
+        for hr in HR_LIST:
+            for fc in FC_TIMES:
                 for mem in self._get_all_members(hr):
                     yield (date, hr, fc, mem)
 
@@ -234,13 +239,6 @@ class ComputeColdSurgeIndices(Task):
     - Member directories are expected as 000..035.
     """
 
-    FC_TIMES = tuple(np.arange(0, 174, 24))
-    VAR_SPECS = {
-        "precip": {"iris_var": "precipitation_amount"},
-        "u850": {"iris_var": "x_wind", "pressure_level": 850},
-        "v850": {"iris_var": "y_wind", "pressure_level": 850},
-    }
-
     def run(self):
         """Task entrypoint."""
         date = self.context.date
@@ -275,7 +273,7 @@ class ComputeColdSurgeIndices(Task):
 
     def _forecast_steps(self):
         """Return forecast-step strings ['000', '024', ..., '168']."""
-        return [f"{fct:03d}" for fct in self.FC_TIMES]
+        return [f"{fct:03d}" for fct in FC_TIMES]
 
     def load_base_cube(self):
         """
@@ -330,7 +328,7 @@ class ComputeColdSurgeIndices(Task):
 
         logger.info("Computing Cold Surge indices for %s", date.strftime("%Y-%m-%d"))
 
-        for varname, spec in self.VAR_SPECS.items():
+        for varname, spec in VAR_SPECS.items():
             out_dir = os.path.join(out_root, varname)
             os.makedirs(out_dir, exist_ok=True)
 
@@ -391,7 +389,6 @@ class ComputeColdSurgeIndices(Task):
         if hr == 18:
             return [f"{mem:02d}" for mem in range(18, 35)] + ["00"]
         return []
-
 
 class DisplayColdSurgeMaps(Task):
     """
