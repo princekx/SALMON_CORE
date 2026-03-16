@@ -410,12 +410,15 @@ class DisplayColdSurgeMaps(Task):
 
         do_ensmean = bool(self.config.get("plot_ensmean", True))
         do_probmaps = bool(self.config.get("plot_probmaps", True))
+        do_prob_json = bool(self.config.get("export_prob_json", True))
         precip_thresholds = self.config.get("precip_thresholds", [10, 20, 30])
 
         if do_ensmean:
             self.bokeh_plot_forecast_ensemble_mean(date)
         if do_probmaps:
             self.bokeh_plot_forecast_probability_precip(date, precip_thresholds=precip_thresholds)
+        if do_prob_json:
+            self.export_forecast_probability_precip_json(date, precip_thresholds=precip_thresholds)
 
     def _init_config_values(self):
         """Load and cache plotting/config paths."""
@@ -694,3 +697,79 @@ class DisplayColdSurgeMaps(Task):
             date,
             os.path.join(self.config_values[f"{model}_cs_plot_ens"], f"{model}_ProbMaps_plot_dates.json"),
         )
+
+    def export_forecast_probability_precip_json(self, date, precip_thresholds=None):
+        """
+        Export precip exceedance probability grids to JSON for JS dashboards (e.g. MapGL overlays).
+
+        Output structure:
+        {
+          "model": "...",
+          "forecast_start": "YYYYMMDD",
+          "longitude": [...],
+          "latitude": [...],
+          "products": [
+            {
+              "threshold_mm_day": 10,
+              "lead_hours": 24,
+              "valid_to": "YYYYMMDD",
+              "cs_prob_percent": 12.3,
+              "ces_prob_percent": 4.5,
+              "grid_shape": [nlat, nlon],
+              "probability_flat": [ ... ]   # row-major flatten of [lat, lon], values in [0,1]
+            },
+            ...
+          ]
+        }
+        """
+        if precip_thresholds is None:
+            precip_thresholds = [10, 20, 30]
+
+        precip_cube, u850_cube, v850_cube, speed_cube = self._load_required_cubes(date)
+        cs_prob, ces_prob = self.cold_surge_probabilities(u850_cube, v850_cube, speed_cube)
+
+        lons = precip_cube.coord("longitude").points
+        lats = precip_cube.coord("latitude").points
+        ntimes = len(precip_cube.coord("forecast_period").points)
+
+        model = self.config_values["model"]
+        out_dir = os.path.join(self.config_values[f"{model}_cs_plot_prob"], date.strftime("%Y%m%d"))
+        os.makedirs(out_dir, exist_ok=True)
+
+        payload = {
+            "model": model,
+            "forecast_start": date.strftime("%Y%m%d"),
+            "longitude": [float(x) for x in lons],
+            "latitude": [float(y) for y in lats],
+            "products": [],
+        }
+
+        for threshold in precip_thresholds:
+            precip_prob = precip_cube.collapsed(
+                "realization",
+                iris.analysis.PROPORTION,
+                function=lambda values, thr=threshold: values > thr,
+            )
+
+            for t in range(ntimes):
+                grid = np.asarray(precip_prob[t].data, dtype=float)  # [lat, lon]
+
+                payload["products"].append(
+                    {
+                        "threshold_mm_day": float(threshold),
+                        "lead_hours": int(t * 24),
+                        "valid_to": (date + datetime.timedelta(days=int(t))).strftime("%Y%m%d"),
+                        "cs_prob_percent": float(cs_prob[t]),
+                        "ces_prob_percent": float(ces_prob[t]),
+                        "grid_shape": [int(grid.shape[0]), int(grid.shape[1])],
+                        "probability_flat": [float(v) for v in grid.ravel(order="C")],
+                    }
+                )
+
+        out_json = os.path.join(
+            out_dir, f"Cold_surge_ProbMaps_{date.strftime('%Y%m%d')}.json"
+        )
+        with open(out_json, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+
+        logger.info("Exported probability overlay JSON: %s", out_json)
