@@ -445,9 +445,9 @@ class ComputeMJOIndices(Task):
                     
                     # regrid to analysis grid which is the same as obs grid
                     fc_cube = regrid_to_obs(fc_cube, self.obs_grid)
-                    print(analysis_cubes[varname])
-                    print(fc_cube)
+                    # Concatenate analysis and forecast cubes
                     cat_cube = self._concat_analysis_fcast(analysis_cubes[varname], fc_cube)
+                    # Save concatenated cube for potential debugging/reuse
                     iris.save(cat_cube, concated_file, netcdf_format='NETCDF4_CLASSIC')
                 else:
                     cat_cube = iris.load_cube(concated_file)
