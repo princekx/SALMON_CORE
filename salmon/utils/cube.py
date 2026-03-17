@@ -18,7 +18,14 @@ def load_obs_grid(base_dir: str) -> iris.cube.Cube:
         iris.cube.Cube: The target observation grid cube.
     """
     obs_file = os.path.join(base_dir, 'data', 'obsgrid_145x73.nc')
-    return iris.load_cube(obs_file)
+    base_cube = iris.load_cube(obs_file)
+    for coord_name in ['latitude', 'longitude']:
+            base_cube.coord(coord_name).units = 'degrees_north' \
+                if coord_name == 'latitude' else 'degrees_east'
+            base_cube.coord(coord_name).coord_system = None
+            if base_cube.coord(coord_name).bounds is None:
+                base_cube.coord(coord_name).guess_bounds()
+    return base_cube
 
 def regrid_to_obs(cube: iris.cube.Cube, target_grid: iris.cube.Cube) -> iris.cube.Cube:
     """Regrid an input cube to the standard observation grid.
@@ -30,6 +37,13 @@ def regrid_to_obs(cube: iris.cube.Cube, target_grid: iris.cube.Cube) -> iris.cub
     Returns:
         iris.cube.Cube: The regridded cube.
     """
+    for coord_name in ['latitude', 'longitude']:
+            cube.coord(coord_name).units = 'degrees_north' \
+                if coord_name == 'latitude' else 'degrees_east'
+            cube.coord(coord_name).coord_system = None
+            if cube.coord(coord_name).bounds is None:
+                cube.coord(coord_name).guess_bounds()
+
     return cube.regrid(target_grid, iris.analysis.Linear())
 
 def remove_um_version(cube, field, filename):

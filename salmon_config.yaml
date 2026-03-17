@@ -4,24 +4,24 @@ analysis:
   temp: $SCRATCH/SALMON/temp
   query: $HOME/MJO/SALMON/RETRIEVALS/analysis_combined.query
   processed: $SCRATCH/SALMON/processed_SEA_data/analysis
-  archive: $DATA/SALMON/processed_SEA_data/analysis
-  plots: $DATA/SALMON/processed_SEA_data/analysis
+  archive: $DATADIR/SALMON/processed_SEA_data/analysis
+  plots: $DATADIR/SALMON/processed_SEA_data/analysis
 
 mogreps:
   raw: $SCRATCH/SALMON/raw_data/mogreps/mogreps_bucket
   moose: moose:/opfc/atm/mogreps-g/prods/
   temp: $SCRATCH/SALMON/temp
   processed: $SCRATCH/SALMON/processed_SEA_data/mogreps
-  archive: $DATA/SALMON/processed_SEA_data/mogreps
-  #plots: $DATA/SALMON/processed_SEA_data/mogreps/CORE_TEST_PLOTS
+  archive: $DATADIR/SALMON/processed_SEA_data/mogreps
+  #plots: $DATADIR/SALMON/processed_SEA_data/mogreps/CORE_TEST_PLOTS
   mock_retrieval: False
 
 glosea:
   raw: $SCRATCH/SALMON/raw_data/glosea/glosea_bucket
   moose: moose:/opfc/atm/glosea/prods/
   processed: $SCRATCH/SALMON/processed_SEA_data/glosea
-  archive: $DATA/SALMON/processed_SEA_data/glosea
-  plots: $DATA/SALMON/processed_SEA_data/glosea
+  archive: $DATADIR/SALMON/processed_SEA_data/glosea
+  plots: $DATADIR/SALMON/processed_SEA_data/glosea
 
 global:
   forecast_out_dir: $SCRATCH/SALMON/processed_SEA_data/mogreps

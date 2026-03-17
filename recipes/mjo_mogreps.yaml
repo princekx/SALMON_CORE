@@ -10,7 +10,8 @@ tasks:
     class: RetrieveAnalysisData
     config:
       num_prev_days: 201
-      parallel: true
+      parallel: True
+      query: "analysis_combined.query"
 
   - name: "Combine Analysis Data"
     module: salmon.modules.mjo.tasks
@@ -21,8 +22,11 @@ tasks:
     class: RetrieveMogrepsData
     config:
       members: 36
-      parallel: true
+      parallel: True
+      query: "mogreps_combined.query"
 
   - name: "Compute MJO Indices"
     module: salmon.modules.mjo.tasks
     class: ComputeMJOIndices
+    config:
+      parallel: False

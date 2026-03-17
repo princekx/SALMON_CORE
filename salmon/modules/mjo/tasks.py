@@ -1,6 +1,7 @@
 import os
 import logging
 import datetime
+import sys
 import uuid
 import subprocess
 import concurrent.futures
@@ -17,8 +18,18 @@ from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
 from salmon.utils.cube import regrid_to_obs, load_obs_grid, remove_um_version
-
+import warnings
+# Set the global warning filter to ignore all warnings
+warnings.simplefilter("ignore")
 logger = logging.getLogger(__name__)
+
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_UTILS_DIR = os.path.normpath(os.path.join(_THIS_DIR, "..", "..", "utils"))
+_DEFAULT_QUERY_DIR = os.path.normpath(
+    os.path.join(_UTILS_DIR, "query_files")
+)
+HR_LIST = [0, 12]
+FC_TIMES = np.arange(0, 174, 24)
 
 class RetrieveAnalysisData(Task):
     """Task to retrieve previous 201 days of GL-MN analysis data from MOOSE."""
@@ -32,7 +43,12 @@ class RetrieveAnalysisData(Task):
         
         moose_base = analysis_config.get('moose', 'moose:/opfc/atm/global/prods/')
         raw_dir = analysis_config.get('raw', '/tmp/salmon_raw/analysis')
-        query_template = analysis_config.get('query')
+        #query_template = analysis_config.get('query')
+        query_template = os.path.join(
+                _DEFAULT_QUERY_DIR,
+                self.config.get("query", analysis_config.get("query"))
+            )
+        
         temp_dir = analysis_config.get('temp', '/tmp/salmon_temp')
 
         if not os.path.exists(temp_dir):
@@ -108,8 +124,9 @@ class CombineAnalysisData(Task):
 
         logger.info(f"Combining {num_prev_days} days of analysis data...")
         
-        obs_grid = load_obs_grid(global_config.get('base_dir', '/home/users/prince.xavier/MJO/SALMON/MJO'))
-
+        obs_grid = load_obs_grid(_THIS_DIR)
+        print(f"Observation grid loaded with shape: {obs_grid.shape}")
+        
         if parallel:
             with concurrent.futures.ProcessPoolExecutor() as executor:
                 futures = [executor.submit(self._process_variable, var, info, past_dates, raw_dir, processed_base, obs_grid) 
@@ -123,7 +140,9 @@ class CombineAnalysisData(Task):
 
     def _process_variable(self, varname, info, past_dates, raw_dir, processed_base, obs_grid):
         date_str = past_dates[-1].strftime("%Y%m%d")
-        var_processed_dir = os.path.join(processed_base, varname)
+        var_processed_dir = os.path.join(processed_base, 'mjo', varname)
+        print(f"Processing variable {varname} for date {date_str} to {var_processed_dir}")
+        
         if not os.path.exists(var_processed_dir):
             os.makedirs(var_processed_dir, exist_ok=True)
             
@@ -156,89 +175,184 @@ class CombineAnalysisData(Task):
         logger.info(f"Saved {outpath}")
 
 class RetrieveMogrepsData(Task):
-    """Task to retrieve MOGREPS forecast data from MOOSE."""
+    """
+    Retrieve MOGREPS files needed for MJO processing.
+
+    Notes
+    -----
+    - Members are split by cycle:
+      * 12Z -> 00..17
+      * 18Z -> 18..34 plus '00' (mapped to directory member 035)
+    - Forecast steps are 24-hourly from 0 to 168 hours.
+    """
+
     def run(self):
+        """Task entrypoint."""
         date = self.context.date
-        parallel = self.config.get('parallel', True)
-        
-        global_config = load_global_config()
-        mogreps_config = global_config.get('mogreps', {})
-        
-        moose_base = mogreps_config.get('moose', 'moose:/opfc/atm/mogreps-g/prods/')
-        raw_dir = mogreps_config.get('raw', '/tmp/salmon_raw/mogreps')
-        query_template = mogreps_config.get('query')
-        temp_dir = mogreps_config.get('temp', '/tmp/salmon_temp')
+        parallel = self.config.get("parallel", True)
+        success = self.retrieve_mogreps_data(date=date, parallel=parallel)
 
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir, exist_ok=True)
-
-        logger.info(f"Retrieving MOGREPS data for {date}...")
-        
-        hr_list = [0, 12]
-        fc_times = np.arange(0, 174, 24)
-        
-        tasks_to_run = []
-        for hr in hr_list:
-            members = self._get_all_members(hr)
-            for fc in fc_times:
-                for mem in members:
-                    tasks_to_run.append((date, hr, fc, mem, moose_base, raw_dir, query_template, temp_dir))
-        
-        if parallel:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-                futures = [executor.submit(self._retrieve_for_member, *t) for t in tasks_to_run]
-                concurrent.futures.wait(futures)
+        if success:
+            logger.info("MOGREPS data retrieval complete.")
         else:
-            for t in tasks_to_run:
-                self._retrieve_for_member(*t)
+            logger.warning("MOGREPS data retrieval completed with errors.")
 
-        logger.info("MOGREPS data retrieval complete.")
+    def _init_config_values(self):
+        """Load and cache retrieval paths/config used by helper methods."""
+        if hasattr(self, "config_values"):
+            return
+        
+        mogreps = load_global_config().get("mogreps", {})
+        self.config_values = {
+            "mogreps_moose_dir": mogreps.get("moose", "moose:/opfc/atm/mogreps-g/prods/"),
+            "mogreps_raw_dir": mogreps.get("raw", "/tmp/salmon_raw/mogreps"),
+            "mogreps_combined_queryfile": os.path.join(
+                _DEFAULT_QUERY_DIR,
+                self.config.get("query", mogreps.get("query"))
+            ),
+            "mogreps_dummy_queryfiles_dir": mogreps.get("temp", "/tmp/salmon_temp"),
+        }
+        print(f"Config values for retrieval: {self.config_values}")
+        os.makedirs(self.config_values["mogreps_dummy_queryfiles_dir"], exist_ok=True)
 
     def _get_all_members(self, hr):
-        if hr == 0:
-            return [str('%02d' % mem) for mem in range(18)]
-        elif hr == 6:
-            return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
-        elif hr == 12:
-            return [str('%02d' % mem) for mem in range(18)]
-        elif hr == 18:
-            return [str('%02d' % mem) for mem in range(18, 35)] + ['00']
+        """Return 2-digit member IDs for a given model cycle hour."""
+        if hr == 12:
+            return [f"{mem:02d}" for mem in range(18)]
+        if hr == 18:
+            return [f"{mem:02d}" for mem in range(18, 35)] + ["00"]
         return []
 
-    def _retrieve_for_member(self, date, hr, fc, digit2_mem, moose_base, raw_dir, query_template, temp_dir):
-        # OS47 date transition logic
-        os47_date = datetime.datetime(2026, 1, 21)
-        if date > os47_date:
-            moosedir = os.path.join(moose_base, f"{date.year}.pp")
-        else:
-            moosedir = os.path.join(moose_base, f"{date.strftime('%Y%m')}.pp")
+    def _iter_tasks(self, date):
+        """Yield (date, hr, fc, member) combinations to retrieve."""
+        for hr in HR_LIST:
+            for fc in FC_TIMES:
+                for mem in self._get_all_members(hr):
+                    yield (date, hr, fc, mem)
 
-        digit3_mem = '035' if (hr == 18 and digit2_mem == '00') else str('%03d' % int(digit2_mem))
-        mem_dir = os.path.join(raw_dir, date.strftime("%Y%m%d"), digit3_mem)
-        
-        if not os.path.exists(mem_dir):
-            os.makedirs(mem_dir, exist_ok=True)
+    def _resolve_moose_dir(self, date):
+        """
+        Resolve source MOOSE directory.
 
+        Historical OS47 fallback logic is intentionally left disabled.
+        """
+        return os.path.join(self.config_values["mogreps_moose_dir"], f"{date:%Y%m}.pp")
+
+    def _map_member_to_dir(self, hr, digit2_mem):
+        """Map 2-digit member ID to 3-digit on-disk directory name."""
+        return "035" if (hr == 18 and digit2_mem == "00") else f"{int(digit2_mem):03d}"
+
+    def _retrieve_fc_data(self, date, hr, fc, digit2_mem):
+        """Retrieve one forecast file for one member/cycle."""
+        self._init_config_values()
+
+        moose_dir = self._resolve_moose_dir(date)
+        digit3_mem = self._map_member_to_dir(hr, digit2_mem)
         fct = f"{fc:03d}"
-        filemoose = f"prods_op_mogreps-g_{date.strftime('%Y%m%d')}_{hr}_{digit2_mem}_{fct}.pp"
+
+        remote_data_dir = os.path.join(
+            self.config_values["mogreps_raw_dir"], date.strftime("%Y%m%d"), digit3_mem
+        )
+        os.makedirs(remote_data_dir, exist_ok=True)
+
+        filemoose = f"prods_op_mogreps-g_{date:%Y%m%d}_{hr}_{digit2_mem}_{fct}.pp"
         outfile = f"englaa_pd{fct}.pp"
-        outpath = os.path.join(mem_dir, outfile)
+        outfile_path = os.path.join(remote_data_dir, outfile)
 
-        if os.path.exists(outpath) and os.path.getsize(outpath) > 0:
-            return
+        # Remove corrupt empty file before retry
+        if os.path.exists(outfile_path) and os.path.getsize(outfile_path) == 0:
+            logger.warning("Deleting empty file: %s", outfile_path)
+            os.remove(outfile_path)
 
-        moose_client = MooseClient()
-        local_query = os.path.join(temp_dir, f"query_{uuid.uuid4()}.query")
-        
-        moose_client.create_query_file(query_template, local_query, {'fctime': fct, 'filemoose': filemoose})
-        success = moose_client.retrieve(local_query, moosedir, outpath)
-        
-        if os.path.exists(local_query):
-            os.remove(local_query)
-        
-        if not success:
-            logger.warning(f"Failed to retrieve MOGREPS {filemoose}")
+        if os.path.exists(outfile_path):
+            logger.debug("%s exists. Skip.", outfile_path)
+            return True
 
+        local_query_file = os.path.join(
+            self.config_values["mogreps_dummy_queryfiles_dir"], f"localquery_{uuid.uuid1()}"
+        )
+
+        try:
+            self.create_query_file(local_query_file, filemoose, fct)
+
+            command = [
+                "/opt/moose-client-wrapper/bin/moo",
+                "select",
+                "--fill-gaps",
+                local_query_file,
+                moose_dir,
+                outfile_path,
+            ]
+            logger.info("Executing command: %s", " ".join(command))
+            subprocess.run(command, check=True)
+            return True
+
+        except subprocess.CalledProcessError as exc:
+            logger.error("Data retrieval failed for %s: %s", outfile_path, exc)
+            return False
+        except Exception as exc:
+            logger.error("Unexpected retrieval error for %s: %s", outfile_path, exc)
+            return False
+        finally:
+            if os.path.exists(local_query_file):
+                os.remove(local_query_file)
+
+    # Backward-compatible method name used elsewhere in code.
+    def retrieve_fc_data_parallel(self, date, hr, fc, digit2_mem):
+        """Compatibility wrapper around the streamlined retrieval function."""
+        return self._retrieve_fc_data(date, hr, fc, digit2_mem)
+
+    # Backward-compatible signature used by old run() style.
+    def _retrieve_for_member(self, date, hr, fc, digit2_mem, *_unused):
+        """Compatibility wrapper for legacy tuple-based submit arguments."""
+        return self._retrieve_fc_data(date, hr, fc, digit2_mem)
+
+    def check_if_all_data_exist(self, date, hr, fc, digit2_mem):
+        """Check if one retrieved file exists and is non-empty."""
+        self._init_config_values()
+        digit3_mem = self._map_member_to_dir(hr, digit2_mem)
+        outfile_path = os.path.join(
+            self.config_values["mogreps_raw_dir"],
+            date.strftime("%Y%m%d"),
+            digit3_mem,
+            f"englaa_pd{fc:03d}.pp",
+        )
+        return os.path.exists(outfile_path) and os.path.getsize(outfile_path) > 0
+
+    def create_query_file(self, local_query_file1, filemoose, fct):
+        """Create a per-request query file from the configured template."""
+        self._init_config_values()
+        query_file = self.config_values["mogreps_combined_queryfile"]
+        replacements = {"fctime": fct, "filemoose": filemoose}
+
+        with open(query_file) as query_infile, open(local_query_file1, "w") as query_outfile:
+            for line in query_infile:
+                for src, target in replacements.items():
+                    line = line.replace(src, target)
+                query_outfile.write(line)
+
+    def retrieve_mogreps_data(self, date, parallel=True):
+        """
+        Retrieve all required MOGREPS files for one date.
+
+        Returns
+        -------
+        bool
+            True if all retrieval jobs succeeded, else False.
+        """
+        self._init_config_values()
+        logger.info("Retrieving MOGREPS data for Cold Surge on %s", date)
+
+        tasks = list(self._iter_tasks(date))
+
+        if not parallel:
+            return all(self._retrieve_fc_data(*task) for task in tasks)
+
+        max_workers = int(self.config.get("max_workers", 10))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = [executor.submit(self._retrieve_fc_data, *task) for task in tasks]
+            return all(f.result() for f in concurrent.futures.as_completed(futures))
+        
 class ComputeMJOIndices(Task):
     """Task to compute MJO (RMM) indices from combined data."""
     def __init__(self, context, config):
@@ -247,12 +361,12 @@ class ComputeMJOIndices(Task):
         self.nanalysis2write = 40
         self.nforecasts = 7 # MOGREPS specific
         self.data_dir = os.path.join(os.path.dirname(__file__), 'data')
-
+        self.obs_grid = load_obs_grid(_THIS_DIR)
+        
     def run(self):
         date = self.context.date
         model = self.context.get_config('model', 'mogreps')
         parallel = self.config.get('parallel', True)
-        
         global_config = load_global_config()
         analysis_config = global_config.get('analysis', {})
         model_config = global_config.get(model, {})
@@ -261,8 +375,8 @@ class ComputeMJOIndices(Task):
         model_processed_dir = model_config.get('processed', f'/tmp/salmon_processed/{model}')
         archive_base = model_config.get('archive', f'/tmp/salmon_archive/{model}')
         
-        recipe_processed_dir = os.path.join(model_processed_dir, 'mjo', self.context.recipe_name)
-        archive_dir = os.path.join(archive_base, 'mjo', self.context.recipe_name, date.strftime("%Y%m%d"))
+        recipe_processed_dir = os.path.join(model_processed_dir, 'mjo')
+        archive_dir = os.path.join(archive_base, 'mjo', 'rmms', date.strftime("%Y%m%d"))
         
         if not os.path.exists(recipe_processed_dir):
             os.makedirs(recipe_processed_dir, exist_ok=True)
@@ -275,7 +389,8 @@ class ComputeMJOIndices(Task):
         
         # Load analysis cubes once
         analysis_cubes = self._load_analysis_cubes(date, analysis_processed_dir)
-        
+        print(f"Loaded analysis cubes for variables: {list(analysis_cubes.keys())}")
+
         if parallel:
             with concurrent.futures.ProcessPoolExecutor() as executor:
                 futures = [executor.submit(self._process_member, mem, date, model, model_config, 
@@ -290,12 +405,13 @@ class ComputeMJOIndices(Task):
 
     def _get_all_members(self, date):
         # Using 00Z and 12Z members for MOGREPS
-        return [f"{m:02d}" for m in range(18)] # Simplified for now, can be expanded
+        return [f"{m:03d}" for m in range(18)] # Simplified for now, can be expanded
 
     def _load_analysis_cubes(self, date, analysis_processed_dir):
         cubes = {}
         for var in ['olr', 'u850', 'u200']:
-            path = os.path.join(analysis_processed_dir, var, f"{var}_mean_nrt_{date.strftime('%Y%m%d')}.nc")
+            path = os.path.join(analysis_processed_dir, 'mjo', var, f"{var}_mean_nrt_{date.strftime('%Y%m%d')}.nc")
+            print(f"Loading analysis cube for {var} from {path}")
             cubes[var] = iris.load_cube(path)
         return cubes
 
@@ -308,7 +424,7 @@ class ComputeMJOIndices(Task):
         # 1. Combine Analysis and Forecast per variable
         anom_120_filenames = {}
         for varname in ['olr', 'u850', 'u200']:
-            var_dir = os.path.join(processed_dir, varname)
+            var_dir = os.path.join(processed_dir, 'mjo', varname)
             os.makedirs(var_dir, exist_ok=True)
             
             concated_file = os.path.join(var_dir, f"{varname}_concat_nrt_{date.strftime('%Y%m%d')}_{mem}.nc")
@@ -327,6 +443,10 @@ class ComputeMJOIndices(Task):
                     elif varname == 'u200':
                         fc_cube = read_winds_correctly(mog_files, 'x_wind', pressure_level=200)
                     
+                    # regrid to analysis grid which is the same as obs grid
+                    fc_cube = regrid_to_obs(fc_cube, self.obs_grid)
+                    print(analysis_cubes[varname])
+                    print(fc_cube)
                     cat_cube = self._concat_analysis_fcast(analysis_cubes[varname], fc_cube)
                     iris.save(cat_cube, concated_file, netcdf_format='NETCDF4_CLASSIC')
                 else:
