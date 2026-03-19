@@ -100,6 +100,39 @@
     }
 
     .row { margin-bottom: 8px; }
+
+    .legend {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: 10px;
+      padding: 10px 12px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.35;
+      color: #0f172a;
+      min-width: 130px;
+    }
+
+    .legend .title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .legend .item {
+      display: flex;
+      align-items: center;
+      margin: 3px 0;
+      gap: 7px;
+    }
+
+    .legend .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(15, 23, 42, 0.18);
+      flex: 0 0 14px;
+    }
   </style>
 </head>
 <body>
@@ -144,6 +177,7 @@
   let products = [];
   let datePicker = null;
   let contourLayer = null;
+  let legendControl = null;
   let hasFitBounds = false;
 
   const MAX_DAYS_BACK = 365;
@@ -278,6 +312,7 @@
 
     return {
       type: 'FeatureCollection',
+      levels, // keep contour levels for legend
       features: contours.map(c => ({
         type: 'Feature',
         properties: { level: c.value },
@@ -293,11 +328,41 @@
     };
   }
 
+  function clearLegend() {
+    if (legendControl) {
+      map.removeControl(legendControl);
+      legendControl = null;
+    }
+  }
+
+  function renderLegend(levels) {
+    clearLegend();
+
+    legendControl = L.control({ position: 'bottomright' });
+    legendControl.onAdd = function() {
+      const div = L.DomUtil.create('div', 'legend');
+      const sorted = [...levels].sort((a, b) => a - b);
+
+      div.innerHTML = `<div class="title">Probability (%)</div>`;
+      sorted.forEach(lv => {
+        div.innerHTML += `
+          <div class="item">
+            <span class="swatch" style="background:${colorFor(lv)};"></span>
+            <span>&ge; ${Number(lv).toFixed(1)}</span>
+          </div>`;
+      });
+      return div;
+    };
+
+    legendControl.addTo(map);
+  }
+
   function clearContours() {
     if (contourLayer) {
       map.removeLayer(contourLayer);
       contourLayer = null;
     }
+    clearLegend();
   }
 
   function renderContoursForSelectedProduct() {
@@ -317,11 +382,13 @@
 
     contourLayer = L.geoJSON(fc, {
       style: feature => ({
-        stroke: false, // filled contours only
+        stroke: false,
         fillColor: colorFor(feature.properties.level),
         fillOpacity: 0.52
       })
     }).addTo(map);
+
+    renderLegend(fc.levels);
 
     if (!hasFitBounds) {
       const b = contourLayer.getBounds();
