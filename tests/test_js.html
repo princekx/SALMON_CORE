@@ -2,85 +2,313 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>In-Browser NetCDF Contours</title>
+  <title>Cold Surge Probability Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/netcdfjs"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marchingsquares@1.3.0/build/marchingsquares.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <style>
     body { margin: 0; }
-    #map { height: 90vh; }
-    #upload { padding: 1rem; }
+    #map { height: 100vh; }
+    #panel {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px;
+      border-radius: 6px;
+      font-family: sans-serif;
+      font-size: 13px;
+      min-width: 340px;
+    }
+    #panel label { display: inline-block; width: 120px; margin-bottom: 6px; }
+    #panel select { width: 190px; }
+    #status { margin-top: 8px; white-space: pre-line; }
+    .legend {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px;
+      border-radius: 6px;
+      font-family: sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .legend i {
+      width: 12px;
+      height: 12px;
+      float: left;
+      margin-right: 6px;
+      opacity: 0.9;
+    }
+
+    .leaflet-control-zoomtoolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .leaflet-control-zoomtoolbar a {
+      width: auto !important;
+      min-width: 48px;
+      padding: 0 8px;
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-<div id="upload">
-  <input type="file" id="fileInput" />
+<div id="panel">
+  <div>
+    <label for="thresholdSelect">threshold_mm_day</label>
+    <select id="thresholdSelect"></select>
+  </div>
+  <div>
+    <label for="leadSelect">lead_hours</label>
+    <select id="leadSelect"></select>
+  </div>
+  <div id="status">Loading JSON...</div>
 </div>
+
 <div id="map"></div>
 
 <script>
-  const map = L.map('map').setView([0, 0], 2);
+  const initialCenter = [10, 115];
+  const initialZoom = 4;
+
+  const map = L.map('map', {
+    zoomControl: false,   // disable default Leaflet zoom control
+    zoomSnap: 0.1,
+    zoomDelta: 0.5,
+    wheelPxPerZoomLevel: 180
+  }).setView(initialCenter, initialZoom);
+
+  const statusEl = document.getElementById('status');
+  const thresholdSelect = document.getElementById('thresholdSelect');
+  const leadSelect = document.getElementById('leadSelect');
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
   }).addTo(map);
 
-  document.getElementById('fileInput').addEventListener('change', async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+  const contourGroup = L.layerGroup().addTo(map);
+  let contourLegend = null;
+  let hasFitBounds = false;
 
-    const buffer = await file.arrayBuffer();
-    const reader = new netcdfjs.NetCDFReader(buffer);
+  let dataStore = null;
+  let products = [];
 
-    const lats = reader.getDataVariable('lat') || reader.getDataVariable('latitude');
-    const lons = reader.getDataVariable('lon') || reader.getDataVariable('longitude');
-    const varName = reader.variables.find(v => v.name !== 'lat' && v.name !== 'lon').name;
-    const values = reader.getDataVariable(varName); // 2D or flat array
+  function uniqSorted(arr) {
+    return [...new Set(arr)].sort((a, b) => a - b);
+  }
 
-    // Reshape data to 2D grid (assumes [lat, lon] order)
-    const nx = lons.length;
-    const ny = lats.length;
-    const grid = [];
-    for (let j = 0; j < ny; j++) {
-      const row = [];
-      for (let i = 0; i < nx; i++) {
-        row.push(values[j * nx + i]);
-      }
-      grid.push(row);
+  function populateSelect(selectEl, values, formatter = v => String(v)) {
+    selectEl.innerHTML = '';
+    values.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = formatter(v);
+      selectEl.appendChild(opt);
+    });
+  }
+
+  function getSelectedProduct() {
+    const t = Number(thresholdSelect.value);
+    const l = Number(leadSelect.value);
+    return products.find(p => Number(p.threshold_mm_day) === t && Number(p.lead_hours) === l);
+  }
+
+  function getProbabilityFlat(product) {
+    if (Array.isArray(product?.probability_flat)) return product.probability_flat;
+    if (Array.isArray(product?.prob_flat)) return product.prob_flat;
+    if (Array.isArray(product?.probability)) return product.probability;
+    return null;
+  }
+
+  function normalizeToPercent(values) {
+    const maxVal = Math.max(...values);
+    if (maxVal <= 1.00001) return values.map(v => Number(v) * 100);
+    return values.map(v => Number(v));
+  }
+
+  function colorFor(level) {
+    // increasing red palette (light -> dark)
+    if (level < 10) return '#fff5f0';
+    if (level < 20) return '#fee0d2';
+    if (level < 30) return '#fcbba1';
+    if (level < 40) return '#fc9272';
+    if (level < 50) return '#fb6a4a';
+    if (level < 60) return '#ef3b2c';
+    if (level < 70) return '#cb181d';
+    if (level < 80) return '#a50f15';
+    return '#67000d';
+  }
+
+  function interp1d(arr, x) {
+    const n = arr.length;
+    if (x <= 0) return arr[0];
+    if (x >= n - 1) return arr[n - 1];
+    const i = Math.floor(x);
+    const f = x - i;
+    return arr[i] * (1 - f) + arr[i + 1] * f;
+  }
+
+  function buildContourFeatureCollection(longitude, latitude, valuesPercent) {
+    const nx = longitude.length;
+    const ny = latitude.length;
+    const expected = nx * ny;
+
+    if (valuesPercent.length !== expected) {
+      throw new Error(`probability length mismatch: got ${valuesPercent.length}, expected ${expected} (= lon*lat)`);
     }
 
-    // Generate contours using marching squares
-    const level = 200; // Choose threshold value
-    const contours = MarchingSquaresJS.isoContours(grid, level);
+    const minV = Math.min(...valuesPercent);
+    const maxV = Math.max(...valuesPercent);
 
-    // Convert contour polygons to GeoJSON
-    const features = contours.map(c => ({
-      type: 'Feature',
-      geometry: {
-        type: 'LineString',
-        coordinates: c.map(([x, y]) => {
-          const lon = lons[Math.round(x)];
-          const lat = lats[Math.round(y)];
-          return [lon, lat];
-        })
-      },
-      properties: { level }
-    }));
+    let thresholds = [10, 20, 30, 40, 50, 60, 70, 80, 90].filter(v => v > minV && v < maxV);
+    if (!thresholds.length) {
+      const steps = 6;
+      const step = (maxV - minV) / steps;
+      thresholds = Array.from({ length: steps - 1 }, (_, i) => minV + step * (i + 1));
+    }
 
-    const geojson = {
-      type: 'FeatureCollection',
-      features
+    const contourGen = d3.contours().size([nx, ny]).thresholds(thresholds);
+    const contours = contourGen(valuesPercent);
+
+    const features = contours.map(c => {
+      const mp = c.coordinates.map(poly =>
+        poly.map(ring =>
+          ring.map(([x, y]) => [interp1d(longitude, x), interp1d(latitude, y)])
+        )
+      );
+
+      return {
+        type: 'Feature',
+        properties: { level: c.value },
+        geometry: { type: 'MultiPolygon', coordinates: mp }
+      };
+    });
+
+    return { type: 'FeatureCollection', features, thresholds };
+  }
+
+  function drawLegend(thresholds) {
+    if (contourLegend) map.removeControl(contourLegend);
+
+    contourLegend = L.control({ position: 'bottomright' });
+    contourLegend.onAdd = function() {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = '<b>Probability (%)</b><br>';
+      thresholds.forEach(t => {
+        div.innerHTML += `<i style="background:${colorFor(t)}"></i>${Number(t).toFixed(1)}<br>`;
+      });
+      return div;
     };
+    contourLegend.addTo(map);
+  }
 
-    // Add to Leaflet
-    L.geoJSON(geojson, {
-      style: { color: '#0074D9', weight: 2 }
-    }).addTo(map);
+  function updateStatusAndContours() {
+    const p = getSelectedProduct();
+    if (!p) {
+      statusEl.textContent = 'No matching record for selected threshold/lead.';
+      contourGroup.clearLayers();
+      return;
+    }
 
-    map.fitBounds(L.geoJSON(geojson).getBounds());
-  });
+    try {
+      const nLon = Array.isArray(dataStore.longitude) ? dataStore.longitude.length : 0;
+      const nLat = Array.isArray(dataStore.latitude) ? dataStore.latitude.length : 0;
+      const rawProb = getProbabilityFlat(p);
+
+      if (!rawProb || !rawProb.length) {
+        contourGroup.clearLayers();
+        statusEl.textContent =
+          `Model: ${dataStore.model ?? 'N/A'}
+Forecast start: ${dataStore.forecast_start ?? 'N/A'}
+threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
+lead_hours: ${p.lead_hours ?? 'N/A'}
+No probability_flat data in this product.`;
+        return;
+      }
+
+      const probPercent = normalizeToPercent(rawProb);
+      const fc = buildContourFeatureCollection(dataStore.longitude, dataStore.latitude, probPercent);
+
+      contourGroup.clearLayers();
+      const gj = L.geoJSON(fc, {
+        style: f => ({
+          stroke: false,             // no contour lines
+          fillColor: colorFor(f.properties.level),
+          fillOpacity: 0.7
+        }),
+        onEachFeature: (feature, layer) => {
+          layer.bindTooltip(`Probability ≥ ${Number(feature.properties.level).toFixed(1)}%`, { sticky: true });
+        }
+      }).addTo(contourGroup);
+
+      if (!hasFitBounds) {
+        const b = gj.getBounds();
+        if (b.isValid()) {
+          dataBounds = b.pad(0.05);
+          map.fitBounds(dataBounds);
+          hasFitBounds = true;
+        }
+      } else {
+        const b = gj.getBounds();
+        if (b.isValid()) dataBounds = b.pad(0.05);
+      }
+
+      drawLegend(fc.thresholds);
+
+      statusEl.textContent =
+        `Model: ${dataStore.model ?? 'N/A'}
+Forecast start: ${dataStore.forecast_start ?? 'N/A'}
+threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
+lead_hours: ${p.lead_hours ?? 'N/A'}
+valid_to: ${p.valid_to ?? 'N/A'}
+cs_prob_percent: ${p.cs_prob_percent ?? 'N/A'}
+ces_prob_percent: ${p.ces_prob_percent ?? 'N/A'}
+grid: lon=${nLon}, lat=${nLat}, probability_flat=${rawProb.length}
+Filled contours rendered (no lines).`;
+    } catch (err) {
+      contourGroup.clearLayers();
+      statusEl.textContent = `Contour render error: ${err.message}`;
+      console.error(err);
+    }
+  }
+
+  async function init() {
+    try {
+      addZoomToolbar();
+
+      const res = await fetch('Cold_surge_ProbMaps_20260301.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      dataStore = await res.json();
+
+      products = (dataStore.products || []).filter(
+        p => Number.isFinite(Number(p?.threshold_mm_day)) && Number.isFinite(Number(p?.lead_hours))
+      );
+
+      if (!products.length) throw new Error('No valid products with threshold_mm_day and lead_hours.');
+
+      const thresholds = uniqSorted(products.map(p => Number(p.threshold_mm_day)));
+      const leads = uniqSorted(products.map(p => Number(p.lead_hours)));
+
+      populateSelect(thresholdSelect, thresholds, v => `${v}`);
+      populateSelect(leadSelect, leads, v => `${v} h`);
+
+      thresholdSelect.addEventListener('change', updateStatusAndContours);
+      leadSelect.addEventListener('change', updateStatusAndContours);
+
+      updateStatusAndContours();
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = `Failed to load JSON: ${err.message}`;
+    }
+  }
+
+  init();
 </script>
 
 </body>

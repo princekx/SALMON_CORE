@@ -29,4 +29,4 @@ tasks:
     module: salmon.modules.mjo.tasks
     class: ComputeMJOIndices
     config:
-      parallel: False
+      parallel: True
