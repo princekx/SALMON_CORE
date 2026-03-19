@@ -4,67 +4,120 @@
   <meta charset="utf-8" />
   <title>Cold Surge Probability Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Professional font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
   <style>
-    body { margin: 0; }
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #0f172a;
+    }
+
     #map { height: 100vh; }
+
     #panel {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 14px;
+      left: 14px;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 10px;
-      border-radius: 6px;
-      font-family: sans-serif;
+      min-width: 360px;
+      max-width: 420px;
+      padding: 14px 14px 12px 14px;
+
+      /* Semi-transparent professional widget */
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 12px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #panel label {
+      display: inline-block;
+      width: 130px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #334155;
+      text-transform: uppercase;
+    }
+
+    #panel select,
+    #panel input {
+      width: 200px;
+      height: 32px;
+      padding: 4px 8px;
+      font-family: inherit;
       font-size: 13px;
-      min-width: 340px;
-    }
-    #panel label { display: inline-block; width: 120px; margin-bottom: 6px; }
-    #panel select { width: 190px; }
-    #status { margin-top: 8px; white-space: pre-line; }
-    .legend {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 8px;
-      border-radius: 6px;
-      font-family: sans-serif;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-    .legend i {
-      width: 12px;
-      height: 12px;
-      float: left;
-      margin-right: 6px;
-      opacity: 0.9;
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
     }
 
-    .leaflet-control-zoomtoolbar {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    #panel select:focus,
+    #panel input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
     }
 
-    .leaflet-control-zoomtoolbar a {
-      width: auto !important;
-      min-width: 48px;
-      padding: 0 8px;
-      font-weight: 700;
+    #fileNameLabel {
+      display: inline-block;
+      max-width: 210px;
+      vertical-align: middle;
       font-size: 12px;
-      text-align: center;
+      font-weight: 500;
+      color: #1e3a8a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+
+    #status {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      white-space: pre-line;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .row { margin-bottom: 8px; }
   </style>
 </head>
 <body>
 
 <div id="panel">
-  <div>
+  <div class="row">
+    <label for="dateSelect">forecast date</label>
+    <input id="dateSelect" type="text" placeholder="Select available date" />
+  </div>
+  <div class="row">
+    <label>file</label>
+    <span id="fileNameLabel">-</span>
+  </div>
+  <div class="row">
     <label for="thresholdSelect">threshold_mm_day</label>
     <select id="thresholdSelect"></select>
   </div>
-  <div>
+  <div class="row">
     <label for="leadSelect">lead_hours</label>
     <select id="leadSelect"></select>
   </div>
@@ -74,30 +127,26 @@
 <div id="map"></div>
 
 <script>
-  const initialCenter = [10, 115];
-  const initialZoom = 4;
-
-  const map = L.map('map', {
-    zoomControl: false,   // disable default Leaflet zoom control
-    zoomSnap: 0.1,
-    zoomDelta: 0.5,
-    wheelPxPerZoomLevel: 180
-  }).setView(initialCenter, initialZoom);
-
+  const map = L.map('map').setView([10, 115], 4);
   const statusEl = document.getElementById('status');
+  const dateSelect = document.getElementById('dateSelect');
   const thresholdSelect = document.getElementById('thresholdSelect');
   const leadSelect = document.getElementById('leadSelect');
+  const fileNameLabel = document.getElementById('fileNameLabel');
 
+  // OSM basemap (restored)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
   }).addTo(map);
-
-  const contourGroup = L.layerGroup().addTo(map);
-  let contourLegend = null;
-  let hasFitBounds = false;
 
   let dataStore = null;
   let products = [];
+  let datePicker = null;
+  let contourLayer = null;
+  let hasFitBounds = false;
+
+  const MAX_DAYS_BACK = 365;
 
   function uniqSorted(arr) {
     return [...new Set(arr)].sort((a, b) => a - b);
@@ -113,27 +162,80 @@
     });
   }
 
+  function clearMenus() {
+    thresholdSelect.innerHTML = '';
+    leadSelect.innerHTML = '';
+  }
+
   function getSelectedProduct() {
     const t = Number(thresholdSelect.value);
     const l = Number(leadSelect.value);
     return products.find(p => Number(p.threshold_mm_day) === t && Number(p.lead_hours) === l);
   }
 
+  function ymdForFile(dateValue) {
+    return (dateValue || '').replaceAll('-', '');
+  }
+
+  function fileNameForDate(dateValue) {
+    return `Cold_surge_ProbMaps_${ymdForFile(dateValue)}.json`;
+  }
+
+  function toISODate(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  function getSelectedDateValue() {
+    if (datePicker && datePicker.selectedDates.length > 0) {
+      return datePicker.input.value;
+    }
+    return '';
+  }
+
+  async function fileExistsForDate(dateValue) {
+    const fileName = fileNameForDate(dateValue);
+    try {
+      const head = await fetch(fileName, { method: 'HEAD', cache: 'no-store' });
+      if (head.ok) return true;
+      if (head.status !== 405) return false;
+      const get = await fetch(fileName, { method: 'GET', cache: 'no-store' });
+      return get.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  async function discoverAvailableDates() {
+    statusEl.textContent = 'Scanning available dates...';
+    const available = [];
+    const today = new Date();
+
+    for (let i = 0; i <= MAX_DAYS_BACK; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const iso = toISODate(d);
+      if (await fileExistsForDate(iso)) available.push(iso);
+    }
+    return available.sort();
+  }
+
   function getProbabilityFlat(product) {
     if (Array.isArray(product?.probability_flat)) return product.probability_flat;
     if (Array.isArray(product?.prob_flat)) return product.prob_flat;
     if (Array.isArray(product?.probability)) return product.probability;
-    return null;
+    return [];
   }
 
   function normalizeToPercent(values) {
-    const maxVal = Math.max(...values);
-    if (maxVal <= 1.00001) return values.map(v => Number(v) * 100);
-    return values.map(v => Number(v));
+    const nums = values.map(Number);
+    const maxVal = Math.max(...nums);
+    return maxVal <= 1.00001 ? nums.map(v => v * 100) : nums;
   }
 
   function colorFor(level) {
-    // increasing red palette (light -> dark)
     if (level < 10) return '#fff5f0';
     if (level < 20) return '#fee0d2';
     if (level < 30) return '#fcbba1';
@@ -160,137 +262,136 @@
     const expected = nx * ny;
 
     if (valuesPercent.length !== expected) {
-      throw new Error(`probability length mismatch: got ${valuesPercent.length}, expected ${expected} (= lon*lat)`);
+      throw new Error(`probability length mismatch: got ${valuesPercent.length}, expected ${expected}`);
     }
 
     const minV = Math.min(...valuesPercent);
     const maxV = Math.max(...valuesPercent);
 
-    let thresholds = [10, 20, 30, 40, 50, 60, 70, 80, 90].filter(v => v > minV && v < maxV);
-    if (!thresholds.length) {
-      const steps = 6;
-      const step = (maxV - minV) / steps;
-      thresholds = Array.from({ length: steps - 1 }, (_, i) => minV + step * (i + 1));
+    let levels = [5,10,20,30,40,50,60,70,80,90,95].filter(v => v > minV && v < maxV);
+    if (!levels.length) {
+      const step = (maxV - minV) / 6;
+      levels = [1,2,3,4,5].map(k => minV + k * step);
     }
 
-    const contourGen = d3.contours().size([nx, ny]).thresholds(thresholds);
-    const contours = contourGen(valuesPercent);
+    const contours = d3.contours().size([nx, ny]).thresholds(levels)(valuesPercent);
 
-    const features = contours.map(c => {
-      const mp = c.coordinates.map(poly =>
-        poly.map(ring =>
-          ring.map(([x, y]) => [interp1d(longitude, x), interp1d(latitude, y)])
-        )
-      );
-
-      return {
+    return {
+      type: 'FeatureCollection',
+      features: contours.map(c => ({
         type: 'Feature',
         properties: { level: c.value },
-        geometry: { type: 'MultiPolygon', coordinates: mp }
-      };
-    });
-
-    return { type: 'FeatureCollection', features, thresholds };
-  }
-
-  function drawLegend(thresholds) {
-    if (contourLegend) map.removeControl(contourLegend);
-
-    contourLegend = L.control({ position: 'bottomright' });
-    contourLegend.onAdd = function() {
-      const div = L.DomUtil.create('div', 'legend');
-      div.innerHTML = '<b>Probability (%)</b><br>';
-      thresholds.forEach(t => {
-        div.innerHTML += `<i style="background:${colorFor(t)}"></i>${Number(t).toFixed(1)}<br>`;
-      });
-      return div;
+        geometry: {
+          type: 'MultiPolygon',
+          coordinates: c.coordinates.map(poly =>
+            poly.map(ring =>
+              ring.map(([x, y]) => [interp1d(longitude, x), interp1d(latitude, y)])
+            )
+          )
+        }
+      }))
     };
-    contourLegend.addTo(map);
   }
 
-  function updateStatusAndContours() {
+  function clearContours() {
+    if (contourLayer) {
+      map.removeLayer(contourLayer);
+      contourLayer = null;
+    }
+  }
+
+  function renderContoursForSelectedProduct() {
+    clearContours();
     const p = getSelectedProduct();
-    if (!p) {
+    if (!p || !dataStore) return;
+
+    const rawProb = getProbabilityFlat(p);
+    if (!rawProb.length) return;
+
+    const longitude = Array.isArray(dataStore.longitude) ? dataStore.longitude : [];
+    const latitude = Array.isArray(dataStore.latitude) ? dataStore.latitude : [];
+    if (!longitude.length || !latitude.length) return;
+
+    const percent = normalizeToPercent(rawProb);
+    const fc = buildContourFeatureCollection(longitude, latitude, percent);
+
+    contourLayer = L.geoJSON(fc, {
+      style: feature => ({
+        stroke: false, // filled contours only
+        fillColor: colorFor(feature.properties.level),
+        fillOpacity: 0.52
+      })
+    }).addTo(map);
+
+    if (!hasFitBounds) {
+      const b = contourLayer.getBounds();
+      if (b.isValid()) {
+        map.fitBounds(b.pad(0.05));
+        hasFitBounds = true;
+      }
+    }
+  }
+
+  function updateStatusFromSelection() {
+    const p = getSelectedProduct();
+    if (!p || !dataStore) {
       statusEl.textContent = 'No matching record for selected threshold/lead.';
-      contourGroup.clearLayers();
+      clearContours();
       return;
     }
 
-    try {
-      const nLon = Array.isArray(dataStore.longitude) ? dataStore.longitude.length : 0;
-      const nLat = Array.isArray(dataStore.latitude) ? dataStore.latitude.length : 0;
-      const rawProb = getProbabilityFlat(p);
+    const nLon = Array.isArray(dataStore.longitude) ? dataStore.longitude.length : 0;
+    const nLat = Array.isArray(dataStore.latitude) ? dataStore.latitude.length : 0;
+    const prob = getProbabilityFlat(p);
 
-      if (!rawProb || !rawProb.length) {
-        contourGroup.clearLayers();
-        statusEl.textContent =
-          `Model: ${dataStore.model ?? 'N/A'}
-Forecast start: ${dataStore.forecast_start ?? 'N/A'}
-threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
-lead_hours: ${p.lead_hours ?? 'N/A'}
-No probability_flat data in this product.`;
-        return;
-      }
-
-      const probPercent = normalizeToPercent(rawProb);
-      const fc = buildContourFeatureCollection(dataStore.longitude, dataStore.latitude, probPercent);
-
-      contourGroup.clearLayers();
-      const gj = L.geoJSON(fc, {
-        style: f => ({
-          stroke: false,             // no contour lines
-          fillColor: colorFor(f.properties.level),
-          fillOpacity: 0.7
-        }),
-        onEachFeature: (feature, layer) => {
-          layer.bindTooltip(`Probability ≥ ${Number(feature.properties.level).toFixed(1)}%`, { sticky: true });
-        }
-      }).addTo(contourGroup);
-
-      if (!hasFitBounds) {
-        const b = gj.getBounds();
-        if (b.isValid()) {
-          dataBounds = b.pad(0.05);
-          map.fitBounds(dataBounds);
-          hasFitBounds = true;
-        }
-      } else {
-        const b = gj.getBounds();
-        if (b.isValid()) dataBounds = b.pad(0.05);
-      }
-
-      drawLegend(fc.thresholds);
-
-      statusEl.textContent =
-        `Model: ${dataStore.model ?? 'N/A'}
+    statusEl.textContent =
+`Model: ${dataStore.model ?? 'N/A'}
 Forecast start: ${dataStore.forecast_start ?? 'N/A'}
 threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
 lead_hours: ${p.lead_hours ?? 'N/A'}
 valid_to: ${p.valid_to ?? 'N/A'}
 cs_prob_percent: ${p.cs_prob_percent ?? 'N/A'}
 ces_prob_percent: ${p.ces_prob_percent ?? 'N/A'}
-grid: lon=${nLon}, lat=${nLat}, probability_flat=${rawProb.length}
-Filled contours rendered (no lines).`;
+grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
+
+    try {
+      renderContoursForSelectedProduct();
     } catch (err) {
-      contourGroup.clearLayers();
-      statusEl.textContent = `Contour render error: ${err.message}`;
+      clearContours();
+      statusEl.textContent += `\nContour render error: ${err.message}`;
       console.error(err);
     }
   }
 
-  async function init() {
+  async function loadForSelectedDate() {
+    const dateValue = getSelectedDateValue();
+    if (!dateValue) {
+      fileNameLabel.textContent = '-';
+      statusEl.textContent = 'Select a date first.';
+      clearMenus();
+      clearContours();
+      return;
+    }
+
+    const fileName = fileNameForDate(dateValue);
+    fileNameLabel.textContent = fileName;
+    statusEl.textContent = `Loading ${fileName}...`;
+    clearMenus();
+    clearContours();
+
     try {
-      addZoomToolbar();
+      const res = await fetch(fileName, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${fileName}`);
 
-      const res = await fetch('Cold_surge_ProbMaps_20260301.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       dataStore = await res.json();
-
       products = (dataStore.products || []).filter(
         p => Number.isFinite(Number(p?.threshold_mm_day)) && Number.isFinite(Number(p?.lead_hours))
       );
 
-      if (!products.length) throw new Error('No valid products with threshold_mm_day and lead_hours.');
+      if (!products.length) {
+        statusEl.textContent = `Loaded ${fileName}, but no products found.`;
+        return;
+      }
 
       const thresholds = uniqSorted(products.map(p => Number(p.threshold_mm_day)));
       const leads = uniqSorted(products.map(p => Number(p.lead_hours)));
@@ -298,17 +399,40 @@ Filled contours rendered (no lines).`;
       populateSelect(thresholdSelect, thresholds, v => `${v}`);
       populateSelect(leadSelect, leads, v => `${v} h`);
 
-      thresholdSelect.addEventListener('change', updateStatusAndContours);
-      leadSelect.addEventListener('change', updateStatusAndContours);
-
-      updateStatusAndContours();
+      updateStatusFromSelection();
     } catch (err) {
       console.error(err);
-      statusEl.textContent = `Failed to load JSON: ${err.message}`;
+      statusEl.textContent = `Failed to load ${fileName}: ${err.message}`;
     }
   }
 
-  init();
+  async function initDatePicker() {
+    const availableDates = await discoverAvailableDates();
+
+    if (!availableDates.length) {
+      statusEl.textContent = 'No dated files found in this folder.';
+      clearMenus();
+      return;
+    }
+
+    const defaultDate = availableDates[availableDates.length - 1];
+
+    datePicker = flatpickr(dateSelect, {
+      dateFormat: 'Y-m-d',
+      defaultDate,
+      enable: availableDates,
+      onChange: async () => {
+        await loadForSelectedDate();
+      }
+    });
+
+    await loadForSelectedDate();
+  }
+
+  thresholdSelect.addEventListener('change', updateStatusFromSelection);
+  leadSelect.addEventListener('change', updateStatusFromSelection);
+
+  initDatePicker();
 </script>
 
 </body>
