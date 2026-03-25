@@ -58,7 +58,7 @@
 
     #panel select,
     #panel input {
-      width: 200px;
+      width: 100px;  /* was 200px */
       height: 32px;
       padding: 4px 8px;
       font-family: inherit;
@@ -87,6 +87,42 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    #fileNameWrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      vertical-align: middle;
+      max-width: 230px;
+    }
+
+    #fileNameLabel.is-loading {
+      color: #334155;
+    }
+
+    #fileLoadingSpinner {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      border: 2px solid #bfdbfe;
+      border-top-color: #2563eb;
+      opacity: 0;
+      visibility: hidden;
+      animation: file-spin 0.8s linear infinite;
+      transition: opacity 0.14s ease;
+      flex: 0 0 11px;
+    }
+
+    #fileLoadingSpinner.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @keyframes file-spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     #status {
@@ -133,6 +169,71 @@
       border: 1px solid rgba(15, 23, 42, 0.18);
       flex: 0 0 14px;
     }
+
+    .lead-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      vertical-align: middle;
+    }
+
+    .lead-nav button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .lead-nav button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    #leadSelect {
+      width: 90px;   /* was 120px */
+    }
+
+    .layer-toolbar {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+      padding: 8px;
+      min-width: 260px;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .layer-toolbar label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .layer-toolbar select {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 13px;
+      padding: 4px 8px;
+      outline: none;
+    }
+
+    .layer-toolbar select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+    }
   </style>
 </head>
 <body>
@@ -143,8 +244,15 @@
     <input id="dateSelect" type="text" placeholder="Select available date" />
   </div>
   <div class="row">
+    <label for="modelSelect">model</label>
+    <select id="modelSelect"></select>
+  </div>
+  <div class="row">
     <label>file</label>
-    <span id="fileNameLabel">-</span>
+    <span id="fileNameWrap">
+      <span id="fileNameLabel">-</span>
+      <span id="fileLoadingSpinner" aria-hidden="true"></span>
+    </span>
   </div>
   <div class="row">
     <label for="thresholdSelect">threshold_mm_day</label>
@@ -152,7 +260,11 @@
   </div>
   <div class="row">
     <label for="leadSelect">lead_hours</label>
-    <select id="leadSelect"></select>
+    <span class="lead-nav">
+      <button id="leadPrevBtn" type="button" title="Previous lead time">&#9664;</button>
+      <select id="leadSelect"></select>
+      <button id="leadNextBtn" type="button" title="Next lead time">&#9654;</button>
+    </span>
   </div>
   <div id="status">Loading JSON...</div>
 </div>
@@ -160,260 +272,593 @@
 <div id="map"></div>
 
 <script>
-  const map = L.map('map').setView([10, 115], 4);
-  const statusEl = document.getElementById('status');
-  const dateSelect = document.getElementById('dateSelect');
-  const thresholdSelect = document.getElementById('thresholdSelect');
-  const leadSelect = document.getElementById('leadSelect');
-  const fileNameLabel = document.getElementById('fileNameLabel');
+  const Dom = {
+    statusEl: document.getElementById('status'),
+    dateSelect: document.getElementById('dateSelect'),
+    modelSelect: document.getElementById('modelSelect'),
+    thresholdSelect: document.getElementById('thresholdSelect'),
+    leadSelect: document.getElementById('leadSelect'),
+    fileNameLabel: document.getElementById('fileNameLabel'),
+    fileLoadingSpinner: document.getElementById('fileLoadingSpinner'),
+    leadPrevBtn: document.getElementById('leadPrevBtn'),
+    leadNextBtn: document.getElementById('leadNextBtn')
+  };
 
-  // OSM basemap (restored)
+  const AppConfig = {
+    maxDaysBack: 365,
+    modelOptions: [
+      { value: 'mogreps', label: 'MOGREPS' },
+      { value: 'glosea', label: 'GLOSEA' },
+      { value: 'ecmwf_ifs', label: 'ECMWF IFS' },
+      { value: 'aifs', label: 'AIFS' },
+      { value: 'other', label: 'Other' }
+    ]
+  };
+
+  const State = {
+    dataStore: null,
+    products: [],
+    datePicker: null,
+    contourLayer: null,
+    legendControl: null,
+    hoverValuePopup: null,
+    lastHoverLatLng: null,
+    pinnedTooltipLatLng: null,
+    suppressPinnedClearOnHide: false,
+    hasFitBounds: false
+  };
+
+  const map = L.map('map').setView([10, 115], 4);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 19
   }).addTo(map);
 
-  let dataStore = null;
-  let products = [];
-  let datePicker = null;
-  let contourLayer = null;
-  let legendControl = null;
-  let hasFitBounds = false;
+  const Ui = {
+    uniqSorted(arr) {
+      return [...new Set(arr)].sort((a, b) => a - b);
+    },
+    populateSelect(selectEl, values, formatter = v => String(v)) {
+      selectEl.innerHTML = '';
+      values.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = formatter(v);
+        selectEl.appendChild(opt);
+      });
+    },
+    setFileLoading(isLoading) {
+      Dom.fileLoadingSpinner.classList.toggle('active', Boolean(isLoading));
+      Dom.fileNameLabel.classList.toggle('is-loading', Boolean(isLoading));
+    },
+    clearMenus() {
+      Dom.thresholdSelect.innerHTML = '';
+      Dom.leadSelect.innerHTML = '';
+      this.syncLeadNavButtons();
+    },
+    syncLeadNavButtons() {
+      const idx = Dom.leadSelect.selectedIndex;
+      const n = Dom.leadSelect.options.length;
+      Dom.leadPrevBtn.disabled = (n <= 1 || idx <= 0);
+      Dom.leadNextBtn.disabled = (n <= 1 || idx >= n - 1 || idx < 0);
+    }
+  };
 
-  const MAX_DAYS_BACK = 365;
+  const ModelUtils = {
+    normalize(modelValue) {
+      const key = String(modelValue || '').trim().toLowerCase();
+      return AppConfig.modelOptions.some(m => m.value === key) ? key : 'other';
+    },
+    displayName(modelValue) {
+      const key = this.normalize(modelValue);
+      const found = AppConfig.modelOptions.find(m => m.value === key);
+      return found ? found.label : 'Other';
+    },
+    selectedValue() {
+      return this.normalize(Dom.modelSelect?.value || 'mogreps');
+    },
+    populate(defaultModel = 'mogreps') {
+      Ui.populateSelect(Dom.modelSelect, AppConfig.modelOptions.map(m => m.value), v => this.displayName(v));
+      Dom.modelSelect.value = this.normalize(defaultModel);
+    }
+  };
 
-  function uniqSorted(arr) {
-    return [...new Set(arr)].sort((a, b) => a - b);
-  }
+  const FileService = {
+    ymdForFile(dateValue) {
+      return (dateValue || '').replaceAll('-', '');
+    },
+    fileNameForDate(dateValue) {
+      return `Cold_surge_ProbMaps_${this.ymdForFile(dateValue)}.json`;
+    },
+    candidateFileNamesForModelDate(modelValue, dateValue) {
+      const ymd = this.ymdForFile(dateValue);
+      if (!ymd) return [];
 
-  function populateSelect(selectEl, values, formatter = v => String(v)) {
-    selectEl.innerHTML = '';
-    values.forEach(v => {
-      const opt = document.createElement('option');
-      opt.value = v;
-      opt.textContent = formatter(v);
-      selectEl.appendChild(opt);
-    });
-  }
+      const model = ModelUtils.normalize(modelValue);
+      const names = [];
+      if (model !== 'other') {
+        names.push(`Cold_surge_ProbMaps_${model}_${ymd}.json`);
+        names.push(`Cold_surge_ProbMaps_${model.toUpperCase()}_${ymd}.json`);
+        names.push(`Cold_surge_ProbMaps_${ymd}_${model}.json`);
+      }
+      names.push(this.fileNameForDate(dateValue));
+      return [...new Set(names)];
+    },
+    toISODate(d) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    },
+    selectedDateValue() {
+      if (State.datePicker && State.datePicker.selectedDates.length > 0) {
+        return State.datePicker.input.value;
+      }
+      return '';
+    },
+    async resolveFileNameForModelDate(modelValue, dateValue) {
+      const candidates = this.candidateFileNamesForModelDate(modelValue, dateValue);
+      for (const fileName of candidates) {
+        try {
+          const head = await fetch(fileName, { method: 'HEAD', cache: 'no-store' });
+          if (head.ok) return fileName;
+          if (head.status === 405) {
+            const get = await fetch(fileName, { method: 'GET', cache: 'no-store' });
+            if (get.ok) return fileName;
+          }
+        } catch {
+          // Try next candidate.
+        }
+      }
+      return null;
+    },
+    async discoverAvailableDates() {
+      Dom.statusEl.textContent = 'Scanning available dates...';
+      const available = [];
+      const today = new Date();
+      const model = ModelUtils.selectedValue();
 
-  function clearMenus() {
-    thresholdSelect.innerHTML = '';
-    leadSelect.innerHTML = '';
-  }
+      for (let i = 0; i <= AppConfig.maxDaysBack; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const iso = this.toISODate(d);
+        if (await this.resolveFileNameForModelDate(model, iso)) available.push(iso);
+      }
+      return available.sort();
+    }
+  };
+
+  const GridUtils = {
+    getProbabilityFlat(product) {
+      if (Array.isArray(product?.probability_flat)) return product.probability_flat;
+      if (Array.isArray(product?.prob_flat)) return product.prob_flat;
+      if (Array.isArray(product?.probability)) return product.probability;
+      return [];
+    },
+    normalizeToPercent(values) {
+      const nums = values.map(Number);
+      const maxVal = Math.max(...nums);
+      return maxVal <= 1.00001 ? nums.map(v => v * 100) : nums;
+    },
+    colorFor(level) {
+      if (level < 10) return '#fff5f0';
+      if (level < 20) return '#fee0d2';
+      if (level < 30) return '#fcbba1';
+      if (level < 40) return '#fc9272';
+      if (level < 50) return '#fb6a4a';
+      if (level < 60) return '#ef3b2c';
+      if (level < 70) return '#cb181d';
+      if (level < 80) return '#a50f15';
+      return '#67000d';
+    },
+    interp1d(arr, x) {
+      const n = arr.length;
+      if (x <= 0) return arr[0];
+      if (x >= n - 1) return arr[n - 1];
+      const i = Math.floor(x);
+      const f = x - i;
+      return arr[i] * (1 - f) + arr[i + 1] * f;
+    },
+    findBoundingIndices(arr, value) {
+      const n = arr.length;
+      if (n < 2) return null;
+
+      const ascending = arr[n - 1] >= arr[0];
+      if (ascending) {
+        if (value < arr[0] || value > arr[n - 1]) return null;
+      } else {
+        if (value > arr[0] || value < arr[n - 1]) return null;
+      }
+
+      for (let i = 0; i < n - 1; i++) {
+        const a = arr[i];
+        const b = arr[i + 1];
+        const inside = ascending ? (value >= a && value <= b) : (value <= a && value >= b);
+        if (inside) return [i, i + 1];
+      }
+      return null;
+    },
+    bilinearValueFromFlat(flat, longitude, latitude, lon, lat) {
+      const nx = longitude.length;
+      const ny = latitude.length;
+      if (!nx || !ny || flat.length !== nx * ny) return null;
+
+      const ix = this.findBoundingIndices(longitude, lon);
+      const iy = this.findBoundingIndices(latitude, lat);
+      if (!ix || !iy) return null;
+
+      const [x0, x1] = ix;
+      const [y0, y1] = iy;
+
+      const lon0 = Number(longitude[x0]);
+      const lon1 = Number(longitude[x1]);
+      const lat0 = Number(latitude[y0]);
+      const lat1 = Number(latitude[y1]);
+
+      const tx = lon1 === lon0 ? 0 : (lon - lon0) / (lon1 - lon0);
+      const ty = lat1 === lat0 ? 0 : (lat - lat0) / (lat1 - lat0);
+
+      const idx = (x, y) => y * nx + x;
+      const v00 = Number(flat[idx(x0, y0)]);
+      const v10 = Number(flat[idx(x1, y0)]);
+      const v01 = Number(flat[idx(x0, y1)]);
+      const v11 = Number(flat[idx(x1, y1)]);
+
+      if (![v00, v10, v01, v11].every(Number.isFinite)) return null;
+
+      return (
+        (1 - tx) * (1 - ty) * v00 +
+        tx * (1 - ty) * v10 +
+        (1 - tx) * ty * v01 +
+        tx * ty * v11
+      );
+    }
+  };
 
   function getSelectedProduct() {
-    const t = Number(thresholdSelect.value);
-    const l = Number(leadSelect.value);
-    return products.find(p => Number(p.threshold_mm_day) === t && Number(p.lead_hours) === l);
+    const t = Number(Dom.thresholdSelect.value);
+    const l = Number(Dom.leadSelect.value);
+    return State.products.find(p => Number(p.threshold_mm_day) === t && Number(p.lead_hours) === l);
   }
 
-  function ymdForFile(dateValue) {
-    return (dateValue || '').replaceAll('-', '');
-  }
+  const TooltipService = {
+    formatCompactDate(value) {
+      const s = String(value || '').trim();
+      if (/^\d{8}$/.test(s)) {
+        return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+      }
+      return s || 'N/A';
+    },
+    escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    },
+    getSelectedVariableName(product) {
+      return product?.variable_name || product?.variable || State.dataStore?.variable || 'Probability';
+    },
+    getLeadSeriesAtLocation(latlng, thresholdValue) {
+      if (!State.dataStore || !Array.isArray(State.products)) return [];
 
-  function fileNameForDate(dateValue) {
-    return `Cold_surge_ProbMaps_${ymdForFile(dateValue)}.json`;
-  }
+      const longitude = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude : [];
+      if (!longitude.length || !latitude.length) return [];
 
-  function toISODate(d) {
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  }
+      return State.products
+        .filter(p => Number(p?.threshold_mm_day) === Number(thresholdValue))
+        .map(p => {
+          const raw = GridUtils.getProbabilityFlat(p);
+          const percent = GridUtils.normalizeToPercent(raw);
+          const v = GridUtils.bilinearValueFromFlat(percent, longitude, latitude, latlng.lng, latlng.lat);
+          return {
+            lead: Number(p?.lead_hours),
+            validTo: this.formatCompactDate(p?.valid_to),
+            value: Number.isFinite(v) ? v : null
+          };
+        })
+        .filter(d => Number.isFinite(d.lead))
+        .sort((a, b) => a.lead - b.lead);
+    },
+    renderLeadSeriesSvg(series) {
+      const points = series.filter(d => Number.isFinite(d.value));
+      if (points.length < 2) {
+        return '<div style="margin-top:6px;font-size:11px;color:#64748b;">Lead-time series unavailable at this location.</div>';
+      }
 
-  function getSelectedDateValue() {
-    if (datePicker && datePicker.selectedDates.length > 0) {
-      return datePicker.input.value;
+      const w = 240;
+      const h = 110;
+      const m = { top: 8, right: 10, bottom: 18, left: 28 };
+      const innerW = w - m.left - m.right;
+      const innerH = h - m.top - m.bottom;
+
+      const minLead = Math.min(...points.map(p => p.lead));
+      const maxLead = Math.max(...points.map(p => p.lead));
+      const leadSpan = Math.max(1, maxLead - minLead);
+
+      const x = lead => m.left + ((lead - minLead) / leadSpan) * innerW;
+      const y = value => m.top + (1 - (Math.max(0, Math.min(100, value)) / 100)) * innerH;
+
+      const tickStart = Math.ceil(minLead / 24) * 24;
+      const xTicks = [];
+      for (let t = tickStart; t <= maxLead; t += 24) xTicks.push(t);
+
+      const xTickLines = xTicks
+        .map(t => `<line x1="${x(t).toFixed(1)}" y1="${m.top}" x2="${x(t).toFixed(1)}" y2="${m.top + innerH}" stroke="#e2e8f0" />`)
+        .join('');
+
+      const xTickLabels = xTicks
+        .map(t => `<text x="${(x(t) - 8).toFixed(1)}" y="${h - 4}" font-size="9" fill="#475569">${t}h</text>`)
+        .join('');
+
+      const polyline = points.map(p => `${x(p.lead).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ');
+      const circles = points
+        .map(p => `<circle cx="${x(p.lead).toFixed(1)}" cy="${y(p.value).toFixed(1)}" r="2.4" fill="#1d4ed8" />`)
+        .join('');
+
+      return (
+        `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Probability by lead time">` +
+        `<rect x="${m.left}" y="${m.top}" width="${innerW}" height="${innerH}" fill="#f8fafc" stroke="#cbd5e1" />` +
+        xTickLines +
+        `<line x1="${m.left}" y1="${y(0).toFixed(1)}" x2="${m.left + innerW}" y2="${y(0).toFixed(1)}" stroke="#e2e8f0" />` +
+        `<line x1="${m.left}" y1="${y(50).toFixed(1)}" x2="${m.left + innerW}" y2="${y(50).toFixed(1)}" stroke="#e2e8f0" />` +
+        `<line x1="${m.left}" y1="${y(100).toFixed(1)}" x2="${m.left + innerW}" y2="${y(100).toFixed(1)}" stroke="#e2e8f0" />` +
+        `<polyline points="${polyline}" fill="none" stroke="#1d4ed8" stroke-width="1.8" />` +
+        circles +
+        `<text x="4" y="${(y(100) + 4).toFixed(1)}" font-size="9" fill="#475569">100</text>` +
+        `<text x="8" y="${(y(50) + 4).toFixed(1)}" font-size="9" fill="#475569">50</text>` +
+        `<text x="12" y="${(y(0) + 4).toFixed(1)}" font-size="9" fill="#475569">0</text>` +
+        xTickLabels +
+        `</svg>`
+      );
+    },
+    renderLeadSeriesSection(latlng, variableLabel, thresholdValue) {
+      const series = this.getLeadSeriesAtLocation(latlng, thresholdValue);
+      const latest = series.filter(d => Number.isFinite(d.value)).at(-1);
+      const latestText = latest ? `${latest.lead} h (${latest.validTo})` : 'N/A';
+
+      return (
+        `<div style="margin-top:7px;padding-top:6px;border-top:1px solid #dbe2ea;">` +
+        `<div style="font-size:11px;font-weight:600;color:#1e3a8a;margin-bottom:2px;">Lead-time profile</div>` +
+        `<div style="font-size:10px;color:#475569;margin-bottom:4px;">${this.escapeHtml(variableLabel)} | latest: ${this.escapeHtml(latestText)}</div>` +
+        `${this.renderLeadSeriesSvg(series)}` +
+        `</div>`
+      );
+    },
+    buildHtml(latlng, options = {}) {
+      const includeLeadSeries = Boolean(options.includeLeadSeries);
+      const p = getSelectedProduct();
+      if (!p || !State.dataStore) return null;
+
+      const longitude = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude : [];
+      const rawProb = GridUtils.getProbabilityFlat(p);
+      if (!longitude.length || !latitude.length || !rawProb.length) return null;
+
+      const percent = GridUtils.normalizeToPercent(rawProb);
+      const value = GridUtils.bilinearValueFromFlat(percent, longitude, latitude, latlng.lng, latlng.lat);
+      const variableName = this.getSelectedVariableName(p);
+      const thresholdText = Number.isFinite(Number(p?.threshold_mm_day)) ? `${Number(p.threshold_mm_day)} mm/day` : 'N/A';
+      const variableExceedingThreshold = `${variableName} >= ${thresholdText}`;
+      const forecastDate = this.formatCompactDate(State.dataStore?.forecast_start);
+      const leadTime = Number.isFinite(Number(p?.lead_hours)) ? `${Number(p.lead_hours)} h` : 'N/A';
+      const validDate = this.formatCompactDate(p?.valid_to);
+      const leadSeriesHtml = includeLeadSeries
+        ? this.renderLeadSeriesSection(latlng, variableExceedingThreshold, p?.threshold_mm_day)
+        : '';
+
+      if (value == null || !Number.isFinite(value)) {
+        return (
+          `<strong>No contour value</strong><br>` +
+          `Variable: ${variableExceedingThreshold}<br>` +
+          `Forecast date: ${forecastDate}<br>` +
+          `Lead time: ${leadTime}<br>` +
+          `Valid date: ${validDate}<br>` +
+          `Lat: ${latlng.lat.toFixed(3)}<br>` +
+          `Lon: ${latlng.lng.toFixed(3)}<br>` +
+          `Outside model grid` +
+          leadSeriesHtml
+        );
+      }
+
+      return (
+        `<strong>Contour value</strong><br>` +
+        `Variable: ${variableExceedingThreshold}<br>` +
+        `Forecast date: ${forecastDate}<br>` +
+        `Lead time: ${leadTime}<br>` +
+        `Valid date: ${validDate}<br>` +
+        `Lat: ${latlng.lat.toFixed(3)}<br>` +
+        `Lon: ${latlng.lng.toFixed(3)}<br>` +
+        `${variableExceedingThreshold}: ${value.toFixed(2)}%` +
+        leadSeriesHtml
+      );
+    },
+    hide() {
+      if (!State.hoverValuePopup) return;
+      State.suppressPinnedClearOnHide = true;
+      map.removeLayer(State.hoverValuePopup);
+      State.suppressPinnedClearOnHide = false;
+      State.hoverValuePopup = null;
+    },
+    createOrUpdatePopup(latlng, html, isPinned) {
+      if (!State.hoverValuePopup) {
+        State.hoverValuePopup = L.popup({
+          autoPan: Boolean(isPinned),
+          closeButton: Boolean(isPinned),
+          offset: [12, -8]
+        });
+        State.hoverValuePopup.on('remove', () => {
+          if (State.suppressPinnedClearOnHide) return;
+          State.pinnedTooltipLatLng = null;
+        });
+      }
+
+      State.hoverValuePopup
+        .setLatLng(latlng)
+        .setContent(html)
+        .openOn(map);
+    },
+    showHover(latlng) {
+      if (State.pinnedTooltipLatLng) return;
+      State.lastHoverLatLng = latlng;
+      const html = this.buildHtml(latlng);
+      if (!html) {
+        this.hide();
+        return;
+      }
+      this.createOrUpdatePopup(latlng, html, false);
+    },
+    pin(latlng) {
+      State.pinnedTooltipLatLng = latlng;
+      State.lastHoverLatLng = latlng;
+      const html = this.buildHtml(latlng, { includeLeadSeries: true });
+      if (!html) {
+        this.hide();
+        return;
+      }
+      this.hide();
+      this.createOrUpdatePopup(latlng, html, true);
+    },
+    refreshForCurrentSelection() {
+      const target = State.pinnedTooltipLatLng || State.lastHoverLatLng;
+      if (!target) return;
+
+      const html = this.buildHtml(target, { includeLeadSeries: Boolean(State.pinnedTooltipLatLng) });
+      if (!html) {
+        this.hide();
+        return;
+      }
+
+      this.hide();
+      this.createOrUpdatePopup(target, html, Boolean(State.pinnedTooltipLatLng));
     }
-    return '';
-  }
+  };
 
-  async function fileExistsForDate(dateValue) {
-    const fileName = fileNameForDate(dateValue);
-    try {
-      const head = await fetch(fileName, { method: 'HEAD', cache: 'no-store' });
-      if (head.ok) return true;
-      if (head.status !== 405) return false;
-      const get = await fetch(fileName, { method: 'GET', cache: 'no-store' });
-      return get.ok;
-    } catch {
-      return false;
-    }
-  }
+  const ContourService = {
+    buildFeatureCollection(longitude, latitude, valuesPercent) {
+      const nx = longitude.length;
+      const ny = latitude.length;
+      const expected = nx * ny;
 
-  async function discoverAvailableDates() {
-    statusEl.textContent = 'Scanning available dates...';
-    const available = [];
-    const today = new Date();
+      if (valuesPercent.length !== expected) {
+        throw new Error(`probability length mismatch: got ${valuesPercent.length}, expected ${expected}`);
+      }
 
-    for (let i = 0; i <= MAX_DAYS_BACK; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - i);
-      const iso = toISODate(d);
-      if (await fileExistsForDate(iso)) available.push(iso);
-    }
-    return available.sort();
-  }
+      const minV = Math.min(...valuesPercent);
+      const maxV = Math.max(...valuesPercent);
 
-  function getProbabilityFlat(product) {
-    if (Array.isArray(product?.probability_flat)) return product.probability_flat;
-    if (Array.isArray(product?.prob_flat)) return product.prob_flat;
-    if (Array.isArray(product?.probability)) return product.probability;
-    return [];
-  }
+      let levels = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95].filter(v => v > minV && v < maxV);
+      if (!levels.length) {
+        const step = (maxV - minV) / 6;
+        levels = [1, 2, 3, 4, 5].map(k => minV + k * step);
+      }
 
-  function normalizeToPercent(values) {
-    const nums = values.map(Number);
-    const maxVal = Math.max(...nums);
-    return maxVal <= 1.00001 ? nums.map(v => v * 100) : nums;
-  }
+      const contours = d3.contours().size([nx, ny]).thresholds(levels)(valuesPercent);
 
-  function colorFor(level) {
-    if (level < 10) return '#fff5f0';
-    if (level < 20) return '#fee0d2';
-    if (level < 30) return '#fcbba1';
-    if (level < 40) return '#fc9272';
-    if (level < 50) return '#fb6a4a';
-    if (level < 60) return '#ef3b2c';
-    if (level < 70) return '#cb181d';
-    if (level < 80) return '#a50f15';
-    return '#67000d';
-  }
-
-  function interp1d(arr, x) {
-    const n = arr.length;
-    if (x <= 0) return arr[0];
-    if (x >= n - 1) return arr[n - 1];
-    const i = Math.floor(x);
-    const f = x - i;
-    return arr[i] * (1 - f) + arr[i + 1] * f;
-  }
-
-  function buildContourFeatureCollection(longitude, latitude, valuesPercent) {
-    const nx = longitude.length;
-    const ny = latitude.length;
-    const expected = nx * ny;
-
-    if (valuesPercent.length !== expected) {
-      throw new Error(`probability length mismatch: got ${valuesPercent.length}, expected ${expected}`);
-    }
-
-    const minV = Math.min(...valuesPercent);
-    const maxV = Math.max(...valuesPercent);
-
-    let levels = [5,10,20,30,40,50,60,70,80,90,95].filter(v => v > minV && v < maxV);
-    if (!levels.length) {
-      const step = (maxV - minV) / 6;
-      levels = [1,2,3,4,5].map(k => minV + k * step);
-    }
-
-    const contours = d3.contours().size([nx, ny]).thresholds(levels)(valuesPercent);
-
-    return {
-      type: 'FeatureCollection',
-      levels, // keep contour levels for legend
-      features: contours.map(c => ({
-        type: 'Feature',
-        properties: { level: c.value },
-        geometry: {
-          type: 'MultiPolygon',
-          coordinates: c.coordinates.map(poly =>
-            poly.map(ring =>
-              ring.map(([x, y]) => [interp1d(longitude, x), interp1d(latitude, y)])
+      return {
+        type: 'FeatureCollection',
+        levels,
+        features: contours.map(c => ({
+          type: 'Feature',
+          properties: { level: c.value },
+          geometry: {
+            type: 'MultiPolygon',
+            coordinates: c.coordinates.map(poly =>
+              poly.map(ring =>
+                ring.map(([x, y]) => [GridUtils.interp1d(longitude, x), GridUtils.interp1d(latitude, y)])
+              )
             )
-          )
+          }
+        }))
+      };
+    },
+    clearLegend() {
+      if (State.legendControl) {
+        map.removeControl(State.legendControl);
+        State.legendControl = null;
+      }
+    },
+    renderLegend(levels) {
+      this.clearLegend();
+
+      State.legendControl = L.control({ position: 'bottomright' });
+      State.legendControl.onAdd = function() {
+        const div = L.DomUtil.create('div', 'legend');
+        const sorted = [...levels].sort((a, b) => a - b);
+
+        div.innerHTML = '<div class="title">Probability (%)</div>';
+        sorted.forEach(lv => {
+          div.innerHTML += `
+            <div class="item">
+              <span class="swatch" style="background:${GridUtils.colorFor(lv)};"></span>
+              <span>&ge; ${Number(lv).toFixed(1)}</span>
+            </div>`;
+        });
+        return div;
+      };
+
+      State.legendControl.addTo(map);
+    },
+    clearContours() {
+      if (State.contourLayer) {
+        map.removeLayer(State.contourLayer);
+        State.contourLayer = null;
+      }
+      TooltipService.hide();
+      this.clearLegend();
+    },
+    renderForSelectedProduct() {
+      this.clearContours();
+      const p = getSelectedProduct();
+      if (!p || !State.dataStore) return;
+
+      const rawProb = GridUtils.getProbabilityFlat(p);
+      if (!rawProb.length) return;
+
+      const longitude = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude : [];
+      if (!longitude.length || !latitude.length) return;
+
+      const percent = GridUtils.normalizeToPercent(rawProb);
+      const fc = this.buildFeatureCollection(longitude, latitude, percent);
+
+      State.contourLayer = L.geoJSON(fc, {
+        style: feature => ({
+          stroke: false,
+          fillColor: GridUtils.colorFor(feature.properties.level),
+          fillOpacity: 0.52
+        })
+      }).addTo(map);
+
+      this.renderLegend(fc.levels);
+
+      if (!State.hasFitBounds) {
+        const b = State.contourLayer.getBounds();
+        if (b.isValid()) {
+          map.fitBounds(b.pad(0.05));
+          State.hasFitBounds = true;
         }
-      }))
-    };
-  }
-
-  function clearLegend() {
-    if (legendControl) {
-      map.removeControl(legendControl);
-      legendControl = null;
-    }
-  }
-
-  function renderLegend(levels) {
-    clearLegend();
-
-    legendControl = L.control({ position: 'bottomright' });
-    legendControl.onAdd = function() {
-      const div = L.DomUtil.create('div', 'legend');
-      const sorted = [...levels].sort((a, b) => a - b);
-
-      div.innerHTML = `<div class="title">Probability (%)</div>`;
-      sorted.forEach(lv => {
-        div.innerHTML += `
-          <div class="item">
-            <span class="swatch" style="background:${colorFor(lv)};"></span>
-            <span>&ge; ${Number(lv).toFixed(1)}</span>
-          </div>`;
-      });
-      return div;
-    };
-
-    legendControl.addTo(map);
-  }
-
-  function clearContours() {
-    if (contourLayer) {
-      map.removeLayer(contourLayer);
-      contourLayer = null;
-    }
-    clearLegend();
-  }
-
-  function renderContoursForSelectedProduct() {
-    clearContours();
-    const p = getSelectedProduct();
-    if (!p || !dataStore) return;
-
-    const rawProb = getProbabilityFlat(p);
-    if (!rawProb.length) return;
-
-    const longitude = Array.isArray(dataStore.longitude) ? dataStore.longitude : [];
-    const latitude = Array.isArray(dataStore.latitude) ? dataStore.latitude : [];
-    if (!longitude.length || !latitude.length) return;
-
-    const percent = normalizeToPercent(rawProb);
-    const fc = buildContourFeatureCollection(longitude, latitude, percent);
-
-    contourLayer = L.geoJSON(fc, {
-      style: feature => ({
-        stroke: false,
-        fillColor: colorFor(feature.properties.level),
-        fillOpacity: 0.52
-      })
-    }).addTo(map);
-
-    renderLegend(fc.levels);
-
-    if (!hasFitBounds) {
-      const b = contourLayer.getBounds();
-      if (b.isValid()) {
-        map.fitBounds(b.pad(0.05));
-        hasFitBounds = true;
       }
     }
-  }
+  };
 
   function updateStatusFromSelection() {
     const p = getSelectedProduct();
-    if (!p || !dataStore) {
-      statusEl.textContent = 'No matching record for selected threshold/lead.';
-      clearContours();
+    if (!p || !State.dataStore) {
+      Dom.statusEl.textContent = 'No matching record for selected threshold/lead.';
+      ContourService.clearContours();
       return;
     }
 
-    const nLon = Array.isArray(dataStore.longitude) ? dataStore.longitude.length : 0;
-    const nLat = Array.isArray(dataStore.latitude) ? dataStore.latitude.length : 0;
-    const prob = getProbabilityFlat(p);
+    const nLon = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude.length : 0;
+    const nLat = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude.length : 0;
+    const prob = GridUtils.getProbabilityFlat(p);
 
-    statusEl.textContent =
-`Model: ${dataStore.model ?? 'N/A'}
-Forecast start: ${dataStore.forecast_start ?? 'N/A'}
+    Dom.statusEl.textContent =
+`Model: ${State.dataStore.model ?? 'N/A'}
+Forecast start: ${State.dataStore.forecast_start ?? 'N/A'}
 threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
 lead_hours: ${p.lead_hours ?? 'N/A'}
 valid_to: ${p.valid_to ?? 'N/A'}
@@ -422,69 +867,93 @@ ces_prob_percent: ${p.ces_prob_percent ?? 'N/A'}
 grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
 
     try {
-      renderContoursForSelectedProduct();
+      ContourService.renderForSelectedProduct();
+      TooltipService.refreshForCurrentSelection();
     } catch (err) {
-      clearContours();
-      statusEl.textContent += `\nContour render error: ${err.message}`;
+      ContourService.clearContours();
+      Dom.statusEl.textContent += `\nContour render error: ${err.message}`;
       console.error(err);
     }
   }
 
   async function loadForSelectedDate() {
-    const dateValue = getSelectedDateValue();
+    const dateValue = FileService.selectedDateValue();
+    const model = ModelUtils.selectedValue();
     if (!dateValue) {
-      fileNameLabel.textContent = '-';
-      statusEl.textContent = 'Select a date first.';
-      clearMenus();
-      clearContours();
+      Dom.fileNameLabel.textContent = '-';
+      Ui.setFileLoading(false);
+      Dom.statusEl.textContent = 'Select a date first.';
+      Ui.clearMenus();
+      ContourService.clearContours();
       return;
     }
 
-    const fileName = fileNameForDate(dateValue);
-    fileNameLabel.textContent = fileName;
-    statusEl.textContent = `Loading ${fileName}...`;
-    clearMenus();
-    clearContours();
+    Ui.setFileLoading(true);
+    Dom.fileNameLabel.textContent = 'Resolving file...';
+
+    const fileName = await FileService.resolveFileNameForModelDate(model, dateValue);
+    if (!fileName) {
+      Dom.fileNameLabel.textContent = '-';
+      Ui.setFileLoading(false);
+      Dom.statusEl.textContent = `No file found for ${ModelUtils.displayName(model)} on ${dateValue}.`;
+      Ui.clearMenus();
+      ContourService.clearContours();
+      return;
+    }
+
+    Dom.fileNameLabel.textContent = fileName;
+    Dom.statusEl.textContent = `Loading ${fileName}...`;
+    Ui.clearMenus();
+    ContourService.clearContours();
 
     try {
       const res = await fetch(fileName, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status} for ${fileName}`);
 
-      dataStore = await res.json();
-      products = (dataStore.products || []).filter(
+      State.dataStore = await res.json();
+      Dom.modelSelect.value = ModelUtils.normalize(State.dataStore.model || model);
+      State.products = (State.dataStore.products || []).filter(
         p => Number.isFinite(Number(p?.threshold_mm_day)) && Number.isFinite(Number(p?.lead_hours))
       );
 
-      if (!products.length) {
-        statusEl.textContent = `Loaded ${fileName}, but no products found.`;
+      if (!State.products.length) {
+        Dom.statusEl.textContent = `Loaded ${fileName}, but no products found.`;
         return;
       }
 
-      const thresholds = uniqSorted(products.map(p => Number(p.threshold_mm_day)));
-      const leads = uniqSorted(products.map(p => Number(p.lead_hours)));
+      const thresholds = Ui.uniqSorted(State.products.map(p => Number(p.threshold_mm_day)));
+      const leads = Ui.uniqSorted(State.products.map(p => Number(p.lead_hours)));
 
-      populateSelect(thresholdSelect, thresholds, v => `${v}`);
-      populateSelect(leadSelect, leads, v => `${v} h`);
+      Ui.populateSelect(Dom.thresholdSelect, thresholds, v => `${v}`);
+      Ui.populateSelect(Dom.leadSelect, leads, v => `${v} h`);
 
+      Dom.leadSelect.selectedIndex = 0;
+      Ui.syncLeadNavButtons();
       updateStatusFromSelection();
     } catch (err) {
       console.error(err);
-      statusEl.textContent = `Failed to load ${fileName}: ${err.message}`;
+      Dom.statusEl.textContent = `Failed to load ${fileName}: ${err.message}`;
+    } finally {
+      Ui.setFileLoading(false);
     }
   }
 
   async function initDatePicker() {
-    const availableDates = await discoverAvailableDates();
+    const availableDates = await FileService.discoverAvailableDates();
 
     if (!availableDates.length) {
-      statusEl.textContent = 'No dated files found in this folder.';
-      clearMenus();
+      Dom.statusEl.textContent = 'No dated files found in this folder.';
+      Ui.clearMenus();
       return;
     }
 
-    const defaultDate = availableDates[availableDates.length - 1];
+    if (State.datePicker) {
+      State.datePicker.destroy();
+      State.datePicker = null;
+    }
 
-    datePicker = flatpickr(dateSelect, {
+    const defaultDate = availableDates[availableDates.length - 1];
+    State.datePicker = flatpickr(Dom.dateSelect, {
       dateFormat: 'Y-m-d',
       defaultDate,
       enable: availableDates,
@@ -496,10 +965,59 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
     await loadForSelectedDate();
   }
 
-  thresholdSelect.addEventListener('change', updateStatusFromSelection);
-  leadSelect.addEventListener('change', updateStatusFromSelection);
+  function stepLead(delta) {
+    const n = Dom.leadSelect.options.length;
+    if (!n) return;
+    const idx = Dom.leadSelect.selectedIndex < 0 ? 0 : Dom.leadSelect.selectedIndex;
+    const next = Math.max(0, Math.min(n - 1, idx + delta));
+    if (next !== idx) {
+      Dom.leadSelect.selectedIndex = next;
+      updateStatusFromSelection();
+    }
+    Ui.syncLeadNavButtons();
+  }
 
-  initDatePicker();
+  function wireEvents() {
+    Dom.thresholdSelect.addEventListener('change', () => {
+      updateStatusFromSelection();
+      Ui.syncLeadNavButtons();
+    });
+
+    Dom.leadSelect.addEventListener('change', () => {
+      updateStatusFromSelection();
+      Ui.syncLeadNavButtons();
+    });
+
+    Dom.modelSelect.addEventListener('change', async () => {
+      State.hasFitBounds = false;
+      await initDatePicker();
+    });
+
+    Dom.leadPrevBtn.addEventListener('click', () => stepLead(-1));
+    Dom.leadNextBtn.addEventListener('click', () => stepLead(1));
+
+    map.on('mousemove', ev => {
+      TooltipService.showHover(ev.latlng);
+    });
+
+    map.on('click', ev => {
+      TooltipService.pin(ev.latlng);
+    });
+
+    map.on('mouseout', () => {
+      if (State.pinnedTooltipLatLng) return;
+      State.lastHoverLatLng = null;
+      TooltipService.hide();
+    });
+  }
+
+  async function initApp() {
+    ModelUtils.populate('mogreps');
+    wireEvents();
+    await initDatePicker();
+  }
+
+  initApp();
 </script>
 
 </body>
