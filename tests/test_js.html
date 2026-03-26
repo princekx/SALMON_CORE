@@ -614,16 +614,105 @@
         `</svg>`
       );
     },
-    renderLeadSeriesSection(latlng, variableLabel, thresholdValue) {
-      const series = this.getLeadSeriesAtLocation(latlng, thresholdValue);
-      const latest = series.filter(d => Number.isFinite(d.value)).at(-1);
-      const latestText = latest ? `${latest.lead} h (${latest.validTo})` : 'N/A';
+    getAllThresholdSeries(latlng) {
+      const longitude = Array.isArray(State.dataStore?.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore?.latitude) ? State.dataStore.latitude : [];
+      const result = {};
+      if (!longitude.length || !latitude.length) return result;
+      for (const thr of [10, 20, 30]) {
+        result[thr] = (State.products || [])
+          .filter(p => Number(p?.threshold_mm_day) === thr)
+          .map(p => {
+            const raw = GridUtils.getProbabilityFlat(p);
+            const pct = GridUtils.normalizeToPercent(raw);
+            const v = GridUtils.bilinearValueFromFlat(pct, longitude, latitude, latlng.lng, latlng.lat);
+            return { lead: Number(p?.lead_hours), value: Number.isFinite(v) ? v : null };
+          })
+          .filter(d => Number.isFinite(d.lead))
+          .sort((a, b) => a.lead - b.lead);
+      }
+      return result;
+    },
+    renderMultiThresholdSvg(seriesByThreshold) {
+      const COLORS = { 10: '#2563eb', 20: '#d97706', 30: '#dc2626' };
+      const LABELS = { 10: '\u226510 mm/d', 20: '\u226520 mm/d', 30: '\u226530 mm/d' };
+      const thresholds = [10, 20, 30];
+
+      let allLeads = [];
+      let hasData = false;
+      for (const thr of thresholds) {
+        const pts = (seriesByThreshold[thr] || []).filter(d => Number.isFinite(d.value));
+        if (pts.length >= 2) hasData = true;
+        allLeads.push(...pts.map(p => p.lead));
+      }
+      if (!hasData) return '<div style="margin-top:6px;font-size:11px;color:#64748b;">Lead-time series unavailable at this location.</div>';
+
+      const w = 260, chartH = 120, legendH = 20;
+      const totalH = chartH + legendH;
+      const m = { top: 8, right: 10, bottom: 18, left: 28 };
+      const innerW = w - m.left - m.right;
+      const innerH = chartH - m.top - m.bottom;
+      const minLead = Math.min(...allLeads), maxLead = Math.max(...allLeads);
+      const leadSpan = Math.max(1, maxLead - minLead);
+
+      const x = l => m.left + ((l - minLead) / leadSpan) * innerW;
+      const y = v => m.top + (1 - Math.max(0, Math.min(100, v)) / 100) * innerH;
+
+      const tickStart = Math.ceil(minLead / 24) * 24;
+      const xTicks = [];
+      for (let t = tickStart; t <= maxLead; t += 24) xTicks.push(t);
+
+      const gridLines =
+        xTicks.map(t =>
+          `<line x1="${x(t).toFixed(1)}" y1="${m.top}" x2="${x(t).toFixed(1)}" y2="${m.top + innerH}" stroke="#e2e8f0"/>`
+        ).join('') +
+        [0, 50, 100].map(v =>
+          `<line x1="${m.left}" y1="${y(v).toFixed(1)}" x2="${m.left + innerW}" y2="${y(v).toFixed(1)}" stroke="#e2e8f0"/>`
+        ).join('');
+
+      const xLabels = xTicks.map(t =>
+        `<text x="${(x(t) - 8).toFixed(1)}" y="${chartH - 4}" font-size="9" fill="#475569">${t}h</text>`
+      ).join('');
+
+      let lines = '';
+      for (const thr of thresholds) {
+        const pts = (seriesByThreshold[thr] || []).filter(d => Number.isFinite(d.value));
+        if (pts.length < 2) continue;
+        const color = COLORS[thr];
+        lines +=
+          `<polyline points="${pts.map(p => `${x(p.lead).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="1.8"/>` +
+          pts.map(p => `<circle cx="${x(p.lead).toFixed(1)}" cy="${y(p.value).toFixed(1)}" r="2" fill="${color}"/>`).join('');
+      }
+
+      const yLabels =
+        `<text x="4" y="${(y(100) + 4).toFixed(1)}" font-size="9" fill="#475569">100</text>` +
+        `<text x="8" y="${(y(50) + 4).toFixed(1)}" font-size="9" fill="#475569">50</text>` +
+        `<text x="12" y="${(y(0) + 4).toFixed(1)}" font-size="9" fill="#475569">0</text>`;
+
+      let legendItems = '';
+      let lx = m.left;
+      for (const thr of thresholds) {
+        const pts = (seriesByThreshold[thr] || []).filter(d => Number.isFinite(d.value));
+        if (!pts.length) continue;
+        legendItems +=
+          `<line x1="${lx}" y1="${chartH + 10}" x2="${lx + 12}" y2="${chartH + 10}" stroke="${COLORS[thr]}" stroke-width="2"/>` +
+          `<text x="${lx + 15}" y="${chartH + 14}" font-size="9" fill="#374151">${LABELS[thr]}</text>`;
+        lx += 74;
+      }
 
       return (
+        `<svg width="${w}" height="${totalH}" viewBox="0 0 ${w} ${totalH}" role="img" aria-label="Probability by lead time">` +
+        `<rect x="${m.left}" y="${m.top}" width="${innerW}" height="${innerH}" fill="#f8fafc" stroke="#cbd5e1"/>` +
+        gridLines + lines + yLabels + xLabels + legendItems +
+        `</svg>`
+      );
+    },
+    renderLeadSeriesSection(latlng, variableLabel, thresholdValue) {
+      const seriesByThreshold = this.getAllThresholdSeries(latlng);
+      return (
         `<div style="margin-top:7px;padding-top:6px;border-top:1px solid #dbe2ea;">` +
-        `<div style="font-size:11px;font-weight:600;color:#1e3a8a;margin-bottom:2px;">Lead-time profile</div>` +
-        `<div style="font-size:10px;color:#475569;margin-bottom:4px;">${this.escapeHtml(variableLabel)} | latest: ${this.escapeHtml(latestText)}</div>` +
-        `${this.renderLeadSeriesSvg(series)}` +
+        `<div style="font-size:11px;font-weight:600;color:#1e3a8a;margin-bottom:4px;">Lead-time profile (10 / 20 / 30 mm/day)</div>` +
+        this.renderMultiThresholdSvg(seriesByThreshold) +
         `</div>`
       );
     },
@@ -927,7 +1016,8 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
       Ui.populateSelect(Dom.thresholdSelect, thresholds, v => `${v}`);
       Ui.populateSelect(Dom.leadSelect, leads, v => `${v} h`);
 
-      Dom.leadSelect.selectedIndex = 0;
+      const defaultLeadIdx = leads.indexOf(24);
+      Dom.leadSelect.selectedIndex = defaultLeadIdx >= 0 ? defaultLeadIdx : 0;
       Ui.syncLeadNavButtons();
       updateStatusFromSelection();
     } catch (err) {

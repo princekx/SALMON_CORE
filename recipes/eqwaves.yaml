@@ -14,3 +14,5 @@ tasks:
   - name: "Compute Wave Indices"
     module: salmon.modules.eqwaves.tasks
     class: ComputeEqWavesIndices
+    config:
+      parallel: False
