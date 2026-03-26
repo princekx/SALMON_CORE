@@ -408,6 +408,7 @@ class DisplayColdSurgeMaps(Task):
         do_ensmean = bool(self.config.get("plot_ensmean", True))
         do_probmaps = bool(self.config.get("plot_probmaps", True))
         do_prob_json = bool(self.config.get("export_prob_json", True))
+        do_ensmean_json = bool(self.config.get("export_ensmean_json", True))
         precip_thresholds = self.config.get("precip_thresholds", [10, 20, 30])
 
         if do_ensmean:
@@ -416,6 +417,8 @@ class DisplayColdSurgeMaps(Task):
             self.bokeh_plot_forecast_probability_precip(date, precip_thresholds=precip_thresholds)
         if do_prob_json:
             self.export_forecast_probability_precip_json(date, precip_thresholds=precip_thresholds)
+        if do_ensmean_json:
+            self.export_forecast_ensemble_mean_json(date)
 
     def _init_config_values(self):
         """Load and cache plotting/config paths."""
@@ -440,6 +443,7 @@ class DisplayColdSurgeMaps(Task):
             f"{model}_cs_processed_dir": cs_processed_dir,
             f"{model}_cs_plot_ens": cs_plot_ens_dir,
             f"{model}_cs_plot_prob": os.path.join(cs_plot_ens_dir, "prob"),
+            f"{model}_cs_json_ensmean": os.path.join(cs_plot_ens_dir, "json_ensmean"),
             "map_outline_json_file": self.config.get(
                 "map_outline_json_file",
                 os.path.normpath(_DEFAULT_MAP_JSON),
@@ -770,3 +774,78 @@ class DisplayColdSurgeMaps(Task):
             json.dump(payload, f, indent=2)
 
         logger.info("Exported probability overlay JSON: %s", out_json)
+
+    def export_forecast_ensemble_mean_json(self, date):
+        """
+        Export ensemble-mean precip and 850 hPa wind grids to JSON for JS dashboards.
+
+        Output structure::
+
+            {
+              "model": "...",
+              "forecast_start": "YYYYMMDD",
+              "variable": "precipitation_amount",
+              "longitude": [...],
+              "latitude": [...],
+              "products": [
+                {
+                  "lead_hours": 0,
+                  "valid_to": "YYYYMMDD",
+                  "cs_prob_percent": 12.3,
+                  "ces_prob_percent": 4.5,
+                  "grid_shape": [nlat, nlon],
+                  "precip_mean_flat": [...],   # row-major [lat, lon], mm/day
+                  "u850_mean_flat": [...],     # row-major [lat, lon], m/s
+                  "v850_mean_flat": [...],     # row-major [lat, lon], m/s
+                },
+                ...
+              ]
+            }
+        """
+        precip_cube, u850_cube, v850_cube, speed_cube = self._load_required_cubes(date)
+        cs_prob, ces_prob = self.cold_surge_probabilities(u850_cube, v850_cube, speed_cube)
+
+        precip_mean = precip_cube.collapsed("realization", iris.analysis.MEAN)
+        u850_mean = u850_cube.collapsed("realization", iris.analysis.MEAN)
+        v850_mean = v850_cube.collapsed("realization", iris.analysis.MEAN)
+
+        lons = precip_mean[0].coord("longitude").points
+        lats = precip_mean[0].coord("latitude").points
+        ntimes = len(precip_mean.coord("forecast_period").points)
+
+        model = self.config_values["model"]
+        out_dir = os.path.join(
+            self.config_values[f"{model}_cs_json_ensmean"], date.strftime("%Y%m%d")
+        )
+        os.makedirs(out_dir, exist_ok=True)
+
+        payload = {
+            "model": model,
+            "forecast_start": date.strftime("%Y%m%d"),
+            "variable": "precipitation_amount",
+            "longitude": [float(x) for x in lons],
+            "latitude": [float(y) for y in lats],
+            "products": [],
+        }
+
+        for t in range(ntimes):
+            precip_grid = np.asarray(precip_mean[t].data, dtype=float)
+            u850_grid = np.asarray(u850_mean[t].data, dtype=float)
+            v850_grid = np.asarray(v850_mean[t].data, dtype=float)
+
+            payload["products"].append({
+                "lead_hours": int(t * 24),
+                "valid_to": (date + datetime.timedelta(days=int(t))).strftime("%Y%m%d"),
+                "cs_prob_percent": float(cs_prob[t]),
+                "ces_prob_percent": float(ces_prob[t]),
+                "grid_shape": [int(precip_grid.shape[0]), int(precip_grid.shape[1])],
+                "precip_mean_flat": [round(float(v), 3) for v in precip_grid.ravel(order="C")],
+                "u850_mean_flat": [round(float(v), 3) for v in u850_grid.ravel(order="C")],
+                "v850_mean_flat": [round(float(v), 3) for v in v850_grid.ravel(order="C")],
+            })
+
+        out_json = os.path.join(out_dir, f"Cold_surge_EnsMean_{date.strftime('%Y%m%d')}.json")
+        with open(out_json, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+
+        logger.info("Exported ensemble-mean JSON: %s", out_json)

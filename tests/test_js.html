@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+  <!-- Animated wind particles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-velocity@2.1.2/dist/leaflet-velocity.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-velocity@2.1.2/dist/leaflet-velocity.min.js"></script>
+
   <style>
     body {
       margin: 0;
@@ -248,13 +252,17 @@
     <select id="modelSelect"></select>
   </div>
   <div class="row">
+    <label for="layerSelect">layer</label>
+    <select id="layerSelect"></select>
+  </div>
+  <div class="row">
     <label>file</label>
     <span id="fileNameWrap">
       <span id="fileNameLabel">-</span>
       <span id="fileLoadingSpinner" aria-hidden="true"></span>
     </span>
   </div>
-  <div class="row">
+  <div class="row" id="thresholdRow">
     <label for="thresholdSelect">threshold_mm_day</label>
     <select id="thresholdSelect"></select>
   </div>
@@ -276,7 +284,9 @@
     statusEl: document.getElementById('status'),
     dateSelect: document.getElementById('dateSelect'),
     modelSelect: document.getElementById('modelSelect'),
+    layerSelect: document.getElementById('layerSelect'),
     thresholdSelect: document.getElementById('thresholdSelect'),
+    thresholdRow: document.getElementById('thresholdRow'),
     leadSelect: document.getElementById('leadSelect'),
     fileNameLabel: document.getElementById('fileNameLabel'),
     fileLoadingSpinner: document.getElementById('fileLoadingSpinner'),
@@ -285,21 +295,28 @@
   };
 
   const AppConfig = {
-    maxDaysBack: 365,
+    maxDaysBack: 30,
     modelOptions: [
       { value: 'mogreps', label: 'MOGREPS' },
       { value: 'glosea', label: 'GLOSEA' },
       { value: 'ecmwf_ifs', label: 'ECMWF IFS' },
       { value: 'aifs', label: 'AIFS' },
       { value: 'other', label: 'Other' }
+    ],
+    layerOptions: [
+      { value: 'probability', label: 'Probability Maps' },
+      { value: 'ensmean', label: 'Ensemble Mean' }
     ]
   };
 
   const State = {
     dataStore: null,
     products: [],
+    layerMode: 'probability',
+    dateCache: {},
     datePicker: null,
     contourLayer: null,
+    windLayer: null,
     legendControl: null,
     hoverValuePopup: null,
     lastHoverLatLng: null,
@@ -375,13 +392,14 @@
       if (!ymd) return [];
 
       const model = ModelUtils.normalize(modelValue);
+      const prefix = State.layerMode === 'ensmean' ? 'Cold_surge_EnsMean' : 'Cold_surge_ProbMaps';
       const names = [];
       if (model !== 'other') {
-        names.push(`Cold_surge_ProbMaps_${model}_${ymd}.json`);
-        names.push(`Cold_surge_ProbMaps_${model.toUpperCase()}_${ymd}.json`);
-        names.push(`Cold_surge_ProbMaps_${ymd}_${model}.json`);
+        names.push(`${prefix}_${model}_${ymd}.json`);
+        names.push(`${prefix}_${model.toUpperCase()}_${ymd}.json`);
+        names.push(`${prefix}_${ymd}_${model}.json`);
       }
-      names.push(this.fileNameForDate(dateValue));
+      names.push(`${prefix}_${ymd}.json`);
       return [...new Set(names)];
     },
     toISODate(d) {
@@ -413,18 +431,24 @@
       return null;
     },
     async discoverAvailableDates() {
-      Dom.statusEl.textContent = 'Scanning available dates...';
-      const available = [];
-      const today = new Date();
       const model = ModelUtils.selectedValue();
+      const cacheKey = `${model}:${State.layerMode}`;
+      if (State.dateCache[cacheKey]) return State.dateCache[cacheKey];
 
-      for (let i = 0; i <= AppConfig.maxDaysBack; i++) {
+      const today = new Date();
+      const dates = Array.from({ length: AppConfig.maxDaysBack + 1 }, (_, i) => {
         const d = new Date(today);
         d.setDate(today.getDate() - i);
-        const iso = this.toISODate(d);
-        if (await this.resolveFileNameForModelDate(model, iso)) available.push(iso);
-      }
-      return available.sort();
+        return this.toISODate(d);
+      });
+
+      // Check all dates in parallel.
+      const results = await Promise.all(
+        dates.map(iso => this.resolveFileNameForModelDate(model, iso).then(f => f ? iso : null))
+      );
+      const available = results.filter(Boolean).sort();
+      State.dateCache[cacheKey] = available;
+      return available;
     }
   };
 
@@ -450,6 +474,17 @@
       if (level < 70) return '#cb181d';
       if (level < 80) return '#a50f15';
       return '#67000d';
+    },
+    colorForPrecip(value) {
+      if (value <  2)  return '#f7fcf0';
+      if (value <  5)  return '#e0f3db';
+      if (value < 10)  return '#ccebc5';
+      if (value < 15)  return '#a8ddb5';
+      if (value < 20)  return '#7bccc4';
+      if (value < 25)  return '#4eb3d3';
+      if (value < 30)  return '#2b8cbe';
+      if (value < 40)  return '#0868ac';
+      return '#084081';
     },
     interp1d(arr, x) {
       const n = arr.length;
@@ -516,8 +551,11 @@
   };
 
   function getSelectedProduct() {
-    const t = Number(Dom.thresholdSelect.value);
     const l = Number(Dom.leadSelect.value);
+    if (State.layerMode === 'ensmean') {
+      return State.products.find(p => Number(p.lead_hours) === l);
+    }
+    const t = Number(Dom.thresholdSelect.value);
     return State.products.find(p => Number(p.threshold_mm_day) === t && Number(p.lead_hours) === l);
   }
 
@@ -716,7 +754,100 @@
         `</div>`
       );
     },
+    getEnsMeanSeriesAtLocation(latlng) {
+      const longitude = Array.isArray(State.dataStore?.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore?.latitude) ? State.dataStore.latitude : [];
+      if (!longitude.length || !latitude.length) return [];
+      return (State.products || [])
+        .filter(p => Array.isArray(p?.precip_mean_flat))
+        .map(p => {
+          const v = GridUtils.bilinearValueFromFlat(p.precip_mean_flat, longitude, latitude, latlng.lng, latlng.lat);
+          return { lead: Number(p.lead_hours), value: Number.isFinite(v) ? v : null };
+        })
+        .filter(d => Number.isFinite(d.lead))
+        .sort((a, b) => a.lead - b.lead);
+    },
+    renderEnsMeanLeadSeriesSvg(series) {
+      const points = series.filter(d => Number.isFinite(d.value));
+      if (points.length < 2) {
+        return '<div style="margin-top:6px;font-size:11px;color:#64748b;">Lead-time series unavailable at this location.</div>';
+      }
+      const w = 240, h = 120;
+      const m = { top: 8, right: 10, bottom: 18, left: 34 };
+      const innerW = w - m.left - m.right;
+      const innerH = h - m.top - m.bottom;
+      const minLead = Math.min(...points.map(p => p.lead));
+      const maxLead = Math.max(...points.map(p => p.lead));
+      const leadSpan = Math.max(1, maxLead - minLead);
+      const maxVal = Math.max(...points.map(p => p.value), 10);
+      const xc = l => m.left + ((l - minLead) / leadSpan) * innerW;
+      const yc = v => m.top + (1 - Math.max(0, v) / maxVal) * innerH;
+      const tickStart = Math.ceil(minLead / 24) * 24;
+      const xTicks = [];
+      for (let t = tickStart; t <= maxLead; t += 24) xTicks.push(t);
+      const gridLines =
+        xTicks.map(t => `<line x1="${xc(t).toFixed(1)}" y1="${m.top}" x2="${xc(t).toFixed(1)}" y2="${m.top + innerH}" stroke="#e2e8f0"/>`).join('') +
+        [0, maxVal / 2, maxVal].map(v => `<line x1="${m.left}" y1="${yc(v).toFixed(1)}" x2="${m.left + innerW}" y2="${yc(v).toFixed(1)}" stroke="#e2e8f0"/>`).join('');
+      const polyline = points.map(p => `${xc(p.lead).toFixed(1)},${yc(p.value).toFixed(1)}`).join(' ');
+      const circles = points.map(p => `<circle cx="${xc(p.lead).toFixed(1)}" cy="${yc(p.value).toFixed(1)}" r="2.4" fill="#0891b2"/>`).join('');
+      const xLabels = xTicks.map(t => `<text x="${(xc(t) - 8).toFixed(1)}" y="${h - 4}" font-size="9" fill="#475569">${t}h</text>`).join('');
+      const yLabels =
+        `<text x="1" y="${(yc(maxVal) + 4).toFixed(1)}" font-size="9" fill="#475569">${maxVal.toFixed(0)}</text>` +
+        `<text x="1" y="${(yc(maxVal / 2) + 4).toFixed(1)}" font-size="9" fill="#475569">${(maxVal / 2).toFixed(0)}</text>` +
+        `<text x="1" y="${(yc(0) + 4).toFixed(1)}" font-size="9" fill="#475569">0</text>`;
+      return (
+        `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Ensemble mean precip by lead time">` +
+        `<rect x="${m.left}" y="${m.top}" width="${innerW}" height="${innerH}" fill="#f8fafc" stroke="#cbd5e1"/>` +
+        gridLines +
+        `<polyline points="${polyline}" fill="none" stroke="#0891b2" stroke-width="1.8"/>` +
+        circles + yLabels + xLabels +
+        `<text x="${(m.left + innerW / 2 - 18).toFixed(0)}" y="${h - 1}" font-size="8" fill="#94a3b8">mm/day</text>` +
+        `</svg>`
+      );
+    },
+    renderEnsMeanLeadSeriesSection(latlng) {
+      return (
+        `<div style="margin-top:7px;padding-top:6px;border-top:1px solid #dbe2ea;">` +
+        `<div style="font-size:11px;font-weight:600;color:#1e3a8a;margin-bottom:4px;">Lead-time profile (ensemble mean precip)</div>` +
+        this.renderEnsMeanLeadSeriesSvg(this.getEnsMeanSeriesAtLocation(latlng)) +
+        `</div>`
+      );
+    },
+    buildEnsMeanHtml(latlng, options = {}) {
+      const p = getSelectedProduct();
+      if (!p || !State.dataStore) return null;
+      const longitude = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude : [];
+      const latitude = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude : [];
+      if (!longitude.length || !latitude.length || !Array.isArray(p.precip_mean_flat)) return null;
+      const value = GridUtils.bilinearValueFromFlat(p.precip_mean_flat, longitude, latitude, latlng.lng, latlng.lat);
+      const forecastDate = this.formatCompactDate(State.dataStore?.forecast_start);
+      const leadTime = Number.isFinite(Number(p?.lead_hours)) ? `${Number(p.lead_hours)} h` : 'N/A';
+      const validDate = this.formatCompactDate(p?.valid_to);
+      const csProb = p.cs_prob_percent != null ? `${p.cs_prob_percent}%` : 'N/A';
+      const cesProb = p.ces_prob_percent != null ? `${p.ces_prob_percent}%` : 'N/A';
+      const leadSeriesHtml = options.includeLeadSeries ? this.renderEnsMeanLeadSeriesSection(latlng) : '';
+      if (value == null || !Number.isFinite(value)) {
+        return (
+          `<strong>Ensemble Mean</strong><br>` +
+          `Forecast date: ${forecastDate}<br>` +
+          `Lead time: ${leadTime} | Valid: ${validDate}<br>` +
+          `CS: ${csProb} | CES: ${cesProb}<br>` +
+          `Lat: ${latlng.lat.toFixed(3)} | Lon: ${latlng.lng.toFixed(3)}<br>` +
+          `Outside model grid` + leadSeriesHtml
+        );
+      }
+      return (
+        `<strong>Ensemble Mean</strong><br>` +
+        `Precip: <b>${value.toFixed(1)} mm/day</b><br>` +
+        `Forecast date: ${forecastDate}<br>` +
+        `Lead time: ${leadTime} | Valid: ${validDate}<br>` +
+        `CS: ${csProb} | CES: ${cesProb}<br>` +
+        `Lat: ${latlng.lat.toFixed(3)} | Lon: ${latlng.lng.toFixed(3)}` +
+        leadSeriesHtml
+      );
+    },
     buildHtml(latlng, options = {}) {
+      if (State.layerMode === 'ensmean') return this.buildEnsMeanHtml(latlng, options);
       const includeLeadSeries = Boolean(options.includeLeadSeries);
       const p = getSelectedProduct();
       if (!p || !State.dataStore) return null;
@@ -826,6 +957,99 @@
   };
 
   const ContourService = {
+    /* ---- vector wind layer ---- */
+    clearWind() {
+      if (State.windLayer) {
+        map.removeLayer(State.windLayer);
+        State.windLayer = null;
+      }
+    },
+    buildVelocityData(p, longitude, latitude) {
+      const nx = longitude.length;
+      const ny = latitude.length;
+      const dx = (longitude[nx - 1] - longitude[0]) / (nx - 1);
+      const dy = (latitude[ny - 1] - latitude[0]) / (ny - 1);
+
+      // Leaflet.Velocity expects data rows ordered north→south (la1 = max lat).
+      // If our data is south→north (dy > 0) we flip the rows.
+      const southToNorth = dy > 0;
+      function flipRows(flat) {
+        if (!southToNorth) return flat;
+        const out = new Array(nx * ny);
+        for (let row = 0; row < ny; row++) {
+          const src = ny - 1 - row;
+          for (let col = 0; col < nx; col++) {
+            out[row * nx + col] = flat[src * nx + col];
+          }
+        }
+        return out;
+      }
+
+      const la1 = southToNorth ? latitude[ny - 1] : latitude[0];
+      const la2 = southToNorth ? latitude[0] : latitude[ny - 1];
+      const header = {
+        lo1: longitude[0], la1,
+        lo2: longitude[nx - 1], la2,
+        dx, dy: Math.abs(dy), nx, ny
+      };
+      return [
+        { header: { ...header, parameterCategory: 2, parameterNumber: 2 }, data: flipRows(p.u850_mean_flat) },
+        { header: { ...header, parameterCategory: 2, parameterNumber: 3 }, data: flipRows(p.v850_mean_flat) }
+      ];
+    },
+    renderWindVelocity(p, longitude, latitude) {
+      this.clearWind();
+      if (!Array.isArray(p.u850_mean_flat) || !p.u850_mean_flat.length) return;
+      if (typeof L.velocityLayer === 'undefined') {
+        console.warn('Leaflet.Velocity not loaded — falling back to static arrows.');
+        this._renderWindArrows(p, longitude, latitude);
+        return;
+      }
+      const data = this.buildVelocityData(p, longitude, latitude);
+      State.windLayer = L.velocityLayer({
+        displayValues: true,
+        displayOptions: {
+          velocityType: '850 hPa Wind',
+          displayPosition: 'bottomleft',
+          displayEmptyString: 'No wind data',
+          speedUnit: 'm/s'
+        },
+        data,
+        maxVelocity: 15,
+        velocityScale: 0.008,
+        opacity: 0.85,
+        colorScale: ['#bfdbfe', '#60a5fa', '#2563eb', '#1e40af', '#1e3a8a']
+      }).addTo(map);
+    },
+    /* Static arrow fallback (used when Leaflet.Velocity unavailable) */
+    _renderWindArrows(p, longitude, latitude, xSkip = 5, ySkip = 5) {
+      const uFlat = p.u850_mean_flat;
+      const vFlat = p.v850_mean_flat;
+      const nx = longitude.length;
+      const ny = latitude.length;
+      const markers = [];
+      for (let iy = 0; iy < ny; iy += ySkip) {
+        for (let ix = 0; ix < nx; ix += xSkip) {
+          const idx = iy * nx + ix;
+          const u = uFlat[idx], v = vFlat[idx];
+          if (!Number.isFinite(u) || !Number.isFinite(v)) continue;
+          const speed = Math.sqrt(u * u + v * v);
+          if (speed < 0.3) continue;
+          const scale = Math.min(speed / 8, 1.0) * 1.5;
+          const ar = Math.atan2(u, v);
+          const dLon = Math.sin(ar) * scale, dLat = Math.cos(ar) * scale;
+          const color = speed >= 9 ? '#dc2626' : speed >= 6 ? '#d97706' : '#2563eb';
+          const tip = [latitude[iy] + dLat, longitude[ix] + dLon];
+          const tail = [latitude[iy] - dLat * 0.5, longitude[ix] - dLon * 0.5];
+          const hs = scale * 0.38, pLat = -Math.sin(ar) * hs * 0.45, pLon = Math.cos(ar) * hs * 0.45;
+          markers.push(
+            L.polyline([tail, tip], { color, weight: 1.6, opacity: 0.85 }),
+            L.polygon([tip, [tip[0]-dLat*hs+pLat, tip[1]-dLon*hs+pLon], [tip[0]-dLat*hs-pLat, tip[1]-dLon*hs-pLon]], { color, fillColor: color, fillOpacity: 1, weight: 0.5 })
+          );
+        }
+      }
+      if (markers.length) State.windLayer = L.layerGroup(markers).addTo(map);
+    },
     buildFeatureCollection(longitude, latitude, valuesPercent) {
       const nx = longitude.length;
       const ny = latitude.length;
@@ -869,7 +1093,7 @@
         State.legendControl = null;
       }
     },
-    renderLegend(levels) {
+    renderLegend(levels, colorFn, title = 'Probability (%)') {
       this.clearLegend();
 
       State.legendControl = L.control({ position: 'bottomright' });
@@ -877,11 +1101,11 @@
         const div = L.DomUtil.create('div', 'legend');
         const sorted = [...levels].sort((a, b) => a - b);
 
-        div.innerHTML = '<div class="title">Probability (%)</div>';
+        div.innerHTML = `<div class="title">${title}</div>`;
         sorted.forEach(lv => {
           div.innerHTML += `
             <div class="item">
-              <span class="swatch" style="background:${GridUtils.colorFor(lv)};"></span>
+              <span class="swatch" style="background:${colorFn(lv)};"></span>
               <span>&ge; ${Number(lv).toFixed(1)}</span>
             </div>`;
         });
@@ -895,6 +1119,7 @@
         map.removeLayer(State.contourLayer);
         State.contourLayer = null;
       }
+      this.clearWind();
       TooltipService.hide();
       this.clearLegend();
     },
@@ -903,25 +1128,37 @@
       const p = getSelectedProduct();
       if (!p || !State.dataStore) return;
 
-      const rawProb = GridUtils.getProbabilityFlat(p);
-      if (!rawProb.length) return;
-
       const longitude = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude : [];
       const latitude = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude : [];
       if (!longitude.length || !latitude.length) return;
 
-      const percent = GridUtils.normalizeToPercent(rawProb);
-      const fc = this.buildFeatureCollection(longitude, latitude, percent);
+      let flatValues, colorFn, legendTitle;
+      if (State.layerMode === 'ensmean') {
+        flatValues = Array.isArray(p.precip_mean_flat) ? p.precip_mean_flat : [];
+        colorFn = v => GridUtils.colorForPrecip(v);
+        legendTitle = 'Precip. (mm/day)';
+      } else {
+        flatValues = GridUtils.normalizeToPercent(GridUtils.getProbabilityFlat(p));
+        colorFn = v => GridUtils.colorFor(v);
+        legendTitle = 'Probability (%)';
+      }
+      if (!flatValues.length) return;
+
+      const fc = this.buildFeatureCollection(longitude, latitude, flatValues);
 
       State.contourLayer = L.geoJSON(fc, {
         style: feature => ({
           stroke: false,
-          fillColor: GridUtils.colorFor(feature.properties.level),
+          fillColor: colorFn(feature.properties.level),
           fillOpacity: 0.52
         })
       }).addTo(map);
 
-      this.renderLegend(fc.levels);
+      this.renderLegend(fc.levels, colorFn, legendTitle);
+
+      if (State.layerMode === 'ensmean') {
+        this.renderWindVelocity(p, longitude, latitude);
+      }
 
       if (!State.hasFitBounds) {
         const b = State.contourLayer.getBounds();
@@ -936,16 +1173,27 @@
   function updateStatusFromSelection() {
     const p = getSelectedProduct();
     if (!p || !State.dataStore) {
-      Dom.statusEl.textContent = 'No matching record for selected threshold/lead.';
+      Dom.statusEl.textContent = 'No matching record for selected lead.';
       ContourService.clearContours();
       return;
     }
 
     const nLon = Array.isArray(State.dataStore.longitude) ? State.dataStore.longitude.length : 0;
     const nLat = Array.isArray(State.dataStore.latitude) ? State.dataStore.latitude.length : 0;
-    const prob = GridUtils.getProbabilityFlat(p);
 
-    Dom.statusEl.textContent =
+    if (State.layerMode === 'ensmean') {
+      const flat = Array.isArray(p.precip_mean_flat) ? p.precip_mean_flat : [];
+      Dom.statusEl.textContent =
+`Model: ${State.dataStore.model ?? 'N/A'}
+Forecast start: ${State.dataStore.forecast_start ?? 'N/A'}
+lead_hours: ${p.lead_hours ?? 'N/A'}
+valid_to: ${p.valid_to ?? 'N/A'}
+cs_prob_percent: ${p.cs_prob_percent ?? 'N/A'}
+ces_prob_percent: ${p.ces_prob_percent ?? 'N/A'}
+grid: lon=${nLon}, lat=${nLat}, precip_mean_flat=${flat.length}`;
+    } else {
+      const prob = GridUtils.getProbabilityFlat(p);
+      Dom.statusEl.textContent =
 `Model: ${State.dataStore.model ?? 'N/A'}
 Forecast start: ${State.dataStore.forecast_start ?? 'N/A'}
 threshold_mm_day: ${p.threshold_mm_day ?? 'N/A'}
@@ -954,6 +1202,7 @@ valid_to: ${p.valid_to ?? 'N/A'}
 cs_prob_percent: ${p.cs_prob_percent ?? 'N/A'}
 ces_prob_percent: ${p.ces_prob_percent ?? 'N/A'}
 grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
+    }
 
     try {
       ContourService.renderForSelectedProduct();
@@ -1001,20 +1250,30 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
 
       State.dataStore = await res.json();
       Dom.modelSelect.value = ModelUtils.normalize(State.dataStore.model || model);
-      State.products = (State.dataStore.products || []).filter(
-        p => Number.isFinite(Number(p?.threshold_mm_day)) && Number.isFinite(Number(p?.lead_hours))
-      );
+      if (State.layerMode === 'ensmean') {
+        State.products = (State.dataStore.products || []).filter(
+          p => Number.isFinite(Number(p?.lead_hours))
+        );
+        Dom.thresholdRow.style.display = 'none';
+      } else {
+        State.products = (State.dataStore.products || []).filter(
+          p => Number.isFinite(Number(p?.threshold_mm_day)) && Number.isFinite(Number(p?.lead_hours))
+        );
+        Dom.thresholdRow.style.display = '';
+      }
 
       if (!State.products.length) {
         Dom.statusEl.textContent = `Loaded ${fileName}, but no products found.`;
         return;
       }
 
-      const thresholds = Ui.uniqSorted(State.products.map(p => Number(p.threshold_mm_day)));
       const leads = Ui.uniqSorted(State.products.map(p => Number(p.lead_hours)));
-
-      Ui.populateSelect(Dom.thresholdSelect, thresholds, v => `${v}`);
       Ui.populateSelect(Dom.leadSelect, leads, v => `${v} h`);
+
+      if (State.layerMode === 'probability') {
+        const thresholds = Ui.uniqSorted(State.products.map(p => Number(p.threshold_mm_day)));
+        Ui.populateSelect(Dom.thresholdSelect, thresholds, v => `${v}`);
+      }
 
       const defaultLeadIdx = leads.indexOf(24);
       Dom.leadSelect.selectedIndex = defaultLeadIdx >= 0 ? defaultLeadIdx : 0;
@@ -1029,30 +1288,30 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
   }
 
   async function initDatePicker() {
-    const availableDates = await FileService.discoverAvailableDates();
+    const today = FileService.toISODate(new Date());
 
-    if (!availableDates.length) {
-      Dom.statusEl.textContent = 'No dated files found in this folder.';
-      Ui.clearMenus();
-      return;
+    // Create the picker immediately with today's date so the user isn't blocked.
+    if (!State.datePicker) {
+      State.datePicker = flatpickr(Dom.dateSelect, {
+        dateFormat: 'Y-m-d',
+        defaultDate: today,
+        onChange: async () => { await loadForSelectedDate(); }
+      });
     }
 
-    if (State.datePicker) {
-      State.datePicker.destroy();
-      State.datePicker = null;
-    }
+    // Load the selected date's file right away.
+    await loadForSelectedDate();
 
-    const defaultDate = availableDates[availableDates.length - 1];
-    State.datePicker = flatpickr(Dom.dateSelect, {
-      dateFormat: 'Y-m-d',
-      defaultDate,
-      enable: availableDates,
-      onChange: async () => {
-        await loadForSelectedDate();
+    // Then scan available dates in the background and update the picker.
+    FileService.discoverAvailableDates().then(available => {
+      if (!available.length || !State.datePicker) return;
+      State.datePicker.set('enable', available);
+      // If the currently selected date has no file, jump to the latest available.
+      const current = FileService.selectedDateValue();
+      if (current && !available.includes(current)) {
+        State.datePicker.setDate(available[available.length - 1], true);
       }
     });
-
-    await loadForSelectedDate();
   }
 
   function stepLead(delta) {
@@ -1078,9 +1337,28 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
       Ui.syncLeadNavButtons();
     });
 
-    Dom.modelSelect.addEventListener('change', async () => {
+    Dom.layerSelect.addEventListener('change', async () => {
+      State.layerMode = Dom.layerSelect.value;
       State.hasFitBounds = false;
-      await initDatePicker();
+      await loadForSelectedDate();
+      // Refresh available dates for the new layer (uses cache if already scanned).
+      FileService.discoverAvailableDates().then(available => {
+        if (State.datePicker && available.length) {
+          State.datePicker.set('enable', available);
+        }
+      });
+    });
+
+    Dom.modelSelect.addEventListener('change', async () => {
+      State.dateCache = {};
+      State.hasFitBounds = false;
+      if (State.datePicker) State.datePicker.set('enable', []);
+      await loadForSelectedDate();
+      FileService.discoverAvailableDates().then(available => {
+        if (State.datePicker && available.length) {
+          State.datePicker.set('enable', available);
+        }
+      });
     });
 
     Dom.leadPrevBtn.addEventListener('click', () => stepLead(-1));
@@ -1103,6 +1381,12 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
 
   async function initApp() {
     ModelUtils.populate('mogreps');
+    Ui.populateSelect(
+      Dom.layerSelect,
+      AppConfig.layerOptions.map(l => l.value),
+      v => AppConfig.layerOptions.find(l => l.value === v)?.label || v
+    );
+    State.layerMode = Dom.layerSelect.value;
     wireEvents();
     await initDatePicker();
   }
