@@ -146,6 +146,11 @@ def subset_seasia(cube: iris.cube.Cube) -> iris.cube.Cube:
     """Subset a cube to the Southeast Asia region (-10 to 25 lat, 85 to 145 lon)."""
     return cube.intersection(latitude=(-10, 25), longitude=(85, 145))
 
+def subset_tropics(cube: iris.cube.Cube) -> iris.cube.Cube:
+    """Subset a cube to the tropical region (-30 to 30 lat, 0 to 360 lon)."""
+    return cube.intersection(latitude=(-30, 30), longitude=(0, 360))
+
+
 def create_latlon_grid(latitudes: tuple = (-90.5, 90.5), 
                        longitudes: tuple = (-0.5, 359.5), 
                        spacing: float = 1.0) -> iris.cube.Cube:

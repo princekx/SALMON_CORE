@@ -14,7 +14,7 @@ from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
-from salmon.utils.cube import read_winds_correctly, read_precip_correctly, subset_seasia
+from salmon.utils.cube import read_winds_correctly, read_precip_correctly, subset_tropics, subset_seasia
 from salmon.utils.bokeh_utils import Vector
 import sys
 import warnings
@@ -225,7 +225,7 @@ class ComputeColdSurgeIndices(Task):
     """
     Compute Cold Surge indices from retrieved MOGREPS PP files.
 
-    Outputs
+    Outputs 
     -------
     NetCDF files (one per variable) containing all available members:
       - precip
@@ -561,9 +561,14 @@ class DisplayColdSurgeMaps(Task):
 
     def _load_required_cubes(self, date):
         """Load precip/u850/v850 cubes and compute speed cube."""
-        precip_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "precip")))
-        u850_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "u850")))
-        v850_cube = subset_seasia(iris.load_cube(self.get_file_name(date, "v850")))
+        precip_cube = iris.load_cube(self.get_file_name(date, "precip"))
+        u850_cube = iris.load_cube(self.get_file_name(date, "u850"))
+        v850_cube = iris.load_cube(self.get_file_name(date, "v850"))
+        # Subset to tropics for faster plotting and consistent vector thinning
+        precip_cube = subset_tropics(precip_cube)
+        u850_cube = subset_tropics(u850_cube)
+        v850_cube = subset_tropics(v850_cube)
+
         speed_cube = (u850_cube ** 2 + v850_cube ** 2) ** 0.5
         return precip_cube, u850_cube, v850_cube, speed_cube
 

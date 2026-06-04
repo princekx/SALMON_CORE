@@ -18,10 +18,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <!-- Animated wind particles -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-velocity@2.1.2/dist/leaflet-velocity.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-velocity@2.1.2/dist/leaflet-velocity.min.js"></script>
-
   <style>
     body {
       margin: 0;
@@ -267,6 +263,13 @@
     <select id="thresholdSelect"></select>
   </div>
   <div class="row">
+    <label for="renderStyleSelect">render style</label>
+    <select id="renderStyleSelect">
+      <option value="contours">Contours</option>
+      <option value="pcolormesh">Pcolormesh</option>
+    </select>
+  </div>
+  <div class="row">
     <label for="leadSelect">lead_hours</label>
     <span class="lead-nav">
       <button id="leadPrevBtn" type="button" title="Previous lead time">&#9664;</button>
@@ -287,6 +290,7 @@
     layerSelect: document.getElementById('layerSelect'),
     thresholdSelect: document.getElementById('thresholdSelect'),
     thresholdRow: document.getElementById('thresholdRow'),
+    renderStyleSelect: document.getElementById('renderStyleSelect'),
     leadSelect: document.getElementById('leadSelect'),
     fileNameLabel: document.getElementById('fileNameLabel'),
     fileLoadingSpinner: document.getElementById('fileLoadingSpinner'),
@@ -313,6 +317,7 @@
     dataStore: null,
     products: [],
     layerMode: 'probability',
+    renderStyle: 'contours',
     dateCache: {},
     datePicker: null,
     contourLayer: null,
@@ -964,91 +969,175 @@
         State.windLayer = null;
       }
     },
-    buildVelocityData(p, longitude, latitude) {
+    renderWindArrows(p, longitude, latitude) {
+      this.clearWind();
+      const uFlat = Array.isArray(p.u850_mean_flat) ? p.u850_mean_flat : [];
+      const vFlat = Array.isArray(p.v850_mean_flat) ? p.v850_mean_flat : [];
+      if (!uFlat.length || !vFlat.length) return;
+
       const nx = longitude.length;
       const ny = latitude.length;
-      const dx = (longitude[nx - 1] - longitude[0]) / (nx - 1);
-      const dy = (latitude[ny - 1] - latitude[0]) / (ny - 1);
 
-      // Leaflet.Velocity expects data rows ordered north→south (la1 = max lat).
-      // If our data is south→north (dy > 0) we flip the rows.
-      const southToNorth = dy > 0;
-      function flipRows(flat) {
-        if (!southToNorth) return flat;
-        const out = new Array(nx * ny);
-        for (let row = 0; row < ny; row++) {
-          const src = ny - 1 - row;
-          for (let col = 0; col < nx; col++) {
-            out[row * nx + col] = flat[src * nx + col];
+      // Store the full grid — _redraw picks the skip based on current zoom.
+      const grid = { nx, ny, longitude, latitude, uFlat, vFlat };
+
+      // Smooth speed → colour  (dark-navy → cyan → amber → red)
+      function speedColor(spd) {
+        const t = Math.min(spd / 12, 1);
+        const stops = [
+          [0,    [30,  58, 138]],
+          [0.33, [56, 189, 248]],
+          [0.66, [245, 158,  11]],
+          [1.0,  [220,  38,  38]]
+        ];
+        let lo = stops[0], hi = stops[stops.length - 1];
+        for (let i = 0; i < stops.length - 1; i++) {
+          if (t >= stops[i][0] && t <= stops[i + 1][0]) { lo = stops[i]; hi = stops[i + 1]; break; }
+        }
+        const f = lo[0] === hi[0] ? 0 : (t - lo[0]) / (hi[0] - lo[0]);
+        return `rgb(${Math.round(lo[1][0]+f*(hi[1][0]-lo[1][0]))},${Math.round(lo[1][1]+f*(hi[1][1]-lo[1][1]))},${Math.round(lo[1][2]+f*(hi[1][2]-lo[1][2]))})`;
+      }
+
+      function drawArrow(ctx, x, y, angle, len) {
+        const shaftW  = Math.max(1.2, len * 0.06);
+        const headLen = len * 0.15;
+        const headW   = len * 0.10;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.moveTo(-len * 0.45,  shaftW * 0.4);
+        ctx.lineTo( len * 0.50 - headLen,  shaftW * 0.5);
+        ctx.lineTo( len * 0.50 - headLen, -shaftW * 0.5);
+        ctx.lineTo(-len * 0.45, -shaftW * 0.4);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo( len * 0.50,  0);
+        ctx.lineTo( len * 0.50 - headLen,  headW);
+        ctx.lineTo( len * 0.50 - headLen, -headW);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      const WindLayer = L.Layer.extend({
+        onAdd(map) {
+          this._map = map;
+          this._canvas = document.createElement('canvas');
+          this._canvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;';
+          map.getPanes().overlayPane.appendChild(this._canvas);
+          map.on('moveend zoomend resize', this._redraw, this);
+          this._redraw();
+        },
+        onRemove(map) {
+          map.off('moveend zoomend resize', this._redraw, this);
+          this._canvas.remove();
+        },
+        _redraw() {
+          const size   = this._map.getSize();
+          const origin = this._map.containerPointToLayerPoint([0, 0]);
+          const canvas = this._canvas;
+          canvas.width  = size.x;
+          canvas.height = size.y;
+          L.DomUtil.setPosition(canvas, origin);
+
+          const ctx = canvas.getContext('2d');
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Zoom-adaptive skip: every zoom step doubles resolution.
+          const baseZoom = 4;
+          const zoom     = this._map.getZoom();
+          const skip     = Math.max(1, Math.round(5 / Math.pow(2, zoom - baseZoom)));
+
+          for (let iy = 0; iy < grid.ny; iy += skip) {
+            for (let ix = 0; ix < grid.nx; ix += skip) {
+              const idx = iy * grid.nx + ix;
+              const u = grid.uFlat[idx], v = grid.vFlat[idx];
+              if (!Number.isFinite(u) || !Number.isFinite(v)) continue;
+              const speed = Math.sqrt(u * u + v * v);
+              if (speed < 0.5) continue;
+
+              const pt  = this._map.latLngToContainerPoint([grid.latitude[iy], grid.longitude[ix]]);
+              const len = Math.max(18, Math.min(44, speed * 3.8));
+
+              ctx.globalAlpha = 0.82;
+              ctx.fillStyle   = speedColor(speed);
+              ctx.shadowColor = 'rgba(0,0,0,0.35)';
+              ctx.shadowBlur  = 2;
+              ctx.shadowOffsetX = 0.8;
+              ctx.shadowOffsetY = 0.8;
+
+              drawArrow(ctx, pt.x, pt.y, Math.atan2(u, v), len);
+            }
           }
         }
-        return out;
-      }
+      });
 
-      const la1 = southToNorth ? latitude[ny - 1] : latitude[0];
-      const la2 = southToNorth ? latitude[0] : latitude[ny - 1];
-      const header = {
-        lo1: longitude[0], la1,
-        lo2: longitude[nx - 1], la2,
-        dx, dy: Math.abs(dy), nx, ny
-      };
-      return [
-        { header: { ...header, parameterCategory: 2, parameterNumber: 2 }, data: flipRows(p.u850_mean_flat) },
-        { header: { ...header, parameterCategory: 2, parameterNumber: 3 }, data: flipRows(p.v850_mean_flat) }
-      ];
+      State.windLayer = new WindLayer().addTo(map);
     },
-    renderWindVelocity(p, longitude, latitude) {
-      this.clearWind();
-      if (!Array.isArray(p.u850_mean_flat) || !p.u850_mean_flat.length) return;
-      if (typeof L.velocityLayer === 'undefined') {
-        console.warn('Leaflet.Velocity not loaded — falling back to static arrows.');
-        this._renderWindArrows(p, longitude, latitude);
-        return;
-      }
-      const data = this.buildVelocityData(p, longitude, latitude);
-      State.windLayer = L.velocityLayer({
-        displayValues: true,
-        displayOptions: {
-          velocityType: '850 hPa Wind',
-          displayPosition: 'bottomleft',
-          displayEmptyString: 'No wind data',
-          speedUnit: 'm/s'
-        },
-        data,
-        maxVelocity: 15,
-        velocityScale: 0.008,
-        opacity: 0.85,
-        colorScale: ['#bfdbfe', '#60a5fa', '#2563eb', '#1e40af', '#1e3a8a']
-      }).addTo(map);
-    },
-    /* Static arrow fallback (used when Leaflet.Velocity unavailable) */
-    _renderWindArrows(p, longitude, latitude, xSkip = 5, ySkip = 5) {
-      const uFlat = p.u850_mean_flat;
-      const vFlat = p.v850_mean_flat;
+    renderPcolormesh(longitude, latitude, flatValues, colorFn, legendTitle) {
       const nx = longitude.length;
       const ny = latitude.length;
-      const markers = [];
-      for (let iy = 0; iy < ny; iy += ySkip) {
-        for (let ix = 0; ix < nx; ix += xSkip) {
-          const idx = iy * nx + ix;
-          const u = uFlat[idx], v = vFlat[idx];
-          if (!Number.isFinite(u) || !Number.isFinite(v)) continue;
-          const speed = Math.sqrt(u * u + v * v);
-          if (speed < 0.3) continue;
-          const scale = Math.min(speed / 8, 1.0) * 1.5;
-          const ar = Math.atan2(u, v);
-          const dLon = Math.sin(ar) * scale, dLat = Math.cos(ar) * scale;
-          const color = speed >= 9 ? '#dc2626' : speed >= 6 ? '#d97706' : '#2563eb';
-          const tip = [latitude[iy] + dLat, longitude[ix] + dLon];
-          const tail = [latitude[iy] - dLat * 0.5, longitude[ix] - dLon * 0.5];
-          const hs = scale * 0.38, pLat = -Math.sin(ar) * hs * 0.45, pLon = Math.cos(ar) * hs * 0.45;
-          markers.push(
-            L.polyline([tail, tip], { color, weight: 1.6, opacity: 0.85 }),
-            L.polygon([tip, [tip[0]-dLat*hs+pLat, tip[1]-dLon*hs+pLon], [tip[0]-dLat*hs-pLat, tip[1]-dLon*hs-pLon]], { color, fillColor: color, fillOpacity: 1, weight: 0.5 })
-          );
+
+      // Build an ImageData buffer — one pixel per grid cell.
+      const canvas = document.createElement('canvas');
+      canvas.width  = nx;
+      canvas.height = ny;
+      const ctx  = canvas.getContext('2d');
+      const imgd = ctx.createImageData(nx, ny);
+      const buf  = imgd.data; // Uint8ClampedArray [R,G,B,A, R,G,B,A, ...]
+
+      // Parse a CSS rgb/hex color into [r,g,b].
+      const _tmp = document.createElement('canvas');
+      _tmp.width = _tmp.height = 1;
+      const _tc  = _tmp.getContext('2d');
+      function hexToRgb(cssColor) {
+        _tc.clearRect(0,0,1,1);
+        _tc.fillStyle = cssColor;
+        _tc.fillRect(0,0,1,1);
+        const d = _tc.getImageData(0,0,1,1).data;
+        return [d[0], d[1], d[2]];
+      }
+
+      // Build row-major ImageData.  The grid latitude may be S→N; canvas is top→bottom.
+      const latAscending = ny > 1 && latitude[1] > latitude[0];
+      for (let iy = 0; iy < ny; iy++) {
+        const canvasRow = latAscending ? (ny - 1 - iy) : iy;
+        for (let ix = 0; ix < nx; ix++) {
+          const val = flatValues[iy * nx + ix];
+          const pos = (canvasRow * nx + ix) * 4;
+          if (val < 5) {
+            buf[pos + 3] = 0; // transparent below 5 %
+            continue;
+          }
+          const [r, g, b] = hexToRgb(colorFn(val));
+          buf[pos]     = r;
+          buf[pos + 1] = g;
+          buf[pos + 2] = b;
+          buf[pos + 3] = 178; // ~70 % opacity
         }
       }
-      if (markers.length) State.windLayer = L.layerGroup(markers).addTo(map);
+      ctx.putImageData(imgd, 0, 0);
+
+      const minLat = Math.min(...latitude);
+      const maxLat = Math.max(...latitude);
+      const minLon = Math.min(...longitude);
+      const maxLon = Math.max(...longitude);
+      const bounds = [[minLat, minLon], [maxLat, maxLon]];
+
+      State.contourLayer = L.imageOverlay(canvas.toDataURL(), bounds, {
+        opacity: 1,
+        interactive: false
+      }).addTo(map);
+
+      // Colorbar legend: sample representative levels from the data range.
+      const minV = Math.min(...flatValues);
+      const maxV = Math.max(...flatValues);
+      const nStops = 6;
+      const step = (maxV - minV) / (nStops - 1);
+      const levels = Array.from({ length: nStops }, (_, i) => minV + i * step);
+      this.renderLegend(levels, colorFn, legendTitle);
     },
     buildFeatureCollection(longitude, latitude, valuesPercent) {
       const nx = longitude.length;
@@ -1144,20 +1233,23 @@
       }
       if (!flatValues.length) return;
 
-      const fc = this.buildFeatureCollection(longitude, latitude, flatValues);
-
-      State.contourLayer = L.geoJSON(fc, {
-        style: feature => ({
-          stroke: false,
-          fillColor: colorFn(feature.properties.level),
-          fillOpacity: 0.52
-        })
-      }).addTo(map);
-
-      this.renderLegend(fc.levels, colorFn, legendTitle);
+      if (State.renderStyle === 'pcolormesh') {
+        this.renderPcolormesh(longitude, latitude, flatValues, colorFn, legendTitle);
+      } else {
+        const fc = this.buildFeatureCollection(longitude, latitude, flatValues);
+        const minLevel = Math.min(...fc.levels);
+        State.contourLayer = L.geoJSON(fc, {
+          style: feature => ({
+            stroke: false,
+            fillColor: colorFn(feature.properties.level),
+            fillOpacity: feature.properties.level === minLevel ? 0 : 0.52
+          })
+        }).addTo(map);
+        this.renderLegend(fc.levels, colorFn, legendTitle);
+      }
 
       if (State.layerMode === 'ensmean') {
-        this.renderWindVelocity(p, longitude, latitude);
+        this.renderWindArrows(p, longitude, latitude);
       }
 
       if (!State.hasFitBounds) {
@@ -1337,6 +1429,11 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
       Ui.syncLeadNavButtons();
     });
 
+    Dom.renderStyleSelect.addEventListener('change', () => {
+      State.renderStyle = Dom.renderStyleSelect.value;
+      updateStatusFromSelection();
+    });
+
     Dom.layerSelect.addEventListener('change', async () => {
       State.layerMode = Dom.layerSelect.value;
       State.hasFitBounds = false;
@@ -1387,6 +1484,7 @@ grid: lon=${nLon}, lat=${nLat}, probability_flat=${prob.length}`;
       v => AppConfig.layerOptions.find(l => l.value === v)?.label || v
     );
     State.layerMode = Dom.layerSelect.value;
+    State.renderStyle = Dom.renderStyleSelect.value;
     wireEvents();
     await initDatePicker();
   }
