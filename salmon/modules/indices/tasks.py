@@ -1,24 +1,17 @@
 import os
 import logging
 import numpy as np
-import xarray as xr
 import pandas as pd
 import datetime
 import json
-import glob
-import warnings
 import iris
 import iris.coords
-from itertools import chain
-from typing import Dict, Any
 
 from bokeh.plotting import figure, save, output_file
-from bokeh.palettes import Category10
 from bokeh.models import (
-    Legend, Band, ColumnDataSource, DatetimeTickFormatter, Span
+    Band, ColumnDataSource, DatetimeTickFormatter, Span
 )
 from bokeh.layouts import gridplot
-from skimage import measure
 
 from salmon.core.task import Task
 from salmon.utils.config import load_global_config
@@ -27,8 +20,9 @@ logger = logging.getLogger(__name__)
 
 class RetrieveIndicesData(Task):
     """Task to retrieve data for generic climate indices (e.g., Rainfall, Monsoon)."""
+
     def run(self):
-        # In this specific case, logic is handled by xarray in ComputeMonsoonIndices
+        """Log retrieval strategy for indices products."""
         logger.info("Indices data retrieval is handled on-the-fly by xarray for GEFS.")
 
 class DisplayMonsoonIndices(Task):
@@ -65,6 +59,21 @@ class DisplayMonsoonIndices(Task):
         os.makedirs(indices_processed_dir, exist_ok=True)
         os.makedirs(indices_plot_ens_dir, exist_ok=True)
 
+    @staticmethod
+    def _set_bounds_if_missing(cube, coord_name):
+        """Add simple symmetric bounds to a scalar-like coordinate if missing."""
+        coord = cube.coord(coord_name)
+        if coord.bounds is None:
+            p0 = coord.points[0]
+            coord.bounds = [[p0 - 1.0, p0 + 1.0]]
+
+    @staticmethod
+    def _remove_coords_if_present(cube, coord_names):
+        """Remove coordinates from cube only when they exist."""
+        for coord_name in coord_names:
+            if cube.coords(coord_name):
+                cube.remove_coord(coord_name)
+
     def read_winds_correctly(self, data_files, varname, pressure_level=None):
         """Load and process wind data from NetCDF files using Iris.
 
@@ -92,7 +101,7 @@ class DisplayMonsoonIndices(Task):
         iris.cube.Cube
             Merged cube with processed wind data over Southeast Asia.
         """
-        data_files.sort()
+        data_files = sorted(data_files)
         cubes = []
         for data_file in data_files:
             cube = iris.load_cube(data_file, varname)
@@ -100,14 +109,8 @@ class DisplayMonsoonIndices(Task):
                 cube = cube.extract(iris.Constraint(pressure=pressure_level))
             if len(cube.shape) == 3:
                 cube = cube.collapsed('time', iris.analysis.MEAN)
-            if cube.coord('forecast_period').bounds is None:
-                bounds = [[cube.coord('forecast_period').points[0] - 1.,
-                          cube.coord('forecast_period').points[0] + 1.]]
-                cube.coord('forecast_period').bounds = bounds
-            if cube.coord('time').bounds is None:
-                bounds = [[cube.coord('time').points[0] - 1.,
-                          cube.coord('time').points[0] + 1.]]
-                cube.coord('time').bounds = bounds
+            self._set_bounds_if_missing(cube, 'forecast_period')
+            self._set_bounds_if_missing(cube, 'time')
             cubes.append(cube)
 
         iris.util.equalise_attributes(cubes)
@@ -153,7 +156,7 @@ class DisplayMonsoonIndices(Task):
         Parameters
         ----------
         dates : list
-            Forecast periods from cube.coord('forecast_period').points
+            Forecast valid datetimes.
         members : list
             Ensemble member labels
         ugrd850_cubes : iris.cube.Cube
@@ -186,17 +189,23 @@ class DisplayMonsoonIndices(Task):
         nemo = vgrd925_cubes.intersection(latitude=(5, 15), longitude=(107, 115)).collapsed(
             ['latitude', 'longitude'], iris.analysis.MEAN)
 
+        n_times = swmi1.shape[1]
+        valid_dates = dates[:n_times]
+        valid_members = members[:swmi1.shape[0]]
+
         data_records = []
-        for i, fp in enumerate(dates):
-            for j, r in enumerate(members):
-                data_records.append({
-                    'forecast_period': fp,
-                    'realization': r,
-                    'swmi1': swmi1.data[j, i],
-                    'swmi2': swmi2.data[j, i],
-                    'nemi': nemi.data[j, i],
-                    'nemo': nemo.data[j, i]
-                })
+        for i, fp in enumerate(valid_dates):
+            for j, r in enumerate(valid_members):
+                data_records.append(
+                    {
+                        'forecast_period': fp,
+                        'realization': r,
+                        'swmi1': swmi1.data[j, i],
+                        'swmi2': swmi2.data[j, i],
+                        'nemi': nemi.data[j, i],
+                        'nemo': nemo.data[j, i],
+                    }
+                )
 
         return pd.DataFrame(data_records)
 
@@ -293,20 +302,15 @@ class DisplayMonsoonIndices(Task):
         plot_width : int, optional
             Plot width in pixels (default 500)
         """
+        _ = plot_width
         model = self.config_values['model']
         date_label = date.strftime("%Y%m%d")
         members = [str('%03d' % mem) for mem in range(36)]
         fc_times = [str('%03d' % fct) for fct in np.arange(0, 174, 24)]
 
-        time_coord = iris.coords.DimCoord(
-            points=[int(t) for t in fc_times],
-            standard_name='time',
-            units=f'hours since {date.strftime("%Y-%m-%d")}'
-        )
-
         ugrd850_cubes, ugrd925_cubes, vgrd925_cubes = [], [], []
+        available_members = []
 
-        model = self.context.get_config("model", "mogreps")
         model_config = load_global_config().get(model, {})
         raw_dir = model_config.get("raw", "/tmp/salmon_raw/mogreps")
 
@@ -329,10 +333,8 @@ class DisplayMonsoonIndices(Task):
             ugrd925 = self.read_winds_correctly(mog_files, 'x_wind', pressure_level=925)
             vgrd925 = self.read_winds_correctly(mog_files, 'y_wind', pressure_level=925)
 
-            for coord in ['forecast_reference_time', 'realization', 'time']:
-                for cube in [ugrd850, ugrd925, vgrd925]:
-                    if cube.coords(coord):
-                        cube.remove_coord(coord)
+            for cube in [ugrd850, ugrd925, vgrd925]:
+                self._remove_coords_if_present(cube, ['forecast_reference_time', 'realization', 'time'])
 
             for cube in [ugrd850, ugrd925, vgrd925]:
                 cube.add_aux_coord(realiz_coord)
@@ -340,6 +342,7 @@ class DisplayMonsoonIndices(Task):
             ugrd850_cubes.append(ugrd850)
             ugrd925_cubes.append(ugrd925)
             vgrd925_cubes.append(vgrd925)
+            available_members.append(mem)
 
         if not ugrd850_cubes:
             logger.error('No wind cubes available for indices computation')
@@ -349,10 +352,9 @@ class DisplayMonsoonIndices(Task):
         ugrd925_cubes = iris.cube.CubeList(ugrd925_cubes).merge_cube()
         vgrd925_cubes = iris.cube.CubeList(vgrd925_cubes).merge_cube()
 
-        dates = time_coord.units.num2date(time_coord.points)
-        dates = [datetime.datetime(t.year, t.month, t.day) for t in dates]
+        dates = [date + datetime.timedelta(hours=int(fct)) for fct in fc_times]
 
-        indices_df = self.compute_indices(dates, members, ugrd850_cubes, ugrd925_cubes, vgrd925_cubes)
+        indices_df = self.compute_indices(dates, available_members, ugrd850_cubes, ugrd925_cubes, vgrd925_cubes)
 
         thresholds = {'nemi': -2.5, 'nemo': -2.5, 'swmi1': 0.0, 'swmi2': 0.0}
         titles = {
