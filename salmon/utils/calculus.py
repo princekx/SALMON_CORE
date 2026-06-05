@@ -1,99 +1,142 @@
+"""Numerical calculus helpers for Iris cubes.
+
+These helpers provide finite-difference deltas and first derivatives while
+preserving coordinate metadata where possible.
+"""
+
 import iris
-import iris.cube
-import numpy as np
 import iris.analysis.maths
 import iris.coords
 from iris.util import delta
 
+
 def _construct_delta_coord(coord):
+    """Build a coordinate of first differences for a 1D input coordinate.
+
+    Parameters
+    ----------
+    coord : iris.coords.Coord
+        Source coordinate.
+
+    Returns
+    -------
+    iris.coords.AuxCoord
+        Difference coordinate named ``change_in_<coord_name>``.
+    """
     if coord.ndim != 1:
         raise ValueError("Coordinate must be 1D")
-    
+
     circular = getattr(coord, "circular", False)
     if coord.shape == (1,) and not circular:
         raise ValueError("Cannot take interval differences of a single valued coordinate.")
 
-    if circular:
-        circular_kwd = coord.units.modulus or True
-    else:
-        circular_kwd = False
-
-    if coord.bounds is not None:
-        bounds = delta(coord.bounds, 0, circular=circular_kwd)
-    else:
-        bounds = None
-
+    circular_kwd = coord.units.modulus or True if circular else False
+    bounds = delta(coord.bounds, 0, circular=circular_kwd) if coord.bounds is not None else None
     points = delta(coord.points, 0, circular=circular_kwd)
-    new_coord = iris.coords.AuxCoord.from_coord(coord).copy(points, bounds)
-    new_coord.rename("change_in_%s" % new_coord.name())
 
+    new_coord = iris.coords.AuxCoord.from_coord(coord).copy(points, bounds)
+    new_coord.rename(f"change_in_{new_coord.name()}")
     return new_coord
 
-def _construct_midpoint_coord(coord, circular=None):
-    if circular is None:
-        circular = getattr(coord, "circular", False)
 
+def _construct_midpoint_coord(coord, circular=None):
+    """Create midpoint coordinate values aligned with differenced data.
+
+    Parameters
+    ----------
+    coord : iris.coords.Coord
+        Source coordinate.
+    circular : bool, optional
+        Override circular behavior. Defaults to ``coord.circular`` when present.
+
+    Returns
+    -------
+    iris.coords.Coord
+        Midpoint coordinate, preserving original coordinate type when possible.
+    """
     if coord.ndim != 1:
         raise ValueError("Coordinate must be 1D")
 
-    mid_point_coord = _construct_delta_coord(coord)
-    circular_slice = slice(0, -1 if not circular else None)
+    if circular is None:
+        circular = getattr(coord, "circular", False)
 
+    delta_coord = _construct_delta_coord(coord)
+    coord_slice = slice(0, None if circular else -1)
+
+    mid_bounds = None
     if coord.bounds is not None:
-        axis_delta = mid_point_coord.bounds
-        mid_point_bounds = axis_delta * 0.5 + coord.bounds[circular_slice, :]
-    else:
-        mid_point_bounds = None
+        mid_bounds = delta_coord.bounds * 0.5 + coord.bounds[coord_slice, :]
 
-    axis_delta = mid_point_coord.points
-    mid_point_points = axis_delta * 0.5 + coord.points[circular_slice]
+    mid_points = delta_coord.points * 0.5 + coord.points[coord_slice]
 
     try:
-        mid_point_coord = coord.from_coord(coord).copy(mid_point_points, mid_point_bounds)
+        return type(coord).from_coord(coord).copy(mid_points, mid_bounds)
     except ValueError:
-        mid_point_coord = iris.coords.AuxCoord.from_coord(coord).copy(mid_point_points, mid_point_bounds)
+        return iris.coords.AuxCoord.from_coord(coord).copy(mid_points, mid_bounds)
 
-    return mid_point_coord
 
 def cube_delta(cube, coord):
+    """Compute first differences of a cube along a coordinate.
+
+    Parameters
+    ----------
+    cube : iris.cube.Cube
+        Input cube.
+    coord : str or iris.coords.Coord
+        Coordinate name or coordinate object for differencing.
+
+    Returns
+    -------
+    iris.cube.Cube
+        Differenced cube with midpoint coordinates on the differenced axis.
+    """
     if isinstance(coord, str):
         coord = cube.coord(coord)
 
-    delta_dims = cube.coord_dims(coord.name())
-    if not delta_dims:
+    coord_dims = cube.coord_dims(coord.name())
+    if not coord_dims:
         raise ValueError(f"Coord {coord.name()} is not a dimension of the cube")
-    
-    delta_dim = delta_dims[0]
+
+    axis = coord_dims[0]
     circular = getattr(coord, "circular", False)
-    
-    delta_cube_data = delta(cube.data, delta_dim, circular=circular)
+    delta_data = delta(cube.data, axis, circular=circular)
 
     if circular:
-        delta_cube = cube.copy(data=delta_cube_data)
+        result = cube.copy(data=delta_data)
     else:
-        subset_slice = [slice(None, None)] * cube.ndim
-        subset_slice[delta_dim] = slice(None, -1)
-        delta_cube = cube[tuple(subset_slice)]
-        delta_cube.data = delta_cube_data
+        indexer = [slice(None)] * cube.ndim
+        indexer[axis] = slice(None, -1)
+        result = cube[tuple(indexer)]
+        result.data = delta_data
 
-    for cube_coord in cube.coords(dimensions=delta_dim):
-        delta_cube.replace_coord(_construct_midpoint_coord(cube_coord, circular=circular))
+    for axis_coord in cube.coords(dimensions=axis):
+        result.replace_coord(_construct_midpoint_coord(axis_coord, circular=circular))
 
-    delta_cube.rename("change_in_{}_wrt_{}".format(delta_cube.name(), coord.name()))
-    return delta_cube
+    result.rename(f"change_in_{result.name()}_wrt_{coord.name()}")
+    return result
+
 
 def differentiate(cube, coord_to_differentiate):
-    """Calculate the differential of a cube with respect to a coordinate."""
-    delta_cube = cube_delta(cube, coord_to_differentiate)
+    """Compute first derivative of a cube with respect to a coordinate.
 
-    if isinstance(coord_to_differentiate, str):
-        coord = cube.coord(coord_to_differentiate)
-    else:
-        coord = coord_to_differentiate
+    Parameters
+    ----------
+    cube : iris.cube.Cube
+        Input cube.
+    coord_to_differentiate : str or iris.coords.Coord
+        Coordinate name or coordinate object defining derivative axis.
 
+    Returns
+    -------
+    iris.cube.Cube
+        Derivative cube named ``derivative_of_<cube>_wrt_<coord>``.
+    """
+    coord = cube.coord(coord_to_differentiate) if isinstance(coord_to_differentiate, str) else coord_to_differentiate
+
+    delta_cube = cube_delta(cube, coord)
     delta_coord = _construct_delta_coord(coord)
-    delta_dim = cube.coord_dims(coord.name())[0]
+    axis = cube.coord_dims(coord.name())[0]
 
-    delta_cube = iris.analysis.maths.divide(delta_cube, delta_coord, delta_dim)
-    delta_cube.rename("derivative_of_{}_wrt_{}".format(cube.name(), coord.name()))
-    return delta_cube
+    derivative = iris.analysis.maths.divide(delta_cube, delta_coord, axis)
+    derivative.rename(f"derivative_of_{cube.name()}_wrt_{coord.name()}")
+    return derivative
