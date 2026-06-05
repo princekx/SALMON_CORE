@@ -1,4 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#SBATCH --job-name=dev_run
+#SBATCH --output=logs/dev_run_%j.out
+#SBATCH --error=logs/dev_run_%j.err
+#SBATCH --time=1:00:00
+#SBATCH --mem=80gb
+#SBATCH --cpus-per-task=8
 # ============================================================
 # SALMON dev_run.sh  —  Run salmon run during development
 #
@@ -15,7 +21,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="/home/users/prince.xavier/MJO/SALMON_v2/SALMON_CORE"
 RECIPES_DIR="$SCRIPT_DIR/recipes"
 
 # ── Defaults ────────────────────────────────────────────────

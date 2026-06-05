@@ -16,3 +16,7 @@ tasks:
     class: ComputeEqWavesIndices
     config:
       parallel: False
+
+  - name: "Generate Wave Plots"
+    module: salmon.modules.eqwaves.tasks
+    class: DisplayEqWavesMaps
