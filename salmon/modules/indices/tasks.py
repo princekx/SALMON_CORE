@@ -4,7 +4,22 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import datetime
+import json
+import glob
+import warnings
+import iris
+import iris.coords
+from itertools import chain
 from typing import Dict, Any
+
+from bokeh.plotting import figure, save, output_file
+from bokeh.palettes import Category10
+from bokeh.models import (
+    Legend, Band, ColumnDataSource, DatetimeTickFormatter, Span
+)
+from bokeh.layouts import gridplot
+from skimage import measure
+
 from salmon.core.task import Task
 from salmon.utils.config import load_global_config
 
@@ -16,77 +31,354 @@ class RetrieveIndicesData(Task):
         # In this specific case, logic is handled by xarray in ComputeMonsoonIndices
         logger.info("Indices data retrieval is handled on-the-fly by xarray for GEFS.")
 
-class ComputeMonsoonIndices(Task):
-    """Task to compute various Monsoon indices (SWMI, NEMI, etc) using GEFS data."""
+class DisplayMonsoonIndices(Task):
+    """Create monsoon indices ensemble probability visualizations as Bokeh HTML files."""
+
     def run(self):
+        """Execute monsoon indices display task for the current recipe date."""
         date = self.context.date
-        
-        global_config = load_global_config()
-        indices_config = global_config.get('indices', {})
-        
-        # Output directory
-        processed_base = indices_config.get('processed', '/tmp/salmon_processed/indices')
-        processed_dir = os.path.join(processed_base, self.context.recipe_name, date.strftime('%Y%m%d'))
-        os.makedirs(processed_dir, exist_ok=True)
-        
-        # GEFS nomads URL
-        yyyy = date.strftime("%Y")
-        mm = date.strftime("%m")
-        dd = date.strftime("%d")
-        url = f'http://nomads.ncep.noaa.gov:80/dods/gefs/gefs{yyyy}{mm}{dd}/gefs_pgrb2ap5_all_00z'
-        
-        logger.info(f"Opening GEFS dataset from {url}...")
-        try:
-            ds = xr.open_dataset(url, engine='netcdf4')
-        except Exception as e:
-            logger.error(f"Failed to open GEFS dataset: {e}")
+        self._init_config_values()
+        self.bokeh_plot_forecast_ensemble_mean(date)
+
+    def _init_config_values(self):
+        """Load plot directories and model configuration from global settings."""
+        if hasattr(self, 'config_values'):
             return
 
-        dsu = ds['ugrdprs']
-        dsv = ds['vgrdprs']
-        
-        # Region subset
-        dsu_region = dsu.sel(lon=slice(90, 160), lat=slice(0, 30))
-        dsv_region = dsv.sel(lon=slice(90, 160), lat=slice(0, 30))
-        
-        # Daily means across ensemble members
-        u850 = dsu_region.sel(lev=850).mean(dim='ens').resample(time='D').mean()
-        u925 = dsu_region.sel(lev=925).mean(dim='ens').resample(time='D').mean()
-        v925 = dsv_region.sel(lev=925).mean(dim='ens').resample(time='D').mean()
-        
-        # 1. SWMI (Southwest Monsoon Index)
-        box1 = u850.sel(lon=slice(90, 130), lat=slice(5, 15)).mean(dim=['lon', 'lat'])
-        box2 = u850.sel(lon=slice(100.75, 103.25), lat=slice(1.75, 4.25)).mean(dim=['lon', 'lat'])
+        model = self.context.get_config('model', 'mogreps')
+        global_cfg = load_global_config()
+        model_cfg = global_cfg.get(model, {})
+
+        processed_base = model_cfg.get('processed', f'/tmp/salmon_processed/{model}')
+        indices_processed_dir = os.path.join(processed_base, 'indices')
+        indices_plot_ens_dir = os.path.join(
+            model_cfg.get('plots', processed_base),
+            'indices', 'plot_ens'
+        )
+
+        self.config_values = {
+            'model': model,
+            f'{model}_indices_processed_dir': indices_processed_dir,
+            f'{model}_indices_plot_ens': indices_plot_ens_dir,
+        }
+
+        os.makedirs(indices_processed_dir, exist_ok=True)
+        os.makedirs(indices_plot_ens_dir, exist_ok=True)
+
+    def read_winds_correctly(self, data_files, varname, pressure_level=None):
+        """Load and process wind data from NetCDF files using Iris.
+
+        This method:
+          - Sorts input files for temporal order
+          - Loads a specified variable from each file
+          - Optionally extracts a specific pressure level
+          - Averages over time if 3-hourly resolution detected
+          - Ensures forecast_period and time coordinates have bounds
+          - Equalises cube attributes to allow merging
+          - Merges all processed cubes into a single cube
+          - Restricts to Southeast Asia region (0–30°N, 90–160°E)
+
+        Parameters
+        ----------
+        data_files : list of str
+            Paths to NetCDF files containing the wind variable.
+        varname : str
+            Name of the wind variable (e.g., 'ugrd', 'vgrd').
+        pressure_level : float, optional
+            Pressure level in hPa to extract (e.g., 850.0).
+
+        Returns
+        -------
+        iris.cube.Cube
+            Merged cube with processed wind data over Southeast Asia.
+        """
+        data_files.sort()
+        cubes = []
+        for data_file in data_files:
+            cube = iris.load_cube(data_file, varname)
+            if pressure_level is not None:
+                cube = cube.extract(iris.Constraint(pressure=pressure_level))
+            if len(cube.shape) == 3:
+                cube = cube.collapsed('time', iris.analysis.MEAN)
+            if cube.coord('forecast_period').bounds is None:
+                bounds = [[cube.coord('forecast_period').points[0] - 1.,
+                          cube.coord('forecast_period').points[0] + 1.]]
+                cube.coord('forecast_period').bounds = bounds
+            if cube.coord('time').bounds is None:
+                bounds = [[cube.coord('time').points[0] - 1.,
+                          cube.coord('time').points[0] + 1.]]
+                cube.coord('time').bounds = bounds
+            cubes.append(cube)
+
+        iris.util.equalise_attributes(cubes)
+        for cube in cubes:
+            cube.cell_methods = ()
+
+        cubes = iris.cube.CubeList(cubes).merge_cube()
+        return cubes.intersection(latitude=(0, 30), longitude=(90, 160))
+
+    def write_dates_json(self, date, json_file):
+        """Append cycle date to JSON index file if not already present."""
+        new_date = date.strftime('%Y%m%d')
+
+        if not os.path.exists(json_file):
+            with open(json_file, 'w', encoding='utf-8') as jfile:
+                json.dump([new_date], jfile, indent=2)
+            return
+
+        with open(json_file, 'r', encoding='utf-8') as file:
+            existing_dates = json.load(file)
+
+        if new_date not in existing_dates:
+            existing_dates.append(new_date)
+
+        existing_dates.sort()
+
+        with open(json_file, 'w', encoding='utf-8') as file:
+            json.dump(existing_dates, file, indent=2)
+
+        logger.info('Updated %s with date %s', json_file, new_date)
+
+    def compute_indices(self, dates, members, ugrd850_cubes, ugrd925_cubes, vgrd925_cubes):
+        """Compute regional monsoon-related indices from wind data cubes.
+
+        Calculates:
+          - SWMI1: Difference in regional mean u850 between two boxes
+          - SWMI2: Mean u850 over 5–10°N, 100–115°E
+          - NEMI: Average of u850 and u925 over 3.75–6.25°N, 102.5–105°E
+          - NEMO: Mean v925 over 5–15°N, 107–115°E
+
+        Returns DataFrame in long format with one row per forecast period and ensemble member.
+
+        Parameters
+        ----------
+        dates : list
+            Forecast periods from cube.coord('forecast_period').points
+        members : list
+            Ensemble member labels
+        ugrd850_cubes : iris.cube.Cube
+            Eastward wind at 850 hPa
+        ugrd925_cubes : iris.cube.Cube
+            Eastward wind at 925 hPa
+        vgrd925_cubes : iris.cube.Cube
+            Northward wind at 925 hPa
+
+        Returns
+        -------
+        pandas.DataFrame
+            Long-format DataFrame with columns: 'forecast_period', 'realization', 'swmi1', 'swmi2', 'nemi', 'nemo'
+        """
+        box1 = ugrd850_cubes.intersection(latitude=(5, 15), longitude=(90, 130)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
+        box2 = ugrd850_cubes.intersection(latitude=(1.75, 4.25), longitude=(100.75, 103.25)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
         swmi1 = box2 - box1
-        swmi1.to_dataframe().reset_index().to_csv(os.path.join(processed_dir, f'swmi1_{date.strftime("%Y%m%d")}.csv'), index=False)
-        
-        # 2. SWMI2
-        swmi2 = u850.sel(lon=slice(100, 115), lat=slice(5, 10)).mean(dim=['lon', 'lat'])
-        swmi2.to_dataframe().reset_index().to_csv(os.path.join(processed_dir, f'swmi2_{date.strftime("%Y%m%d")}.csv'), index=False)
-        
-        # 3. NEMI (Northeast Monsoon Index)
-        n850 = u850.sel(lon=slice(102.5, 105), lat=slice(3.75, 6.25)).mean(dim=['lon', 'lat'])
-        n925 = u925.sel(lon=slice(102.5, 105), lat=slice(3.75, 6.25)).mean(dim=['lon', 'lat'])
-        df_nemi = pd.merge(n850.to_dataframe().rename(columns={'ugrdprs':'u850'}), 
-                           n925.to_dataframe().rename(columns={'ugrdprs':'u925'}), on='time')
-        df_nemi['average'] = df_nemi[['u850', 'u925']].mean(axis=1)
-        df_nemi.to_csv(os.path.join(processed_dir, f'nemi_{date.strftime("%Y%m%d")}.csv'), index=False)
-        
-        # 4. NEMO (Northeast Monsoon Onset)
-        nemo = v925.sel(lon=slice(107, 115), lat=slice(5, 15)).mean(dim=['lon', 'lat'])
-        nemo.to_dataframe().reset_index().to_csv(os.path.join(processed_dir, f'nemo_{date.strftime("%Y%m%d")}.csv'), index=False)
-        
-        # 5. MESI (Easterly Surge Index ESI / Meridional Surge Index MSI)
-        esi = u925.sel(lon=120, lat=slice(7.5, 15)).mean(dim='lat')
-        msi = v925.sel(lon=slice(110, 117.5), lat=15).mean(dim='lon')
-        df_esi = esi.to_dataframe().reset_index()
-        df_msi = msi.to_dataframe().reset_index()
-        df_esi.rename(columns={'ugrdprs': 'ESI'}).to_csv(os.path.join(processed_dir, f'esi_{date.strftime("%Y%m%d")}.csv'), index=False)
-        df_msi.rename(columns={'vgrdprs': 'MSI'}).to_csv(os.path.join(processed_dir, f'msi_{date.strftime("%Y%m%d")}.csv'), index=False)
 
-        logger.info(f"Monsoon indices computed and saved to {processed_dir}")
+        swmi2 = ugrd850_cubes.intersection(latitude=(5, 10), longitude=(100, 115)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
 
-class ComputeIndices(Task):
-    """Generic task for other indices."""
-    def run(self):
-        logger.info("Computing generic indices...")
+        n850 = ugrd850_cubes.intersection(latitude=(3.75, 6.25), longitude=(102.5, 105)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
+        n925 = ugrd925_cubes.intersection(latitude=(3.75, 6.25), longitude=(102.5, 105)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
+        nemi = 0.5 * (n850 + n925)
+
+        nemo = vgrd925_cubes.intersection(latitude=(5, 15), longitude=(107, 115)).collapsed(
+            ['latitude', 'longitude'], iris.analysis.MEAN)
+
+        data_records = []
+        for i, fp in enumerate(dates):
+            for j, r in enumerate(members):
+                data_records.append({
+                    'forecast_period': fp,
+                    'realization': r,
+                    'swmi1': swmi1.data[j, i],
+                    'swmi2': swmi2.data[j, i],
+                    'nemi': nemi.data[j, i],
+                    'nemo': nemo.data[j, i]
+                })
+
+        return pd.DataFrame(data_records)
+
+    def plot_index_ens(self, date, indices_df, thresholds, titles, index_name=None):
+        """Render ensemble probability timeseries for a single index.
+
+        Shows ensemble mean, percentiles, and individual member lines.
+        Overlays a reference threshold line.
+
+        Parameters
+        ----------
+        date : datetime.datetime
+            Forecast start date
+        indices_df : pandas.DataFrame
+            DataFrame with 'forecast_period', 'realization', and index columns
+        thresholds : dict
+            Threshold values for reference lines
+        titles : dict
+            Human-readable titles indexed by index name
+        index_name : str
+            Column name in indices_df to plot
+
+        Returns
+        -------
+        bokeh.plotting.Figure
+            Figure with ensemble timeseries
+        """
+        pivot = indices_df.pivot(index='forecast_period', columns='realization', values=index_name)
+
+        forecast_periods = pivot.index.values
+        mean_vals = pivot.mean(axis=1).values
+        min_vals = pivot.min(axis=1).values
+        max_vals = pivot.max(axis=1).values
+        q25 = pivot.quantile(0.25, axis=1).values
+        q75 = pivot.quantile(0.75, axis=1).values
+
+        source = ColumnDataSource(data={
+            'forecast_period': forecast_periods,
+            'mean': mean_vals,
+            'lower': min_vals,
+            'q25': q25,
+            'q75': q75,
+            'upper': max_vals,
+        })
+
+        p = figure(
+            title=f"{titles[index_name]}: Forecast start: {date.strftime('%Y-%m-%d')}",
+            x_axis_label='Forecast valid on',
+            y_axis_label=f'{index_name.upper()} values',
+            width=500,
+            height=400,
+            x_range=(forecast_periods[0], forecast_periods[-1]),
+            y_range=(min(np.min(min_vals), thresholds[index_name]) - 1,
+                    max(np.max(max_vals), thresholds[index_name]) + 1)
+        )
+
+        band_full = Band(base='forecast_period', lower='lower', upper='upper', source=source,
+                         level='underlay', fill_alpha=0.3, fill_color='lightblue')
+        p.line(x=[None], y=[None], line_color='lightblue', line_width=8, alpha=0.3, legend_label='Range')
+        p.add_layout(band_full)
+
+        band_iqr = Band(base='forecast_period', lower='q25', upper='q75', source=source,
+                        level='underlay', fill_alpha=0.8, fill_color='lightblue')
+        p.line(x=[None], y=[None], line_color='lightblue', line_width=8, alpha=0.8, legend_label="P25–P75")
+        p.add_layout(band_iqr)
+
+        p.line('forecast_period', 'mean', source=source, line_width=3, color='navy', legend_label='Mean')
+
+        for col in pivot.columns:
+            p.line(forecast_periods, pivot[col].values, line_color='gray', line_alpha=0.3)
+
+        p.legend.click_policy = "hide"
+        p.xaxis.formatter = DatetimeTickFormatter(
+            days="%Y-%m-%d", months="%Y-%m-%d", years="%Y-%m-%d"
+        )
+        p.xaxis.minor_tick_line_color = None
+
+        ref_line = Span(location=thresholds[index_name], dimension='width', line_color='black',
+                        line_width=10, line_alpha=0.4, line_dash='dashed')
+        p.add_layout(ref_line)
+
+        return p
+
+    def bokeh_plot_forecast_ensemble_mean(self, date, plot_width=500):
+        """Generate monsoon indices ensemble plots for all lead times.
+
+        Loads wind forecast data, computes monsoon indices (SWMI1, SWMI2, NEMI, NEMO),
+        saves as CSV, and creates gridded HTML visualization.
+
+        Parameters
+        ----------
+        date : datetime.datetime
+            Forecast initialization date
+        plot_width : int, optional
+            Plot width in pixels (default 500)
+        """
+        model = self.config_values['model']
+        date_label = date.strftime("%Y%m%d")
+        members = [str('%03d' % mem) for mem in range(36)]
+        fc_times = [str('%03d' % fct) for fct in np.arange(0, 174, 24)]
+
+        time_coord = iris.coords.DimCoord(
+            points=[int(t) for t in fc_times],
+            standard_name='time',
+            units=f'hours since {date.strftime("%Y-%m-%d")}'
+        )
+
+        ugrd850_cubes, ugrd925_cubes, vgrd925_cubes = [], [], []
+
+        model = self.context.get_config("model", "mogreps")
+        model_config = load_global_config().get(model, {})
+        raw_dir = model_config.get("raw", "/tmp/salmon_raw/mogreps")
+
+        for mem in members:
+            mog_files = [
+                os.path.join(raw_dir, date.strftime("%Y%m%d"), mem, f'englaa_pd{fct}.pp')
+                for fct in fc_times
+            ]
+            mog_files = [mf for mf in mog_files if os.path.exists(mf)]
+            mog_files.sort()
+
+            if not mog_files:
+                logger.warning('No forecast files found for member %s', mem)
+                continue
+
+            realiz_coord = iris.coords.DimCoord([int(mem)], standard_name='realization',
+                                                var_name='realization')
+
+            ugrd850 = self.read_winds_correctly(mog_files, 'x_wind', pressure_level=850)
+            ugrd925 = self.read_winds_correctly(mog_files, 'x_wind', pressure_level=925)
+            vgrd925 = self.read_winds_correctly(mog_files, 'y_wind', pressure_level=925)
+
+            for coord in ['forecast_reference_time', 'realization', 'time']:
+                for cube in [ugrd850, ugrd925, vgrd925]:
+                    if cube.coords(coord):
+                        cube.remove_coord(coord)
+
+            for cube in [ugrd850, ugrd925, vgrd925]:
+                cube.add_aux_coord(realiz_coord)
+
+            ugrd850_cubes.append(ugrd850)
+            ugrd925_cubes.append(ugrd925)
+            vgrd925_cubes.append(vgrd925)
+
+        if not ugrd850_cubes:
+            logger.error('No wind cubes available for indices computation')
+            return
+
+        ugrd850_cubes = iris.cube.CubeList(ugrd850_cubes).merge_cube()
+        ugrd925_cubes = iris.cube.CubeList(ugrd925_cubes).merge_cube()
+        vgrd925_cubes = iris.cube.CubeList(vgrd925_cubes).merge_cube()
+
+        dates = time_coord.units.num2date(time_coord.points)
+        dates = [datetime.datetime(t.year, t.month, t.day) for t in dates]
+
+        indices_df = self.compute_indices(dates, members, ugrd850_cubes, ugrd925_cubes, vgrd925_cubes)
+
+        thresholds = {'nemi': -2.5, 'nemo': -2.5, 'swmi1': 0.0, 'swmi2': 0.0}
+        titles = {
+            'nemi': 'NEMI (Northeast Monsoon Index)',
+            'nemo': 'NEMO (Northeast Monsoon Onset)',
+            'swmi1': 'SWMI1: Southwest Monsoon Index 1',
+            'swmi2': 'SWMI2: Southwest Monsoon Index 2'
+        }
+
+        csv_file_dir = os.path.join(self.config_values[f'{model}_indices_processed_dir'], date_label)
+        os.makedirs(csv_file_dir, exist_ok=True)
+        csv_file = os.path.join(csv_file_dir, f"indices_{date_label}.csv")
+        indices_df.to_csv(csv_file, index=False)
+        logger.info('Saved %s', csv_file)
+
+        plots = [self.plot_index_ens(date, indices_df, thresholds, titles, index_name=idx)
+                 for idx in thresholds.keys()]
+        grid = gridplot([plots[i:i + 2] for i in range(0, len(plots), 2)])
+
+        html_file_dir = os.path.join(self.config_values[f'{model}_indices_plot_ens'], date_label)
+        os.makedirs(html_file_dir, exist_ok=True)
+        html_file = os.path.join(html_file_dir, f'Monsoon_indices_{date_label}.html')
+        output_file(html_file)
+        save(grid)
+        logger.info('Plotted %s', html_file)
+
+        json_file = os.path.join(self.config_values[f'{model}_indices_plot_ens'],
+                                 f'{model}_indices_plot_dates.json')
+        self.write_dates_json(date, json_file)

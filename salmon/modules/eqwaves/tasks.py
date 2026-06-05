@@ -1,13 +1,10 @@
 import os
-import sys
-import glob
 import json
 import logging
 import datetime
 import uuid
 import concurrent.futures
 import warnings
-import configparser
 import cf_units
 import numpy as np
 import pandas as pd
@@ -16,12 +13,10 @@ import iris
 import iris.coords
 import iris.coord_categorisation
 
-from bokeh.plotting import figure, show, save, output_file
-from bokeh.models import ColumnDataSource, Patches, Plot, Title, HoverTool
-from bokeh.models import Range1d, LinearColorMapper, ColorBar, GeoJSONDataSource
-from bokeh.palettes import GnBu9, Magma6, Greys256, Greys9, RdPu9, TolRainbow12
-from bokeh.palettes import Iridescent23, TolYlOrBr9, Bokeh8, Blues9
-from bokeh.models import CheckboxGroup, CheckboxButtonGroup, CustomJS, Button
+from bokeh.plotting import figure, save, output_file
+from bokeh.models import ColumnDataSource, LinearColorMapper, ColorBar, GeoJSONDataSource
+from bokeh.palettes import Iridescent23, Bokeh8
+from bokeh.models import CheckboxButtonGroup, CustomJS, Button
 from bokeh.models import Legend, LegendItem
 from bokeh.layouts import column, row, Spacer
 from skimage import measure
@@ -501,11 +496,13 @@ class DisplayEqWavesMaps(Task):
     """Create EqWaves ensemble probability map products as Bokeh HTML files."""
 
     def run(self):
+        """Run the EqWaves display task for the current recipe date."""
         date = self.context.date
         self._init_config_values()
         self.bokeh_plot_forecast_ensemble_probability_multiwave(date)
 
     def _init_config_values(self):
+        """Load plotting paths and plotting constants used by map generation."""
         if hasattr(self, 'config_values'):
             return
 
@@ -556,6 +553,7 @@ class DisplayEqWavesMaps(Task):
         self.plot_width = 1100
 
     def prepare_calendar(self, cube):
+        """Ensure year/month/day/hour auxiliary coordinates are present on a cube."""
         for coord_name, coord_func in [
             ('year', iris.coord_categorisation.add_year),
             ('month_number', iris.coord_categorisation.add_month_number),
@@ -567,6 +565,7 @@ class DisplayEqWavesMaps(Task):
         return cube
 
     def create_dates_dt(self, cube):
+        """Convert cube time coordinates to a list of Python datetimes."""
         cube = self.prepare_calendar(cube)
         return [
             datetime.datetime(y, m, d, h)
@@ -579,6 +578,7 @@ class DisplayEqWavesMaps(Task):
         ]
 
     def write_dates_json(self, date, json_file):
+        """Append the cycle date to a JSON index file if not already present."""
         new_date = date.strftime('%Y%m%d_%H')
 
         if not os.path.exists(json_file):
@@ -601,6 +601,7 @@ class DisplayEqWavesMaps(Task):
 
     def bokeh_plot2html(self, shade_var=None, contour_var=None, figure_tite=None,
                         shade_cbar_title=None, contour_cbar_title=None, html_file='test.html'):
+        """Render a single-wave probability map to HTML with optional contour overlay."""
         x_range = (0, 180)
         y_range = (-24, 24)
 
@@ -682,6 +683,7 @@ class DisplayEqWavesMaps(Task):
         logger.info('Plotted %s', html_file)
 
     def read_compute_ensemble_prob(self, files, wname=None, pressure_level=None, contour_cbar_title=None):
+        """Load member files and compute realization probability for a wave threshold."""
         _ = contour_cbar_title
         files = [f for f in files if os.path.exists(f)]
         if not files:
@@ -720,6 +722,7 @@ class DisplayEqWavesMaps(Task):
         return None
     
     def get_skimage_contour_paths(self, lons, lats, cube_data, levels=[0.5, 0.75]):
+        """Extract contour polyline coordinates for given probability levels."""
         paths_x, paths_y = [], []
         for level in levels:
             contours = measure.find_contours(cube_data, level)
@@ -731,6 +734,8 @@ class DisplayEqWavesMaps(Task):
     def bokeh_plot_allwaves2html(self, wave_timestep_dic, pressure_level,
                                  figure_tite=None, shade_cbar_title=None,
                                  contour_cbar_title=None, html_file='test.html'):
+        """Render precipitation probability shading with multi-wave contour overlays."""
+        _ = contour_cbar_title
 
         x_range = (0, 180)  # could be anything - e.g.(0,1)
         y_range = (-24, 24)
@@ -774,8 +779,8 @@ class DisplayEqWavesMaps(Task):
         color_bar = ColorBar(color_mapper=color_mapper_z, major_label_text_font_size="12pt",
                              label_standoff=6, border_line_color=None, orientation="horizontal",
                              location=(0, 0), width=400, title=shade_cbar_title, title_text_font_size="12pt")
-        image_renderer = plot.image('Precip', source=precip_source, x=0, y=-24, dw=360, dh=48, alpha=0.8,
-                                    color_mapper=color_mapper_z)
+        plot.image('Precip', source=precip_source, x=0, y=-24, dw=360, dh=48, alpha=0.8,
+               color_mapper=color_mapper_z)
         plot.add_layout(color_bar, 'below')
 
 
@@ -811,8 +816,6 @@ class DisplayEqWavesMaps(Task):
         # Add legend to the plot (set it outside the main plot area)
         plot.add_layout(legend)
 
-        # Create CheckboxGroup to select multiple fields
-        # checkbox_group = CheckboxGroup(labels=["Kelvin", "WMRG", "R1", "R2"], active=[0, 1, 2, 3], height=100, width=500)
         checkbox_group = CheckboxButtonGroup(labels=["Kelvin", "WMRG", "n=1 Rossby", "n=2 Rossby"], active=[0, 1, 2, 3])
 
         # Create a "Clear All" button
@@ -852,6 +855,7 @@ class DisplayEqWavesMaps(Task):
         logger.info('Plotted %s', html_file)
 
     def bokeh_plot_forecast_ensemble_probability_multiwave(self, date):
+        """Generate all-wave ensemble-probability HTML maps for each lead time."""
         model = self.config_values['model']
         mem_labels = [f'{fc:03d}' for fc in range(0, 17)]
 
@@ -993,6 +997,7 @@ class DisplayEqWavesMaps(Task):
         self.write_dates_json(date, json_file)
 
     def bokeh_plot_forecast_ensemble_probability(self, date):
+        """Generate single-wave ensemble-probability HTML maps (legacy pathway)."""
         model = self.config_values['model']
         mem_labels = [f'{fc:03d}' for fc in range(0, 18)]
 
@@ -1006,7 +1011,6 @@ class DisplayEqWavesMaps(Task):
             os.path.join(outfile_dir, f'precipitation_amount_combined_{date_label}Z_{mem}.nc')
             for mem in mem_labels
         ]
-        print(precip_files)
         precip_files = [file for file in precip_files if os.path.exists(file)]
         if not precip_files:
             logger.error('No precipitation files found in %s for %s', outfile_dir, date_label)
