@@ -1,0 +1,36 @@
+# ============================================================
+# SALMON site config – SPICE / SLURM (cazldf* login nodes)
+#
+# Mirrors the SBATCH directives in dev_run.sh:
+#   --mem=80gb  --cpus-per-task=8  --time=1:00:00
+#
+# Usage:
+#   cp cylc/site/spice.cylc cylc/site/platform.cylc
+# ============================================================
+
+[runtime]
+    [[SALMON]]
+        platform = spice
+
+        [[[directives]]]
+            --job-name       = salmon_{{ CYLC_TASK_NAME }}
+            --output         = /usr/tmp/logs/cylc_{{ CYLC_TASK_NAME }}_%j.out
+            --error          = /usr/tmp/logs/cylc_{{ CYLC_TASK_NAME }}_%j.err
+            --mem            = 80gb
+            --cpus-per-task  = 8
+
+    # EqWaves is heavier – override memory for that family
+    [[eqwaves]]
+        [[[directives]]]
+            --mem           = 120gb
+            --cpus-per-task = 16
+
+# ── Platform definition ───────────────────────────────────────────────────────
+# If not already in ~/.cylc/flow.cylc, add this [platforms] block to your
+# Cylc global config: ~/.cylc/global.cylc
+#
+# [platforms]
+#     [[spice]]
+#         hosts           = cazldf000033
+#         job runner      = slurm
+#         install target  = localhost

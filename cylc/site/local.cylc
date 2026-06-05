@@ -1,0 +1,16 @@
+# ============================================================
+# SALMON site config – local background execution (no HPC)
+#
+# Tasks run as background processes on the current host.
+# Useful for development, testing, or single-workstation use.
+#
+# Usage:
+#   cp cylc/site/local.cylc cylc/site/platform.cylc
+# ============================================================
+
+[runtime]
+    [[SALMON]]
+        platform = localhost
+
+        # No job submission directives needed for background jobs.
+        # Cylc will run the task script directly in the background.

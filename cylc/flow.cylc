@@ -1,0 +1,107 @@
+#!Jinja2
+# ============================================================
+# SALMON Cylc 8 Workflow
+# ============================================================
+#
+# QUICK START
+# -----------
+# 1. Choose a site config:
+#      cp site/spice.cylc  site/platform.cylc    # HPC (SLURM/SPICE)
+#      cp site/local.cylc  site/platform.cylc    # local background jobs
+#
+# 2. Install and start:
+#      cylc install /home/users/prince.xavier/MJO/SALMON_v2/SALMON_CORE/cylc
+#      cylc play salmon
+#
+# 3. Monitor:
+#      cylc tui salmon
+#
+# CYCLING SCHEDULE
+# ----------------
+#  mjo              PT6H  — every MOGREPS cycle (00Z, 06Z, 12Z, 18Z)
+#  eqwaves          PT6H  — every MOGREPS cycle
+#  coldsurge        12Z and 18Z daily (MOGREPS members present at these cycles)
+#  monsoon_indices  12Z daily
+#
+# To run just one cycle manually (no scheduler):
+#      cylc trigger salmon//20260605T1200Z/mjo
+# ============================================================
+
+[meta]
+    title = SALMON – Southeast Asia Large Scale Monitoring
+    description = """
+        Operational daily runs for MJO, Equatorial Waves, Cold Surge and
+        Monsoon Indices products.  Each task calls `salmon run <recipe>`.
+    """
+
+[scheduler]
+    allow implicit tasks = False
+
+[scheduling]
+    cycling mode = gregorian
+    initial cycle point = now
+    runahead limit  = P2D
+
+    [[graph]]
+        # MJO and EqWaves run at every MOGREPS-G cycle
+        PT6H = """
+            mjo
+            eqwaves
+        """
+
+        # Cold Surge has ensemble members only at 12Z and 18Z
+        T12Z/P1D = """
+            coldsurge
+            monsoon_indices
+        """
+        T18Z/P1D = coldsurge
+
+[runtime]
+
+    # ── Shared base for all SALMON tasks ──────────────────────────────────────
+    [[SALMON]]
+        # Activate the environment that has salmon installed.
+        # Adjust SALMON_ENV_BIN if you use a conda env instead.
+        init-script = """
+            set -eu
+            export PATH="/home/users/prince.xavier/.local/bin:${PATH}"
+            export SALMON_REPO="/home/users/prince.xavier/MJO/SALMON_v2/SALMON_CORE"
+        """
+        script = """
+            set -eu
+            cd "${SALMON_REPO}"
+            RUN_DATE="${CYLC_TASK_CYCLE_POINT:0:10}"
+            salmon run "${SALMON_RECIPE}" --date "${RUN_DATE}"
+        """
+        [[[environment]]]
+            SALMON_REPO   = /home/users/prince.xavier/MJO/SALMON_v2/SALMON_CORE
+            SALMON_RECIPE = recipes/mjo_mogreps.yaml   # overridden in each task
+
+    # ── Individual tasks ──────────────────────────────────────────────────────
+    [[mjo]]
+        inherit = SALMON
+        execution time limit = PT2H
+        [[[environment]]]
+            SALMON_RECIPE = recipes/mjo_mogreps.yaml
+
+    [[eqwaves]]
+        inherit = SALMON
+        execution time limit = PT4H
+        [[[environment]]]
+            SALMON_RECIPE = recipes/eqwaves.yaml
+
+    [[coldsurge]]
+        inherit = SALMON
+        execution time limit = PT2H
+        [[[environment]]]
+            SALMON_RECIPE = recipes/coldsurge.yaml
+
+    [[monsoon_indices]]
+        inherit = SALMON
+        execution time limit = PT1H
+        [[[environment]]]
+            SALMON_RECIPE = recipes/monsoon_monitoring.yaml
+
+# ── Site-specific platform overrides (job submission directives) ──────────────
+# Users must create site/platform.cylc before running; see site/ for examples.
+%include site/platform.cylc
