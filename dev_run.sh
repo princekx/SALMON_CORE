@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=dev_run
-#SBATCH --output=/usr/tmp/logs/dev_run_%j.out
-#SBATCH --error=/usr/tmp/logs/dev_run_%j.err
+#SBATCH --output=/data/scratch/prince.xavier/SALMON/logs/dev_run_%j.out
+#SBATCH --error=/data/scratch/prince.xavier/SALMON/logs/dev_run_%j.err
 #SBATCH --time=1:00:00
 #SBATCH --mem=80gb
 #SBATCH --cpus-per-task=8
