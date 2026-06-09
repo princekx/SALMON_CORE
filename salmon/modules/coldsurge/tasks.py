@@ -14,7 +14,7 @@ from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
-from salmon.utils.cube import read_winds_correctly, read_precip_correctly, subset_tropics, subset_seasia
+from salmon.utils.cube import read_winds_correctly, read_precip_correctly
 from salmon.utils.bokeh_utils import Vector
 import sys
 import warnings
@@ -34,6 +34,8 @@ _DEFAULT_QUERY_DIR = os.path.normpath(
 )
 HR_LIST = (12, 18)
 FC_TIMES = tuple(np.arange(0, 174, 24))
+DISPLAY_LAT_BOUNDS = (-10, 25)
+DISPLAY_LON_BOUNDS = (90, 135)
 
 VAR_SPECS = {
     "precip": {"iris_var": "precipitation_amount"},
@@ -564,10 +566,10 @@ class DisplayColdSurgeMaps(Task):
         precip_cube = iris.load_cube(self.get_file_name(date, "precip"))
         u850_cube = iris.load_cube(self.get_file_name(date, "u850"))
         v850_cube = iris.load_cube(self.get_file_name(date, "v850"))
-        # Subset to tropics for faster plotting and consistent vector thinning
-        precip_cube = subset_tropics(precip_cube)
-        u850_cube = subset_tropics(u850_cube)
-        v850_cube = subset_tropics(v850_cube)
+        # Restrict all displayed/exported fields to requested Cold Surge map domain.
+        precip_cube = precip_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
+        u850_cube = u850_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
+        v850_cube = v850_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
 
         speed_cube = (u850_cube ** 2 + v850_cube ** 2) ** 0.5
         return precip_cube, u850_cube, v850_cube, speed_cube

@@ -1,0 +1,36 @@
+#!jinja2
+[meta]
+  title = "SALMON"
+
+[scheduler]
+  allow implicit tasks = true
+
+[scheduling]
+  [[graph]]
+    R1 = """
+    run_recipe_mjo_mogreps & run_recipe_eqwaves & run_recipe_coldsurge & run_recipe_monsoon_monitoring
+    """
+
+[runtime]
+  [[root]]
+    platform = {{ platform | default('localhost') }}
+
+  [[run_recipe_mjo_mogreps]]
+    script = """
+      bash $CYLC_WORKFLOW_RUN_DIR/app/run_recipe/bin/run_salmon.sh mjo_mogreps
+    """
+
+  [[run_recipe_eqwaves]]
+    script = """
+      bash $CYLC_WORKFLOW_RUN_DIR/app/run_recipe/bin/run_salmon.sh eqwaves
+    """
+
+  [[run_recipe_coldsurge]]
+    script = """
+      bash $CYLC_WORKFLOW_RUN_DIR/app/run_recipe/bin/run_salmon.sh coldsurge
+    """
+
+  [[run_recipe_monsoon_monitoring]]
+    script = """
+      bash $CYLC_WORKFLOW_RUN_DIR/app/run_recipe/bin/run_salmon.sh monsoon_monitoring
+    """

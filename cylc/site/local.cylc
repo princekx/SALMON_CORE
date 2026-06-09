@@ -1,0 +1,9 @@
+[cylc]
+    [[platforms]]
+        [[[local]]]
+            job runner = background
+            [[[remote]]]
+                host = localhost
+[runtime]
+    [[root]]
+        platform = local

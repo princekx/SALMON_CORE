@@ -42,20 +42,40 @@ Navigate to the `cylc` directory and install the workflow. This step registers t
 
 ```bash
 cd cylc
-cylc install --symlink --set="platform=<YOUR_PLATFORM>"
+cylc install --symlink
 ```
-Replace `<YOUR_PLATFORM>` with either `local` or `spice`.
 
 ### 4. Run the Workflow
 
-To start the workflow, use the `cylc play` command:
+To start the workflow, use the `cylc play` command with your chosen platform:
 ```bash
-cylc play salmon --set="platform=<YOUR_PLATFORM>"
+cylc play SALMON --set="platform=<YOUR_PLATFORM>"
 ```
+Replace `<YOUR_PLATFORM>` with either `local` or `spice`.
+
 This will start the scheduler in the foreground. You can monitor all your running workflows with the command:
 ```bash
 cylc gscan
 ```
+
+### Local Run Example
+
+Here is a complete example of how to install and run the workflow on your local machine:
+
+1.  **Navigate to the workflow directory:**
+    ```bash
+    cd $USER/MJO/SALMON_v2/SALMON_CORE/cylc
+    ```
+
+2.  **Install the workflow:**
+    ```bash
+    cylc install --workflow-name=SALMON
+    ```
+
+3.  **Run the workflow:**
+    ```bash
+    cylc play SALMON --set="platform='local'"
+    ```
 
 ## Documentation
 - **Development Guide**: [How to add new recipes and tasks](docs/RECIPE_GUIDE.md)

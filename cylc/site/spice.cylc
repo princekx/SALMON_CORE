@@ -1,0 +1,9 @@
+[cylc]
+    [[platforms]]
+        [[[spice]]]
+            job runner = slurm
+            [[[remote]]]
+                host = spice
+[runtime]
+    [[root]]
+        platform = spice
