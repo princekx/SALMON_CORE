@@ -9,7 +9,7 @@ import numpy as np
 import iris
 import json
 from bokeh.plotting import figure, save, output_file
-from bokeh.models import ColumnDataSource, Title, Range1d, LinearColorMapper, ColorBar, GeoJSONDataSource
+from bokeh.models import ColumnDataSource, HoverTool, Title, Range1d, LinearColorMapper, ColorBar, GeoJSONDataSource
 from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
@@ -501,6 +501,35 @@ class DisplayColdSurgeMaps(Task):
         plot.x_range = Range1d(start=min(lons), end=max(lons))
         plot.y_range = Range1d(start=min(lats), end=max(lats))
 
+        lon_grid, lat_grid = np.meshgrid(lons, lats)
+        hover_source = ColumnDataSource(
+            data={
+                "lon": lon_grid.ravel(),
+                "lat": lat_grid.ravel(),
+                "value": np.asarray(cube.data).ravel(),
+            }
+        )
+        hover_renderer = plot.circle(
+            x="lon",
+            y="lat",
+            size=8,
+            alpha=0.0,
+            line_alpha=0.0,
+            fill_alpha=0.0,
+            source=hover_source,
+        )
+
+        hover = HoverTool(
+            renderers=[hover_renderer],
+            tooltips=[
+                ("Lon", "@lon{0.0}"),
+                ("Lat", "@lat{0.0}"),
+                ("Value", "@value{0.00}"),
+            ],
+        )
+        plot.add_tools(hover)
+        plot.toolbar.active_inspect = hover
+
         color_bar = ColorBar(
             color_mapper=color_mapper,
             label_standoff=12,
@@ -614,7 +643,7 @@ class DisplayColdSurgeMaps(Task):
                 f"Valid for 24H up to {valid_date:%Y%m%d}"
             )
 
-            plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom,hover")
+            plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom")
             plot = self.plot_image_map(
                 plot,
                 precip_mean[t],
@@ -681,7 +710,7 @@ class DisplayColdSurgeMaps(Task):
                     f"Valid for 24H up to {valid_date:%Y%m%d}"
                 )
 
-                plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom,hover")
+                plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom")
                 plot = self.plot_image_map(
                     plot,
                     precip_prob[t],
