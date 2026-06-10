@@ -528,7 +528,7 @@ class DisplayColdSurgeMaps(Task):
             ],
         )
         plot.add_tools(hover)
-        plot.toolbar.active_inspect = hover
+        plot.toolbar.active_inspect = None
 
         color_bar = ColorBar(
             color_mapper=color_mapper,
