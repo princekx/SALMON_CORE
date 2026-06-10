@@ -570,7 +570,7 @@ class DisplayColdSurgeMaps(Task):
         precip_cube = precip_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
         u850_cube = u850_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
         v850_cube = v850_cube.intersection(latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS)
-
+        
         speed_cube = (u850_cube ** 2 + v850_cube ** 2) ** 0.5
         return precip_cube, u850_cube, v850_cube, speed_cube
 
@@ -597,6 +597,7 @@ class DisplayColdSurgeMaps(Task):
 
         lons = precip_mean[0].coord("longitude").points
         lats = precip_mean[0].coord("latitude").points
+        
         height = int(plot_width / (((max(lons) - min(lons)) / (max(lats) - min(lats))) * 1.0))
         date_label = date.strftime("%Y%m%d")
         ntimes = len(precip_cube.coord("forecast_period").points)
