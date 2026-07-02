@@ -1,21 +1,31 @@
 name: "Cold Surge Forecast"
-description: "Runs Cold Surge index computation for MOGREPS."
+description: "Runs Cold Surge index computation for MOGREPS and GPM models."
 
 defaults:
-  model: mogreps
+  models:
+    - mogreps
+    - gpm
 
 tasks:
   - name: "Retrieve Cold Surge Data"
     module: salmon.modules.coldsurge.tasks
-    class: RetrieveColdSurgeData
+    class: RetrieveMogrepsColdSurgeData
     config:
       members: 36
       query: "mogreps_combined.query"
-
+    
   - name: "Compute Cold Surge Indices"
     module: salmon.modules.coldsurge.tasks
-    class: ComputeColdSurgeIndices
+    class: ComputeMogrepsColdSurgeIndices
 
   - name: "Generate Cold Surge Plots"
     module: salmon.modules.coldsurge.tasks
-    class: DisplayColdSurgeMaps
+    class: DisplayMogrepsColdSurgeMaps
+
+  - name: "Retrieve GPM Cold Surge Data"
+    module: salmon.modules.coldsurge.tasks
+    class: RetrieveGPMColdSurgeData
+
+  - name: "Generate GPM Cold Surge Plots"
+    module: salmon.modules.coldsurge.tasks
+    class: DisplayGPMColdSurgeMaps

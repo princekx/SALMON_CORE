@@ -21,7 +21,13 @@ glosea:
   moose: moose:/opfc/atm/glosea/prods/
   processed: $SCRATCH/SALMON/processed_SEA_data/glosea
   archive: $DATADIR/SALMON/processed_SEA_data/glosea
-  plots: $DATADIR/SALMON/processed_SEA_data/glosea
+  plots: $SCRATCH/SALMON/processed_SEA_data/glosea
+
+gpm:
+  raw: /data/users/gpm_imerg/NRTlate/current_version/postprocessed_daily
+  processed: $SCRATCH/SALMON/processed_SEA_data/gpm
+  archive: $DATADIR/SALMON/processed_SEA_data/gpm
+  plots: $DATADIR/SALMON/processed_SEA_data/gpm
 
 global:
   forecast_out_dir: $SCRATCH/SALMON/processed_SEA_data/mogreps

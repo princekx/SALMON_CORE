@@ -469,13 +469,24 @@ class ComputeMJOIndices(Task):
     def _concat_analysis_fcast(self, analysis_cube, fcast_cube):
         # Adapted from production logic
         nfcast_days = fcast_cube.shape[0]
-        time_unit = analysis_cube.coord('time').units
+        time_coord = analysis_cube.coord('time')
+        time_unit = time_coord.units
         ntime_analysis = analysis_cube.shape[0]
+        ntime_total = ntime_analysis + nfcast_days
+
+        # Infer the native daily step from analysis data and extend it across forecasts.
+        if ntime_analysis > 1:
+            time_step = float(np.median(np.diff(time_coord.points)))
+        else:
+            time_step = 24.0
+        time_points = time_coord.points[0] + np.arange(ntime_total) * time_step
         
-        cat_cube_list = iris.cube.CubeList([analysis_cube[0].copy() for _ in range(ntime_analysis + nfcast_days)])
+        cat_cube_list = iris.cube.CubeList([analysis_cube[0].copy() for _ in range(ntime_total)])
         for n, cube in enumerate(cat_cube_list):
-            cube.add_aux_coord(iris.coords.AuxCoord(analysis_cube.coord('time').points[0] + n*24,
-                                                    long_name='forecast_time', units=time_unit))
+            cube.coord('time').points = np.array([time_points[n]])
+            if cube.coord('time').bounds is not None:
+                half_step = 0.5 * time_step
+                cube.coord('time').bounds = np.array([[time_points[n] - half_step, time_points[n] + half_step]])
         
         cat_cube = cat_cube_list.merge_cube()
         cat_cube.data = np.concatenate((analysis_cube.data, fcast_cube.data))
@@ -485,9 +496,11 @@ class ComputeMJOIndices(Task):
         mm = iris.load_cube(harfile, 'mm')
         aa = iris.load_cube(harfile, 'aa')
         bb = iris.load_cube(harfile, 'bb')
+
+        time_coord_name = 'time' if cube.coords('time') else 'forecast_time'
         
         if 'julian_day' not in [c.name() for c in cube.coords()]:
-            iris.coord_categorisation.add_day_of_year(cube, 'time', name='julian_day')
+            iris.coord_categorisation.add_day_of_year(cube, time_coord_name, name='julian_day')
             
         anom = cube.copy()
         for i, t in enumerate(cube.coord('julian_day').points):
@@ -509,7 +522,7 @@ class ComputeMJOIndices(Task):
             if n < NN:
                 runmean.data[n] = np.mean(cube.data[:n+1], axis=0)
             else:
-                runmean.data[n] = np.mean(cube.data[n-NN:n+1], axis=0)
+                runmean.data[n] = np.mean(cube.data[n-NN:n], axis=0)
         return cube - runmean
 
     def _compute_rmms(self, anom_120_filenames, rmm_file_name):
