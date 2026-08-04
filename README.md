@@ -19,6 +19,11 @@ pip install -e .
 salmon run recipes/mjo_mogreps.yaml --date 2026-02-12
 ```
 
+### Running a Recipe for a Single Model
+```bash
+salmon run recipes/coldsurge.yaml --date 2026-02-12 --model gpm
+```
+
 ## Running with Cylc 8
 
 This project includes a ready-to-run Cylc 8 workflow to automate the execution of SALMON recipes.

@@ -29,6 +29,13 @@ gpm:
   archive: $DATADIR/SALMON/processed_SEA_data/gpm
   plots: $DATADIR/SALMON/processed_SEA_data/gpm
 
+ifs:
+  raw: /data/scratch/julian.heming/GRIB/ECMWF
+  temp: $SCRATCH/SALMON/temp
+  processed: $SCRATCH/SALMON/processed_SEA_data/ifs
+  archive: $DATADIR/SALMON/processed_SEA_data/ifs
+  plots: $DATADIR/SALMON/processed_SEA_data/ifs
+
 global:
   forecast_out_dir: $SCRATCH/SALMON/processed_SEA_data/mogreps
   map_outline_json_file: $HOME/MJO/MJO/SALMON_v2/SALMON_CORE/utils/map_files/map_outline.json

@@ -15,11 +15,13 @@ def main():
 @click.argument('recipe_path', type=click.Path(exists=True))
 @click.option('--date', type=click.DateTime(formats=["%Y-%m-%d"]), required=True,
               help="Target date (forecast init date) in YYYY-MM-DD format.")
+@click.option('--model', type=str, default=None,
+              help="Optional model selector (e.g. mogreps, gpm, ifs) to run only matching tasks.")
 @click.option('--debug', is_flag=True, help="Enable debug logging.")
-def run(recipe_path, date, debug):
+def run(recipe_path, date, model, debug):
     """Execute a SALMON analysis recipe for a specific date."""
     try:
-        runner = Runner(recipe_path, date, debug=debug)
+        runner = Runner(recipe_path, date, model=model, debug=debug)
         runner.run()
     except Exception as e:
         click.echo(f"Run failed: {e}", err=True)
