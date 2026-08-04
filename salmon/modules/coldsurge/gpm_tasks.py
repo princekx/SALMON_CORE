@@ -37,12 +37,6 @@ FC_TIMES = tuple(np.arange(0, 174, 24))
 DISPLAY_LAT_BOUNDS = (-10, 25)
 DISPLAY_LON_BOUNDS = (90, 135)
 
-VAR_SPECS = {
-    "precip": {"iris_var": "precipitation_amount"},
-    "u850": {"iris_var": "x_wind", "pressure_level": 850},
-    "v850": {"iris_var": "y_wind", "pressure_level": 850},
-}
-
 class RetrieveGPMColdSurgeData(Task):
     """
     Retrieve GPM IMERG data needed for Cold Surge processing.
