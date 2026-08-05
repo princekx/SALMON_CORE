@@ -4,14 +4,20 @@ This module re-exports model-specific task classes so existing recipes using
 `salmon.modules.coldsurge.tasks` continue to work.
 """
 
-from salmon.modules.coldsurge.gpm_tasks import (
-    DisplayGPMColdSurgeMaps,
-    RetrieveGPMColdSurgeData,
-)
 from salmon.modules.coldsurge.mogreps_tasks import (
     ComputeMogrepsColdSurgeIndices,
     DisplayMogrepsColdSurgeMaps,
     RetrieveMogrepsColdSurgeData,
+)
+
+from salmon.modules.coldsurge.gpm_tasks import (
+    DisplayGPMColdSurgeMaps,
+    RetrieveGPMColdSurgeData,
+)
+from salmon.modules.coldsurge.ifs_tasks import (
+    ComputeIFSColdSurgeIndices,
+    DisplayIFSColdSurgeMaps,
+    RetrieveIFSColdSurgeData,
 )
 
 __all__ = [
@@ -20,4 +26,7 @@ __all__ = [
     "DisplayMogrepsColdSurgeMaps",
     "RetrieveGPMColdSurgeData",
     "DisplayGPMColdSurgeMaps",
+    "RetrieveIFSColdSurgeData",
+    "ComputeIFSColdSurgeIndices",
+    "DisplayIFSColdSurgeMaps",
 ]

@@ -1,3 +1,7 @@
+import logging
+import sys
+
+import numpy as np
 import iris
 import iris.cube
 import iris.coords
@@ -141,6 +145,27 @@ def read_precip_correctly(files: List[str], var_name: str = 'precipitation_amoun
             cube.replace_coord(new_fp)
 
     return iris.cube.CubeList(cubes).merge_cube()
+
+def read_ifs_grib_precip(file: str, var_name: str = 'precipitation_amount', deaccumulate=False) -> iris.cube.Cube:
+    """Load and process IFS GRIB precipitation data."""
+    cube = iris.load_cube(file, var_name)
+    if deaccumulate and cube.shape[0] > 1:
+        logging.info('De-accumulating precipitation data.')
+        cube.data[1:] -= cube.data[:-1]
+    return cube
+
+def read_ifs_grib_winds_correctly(file: str, var_name: str, 
+                                  pressure_level: Optional[int] = None) -> iris.cube.Cube:
+    """Load and process IFS GRIB wind data, handling multiple members and pressure levels."""
+    print(f"Loading wind data from {file} for variable {var_name} at pressure level {pressure_level}")
+    cube = iris.load(file, var_name)
+    if pressure_level is not None:
+        cube = cube.extract(iris.Constraint(pressure=pressure_level))
+    # if cube is a list that comes out of iris.load with just one cube, extract it
+    if isinstance(cube, iris.cube.CubeList) and len(cube) == 1:
+        cube = cube[0]
+    print(f"Loaded cube shape: {cube.shape}, coords: {[coord.name() for coord in cube.coords()]}")
+    return cube
 
 def subset_seasia(cube: iris.cube.Cube) -> iris.cube.Cube:
     """Subset a cube to the Southeast Asia region (-10 to 25 lat, 85 to 145 lon)."""

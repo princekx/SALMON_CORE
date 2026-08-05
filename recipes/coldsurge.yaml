@@ -33,11 +33,15 @@ tasks:
     module: salmon.modules.coldsurge.gpm_tasks
     class: DisplayGPMColdSurgeMaps
 
-# IFS Tasks
+  # IFS Tasks
+  - name: "Retrieve IFS Cold Surge Data"
+    module: salmon.modules.coldsurge.ifs_tasks
+    class: RetrieveIFSColdSurgeData
+
   - name: "Compute IFS Cold Surge Indices"
-    module: salmon.modules.coldsurge.tasks
+    module: salmon.modules.coldsurge.ifs_tasks
     class: ComputeIFSColdSurgeIndices
 
   - name: "Generate IFS Cold Surge Plots"
-    module: salmon.modules.coldsurge.tasks
-    class: DisplayIFSColdSurgeMaps 
+    module: salmon.modules.coldsurge.ifs_tasks
+    class: DisplayIFSColdSurgeMaps
