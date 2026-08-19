@@ -113,60 +113,6 @@ def read_olr_correctly(files: List[str], lbproc: int = 0) -> iris.cube.Cube:
     iris.util.equalise_attributes(cubes)
     return iris.cube.CubeList(cubes).merge_cube()
 
-def read_precip_correctly(files: List[str], var_name: str = 'precipitation_amount') -> iris.cube.Cube:
-    """Load and process precipitation data, handling 3-hourly to daily mean conversion."""
-    files.sort()
-    cubes = []
-    for data_file in files:
-        cube = iris.load_cube(data_file, var_name)
-        if len(cube.shape) == 3:
-            cube = cube.collapsed('time', iris.analysis.MEAN)
-        
-        for coord_name in ['forecast_period', 'time']:
-            if cube.coord(coord_name).bounds is None:
-                p = cube.coord(coord_name).points[0]
-                cube.coord(coord_name).bounds = [[p - 1.0, p + 1.0]]
-        
-        # Remove coordinates that cause merge conflicts
-        for coord in ['forecast_reference_time', 'realization', 'time']:
-            if cube.coords(coord):
-                cube.remove_coord(coord)
-                
-        cubes.append(cube)
-
-    for i, cube in enumerate(cubes):
-        cube.cell_methods = cubes[0].cell_methods
-        if cube.coords("forecast_period"):
-            new_fp = iris.coords.DimCoord(
-                cube.coord("forecast_period").points,
-                standard_name="forecast_period",
-                units=cube.coord("forecast_period").units
-            )
-            cube.replace_coord(new_fp)
-
-    return iris.cube.CubeList(cubes).merge_cube()
-
-def read_ifs_grib_precip(file: str, var_name: str = 'precipitation_amount', deaccumulate=False) -> iris.cube.Cube:
-    """Load and process IFS GRIB precipitation data."""
-    cube = iris.load_cube(file, var_name)
-    if deaccumulate and cube.shape[0] > 1:
-        logging.info('De-accumulating precipitation data.')
-        cube.data[1:] -= cube.data[:-1]
-    return cube
-
-def read_ifs_grib_winds_correctly(file: str, var_name: str, 
-                                  pressure_level: Optional[int] = None) -> iris.cube.Cube:
-    """Load and process IFS GRIB wind data, handling multiple members and pressure levels."""
-    print(f"Loading wind data from {file} for variable {var_name} at pressure level {pressure_level}")
-    cube = iris.load(file, var_name)
-    if pressure_level is not None:
-        cube = cube.extract(iris.Constraint(pressure=pressure_level))
-    # if cube is a list that comes out of iris.load with just one cube, extract it
-    if isinstance(cube, iris.cube.CubeList) and len(cube) == 1:
-        cube = cube[0]
-    print(f"Loaded cube shape: {cube.shape}, coords: {[coord.name() for coord in cube.coords()]}")
-    return cube
-
 def subset_seasia(cube: iris.cube.Cube) -> iris.cube.Cube:
     """Subset a cube to the Southeast Asia region (-10 to 25 lat, 85 to 145 lon)."""
     return cube.intersection(latitude=(-10, 25), longitude=(85, 145))

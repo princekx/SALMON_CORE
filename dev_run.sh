@@ -12,8 +12,9 @@
 #   ./dev_run.sh                        # uses today's date, mjo_mogreps recipe
 #   ./dev_run.sh --recipe coldsurge     # use recipes/coldsurge.yaml
 #   ./dev_run.sh --date 2024-01-15      # use a specific date
+#   ./dev_run.sh --model glosea         # pass a model to salmon run
 #   ./dev_run.sh --no-debug             # suppress debug logging
-#   ./dev_run.sh --recipe mjo_mogreps --date 2024-06-01
+#   ./dev_run.sh --recipe mjo_mogreps --date 2024-06-01 --model glosea
 #
 # Because salmon is installed in editable mode (pip install -e .),
 # every code change you make is picked up immediately on the next run.
@@ -25,15 +26,18 @@ SCRIPT_DIR="/home/users/prince.xavier/MJO/SALMON_v2/SALMON_CORE"
 RECIPES_DIR="$SCRIPT_DIR/recipes"
 
 # ── Defaults ────────────────────────────────────────────────
-RECIPE="mjo_mogreps"
-DATE="$(date +%Y-%m-%d)"
+RECIPE="coldsurge"
+#DATE="$(date +%Y-%m-%d)"
+DATE="2026-07-19"
 DEBUG="--debug"
+MODEL="mogreps"
 
 # ── Parse arguments ─────────────────────────────────────────
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --recipe)  RECIPE="$2";     shift 2 ;;
         --date)    DATE="$2";       shift 2 ;;
+        --model)   MODEL="$2";      shift 2 ;;
         --no-debug) DEBUG="";       shift   ;;
         *) echo "Unknown option: $1"; exit 1 ;;
     esac
@@ -54,8 +58,13 @@ echo "======================================================"
 echo "  SALMON Development Run"
 echo "  Recipe : $RECIPE_FILE"
 echo "  Date   : $DATE"
+echo "  Model  : ${MODEL:-(default)}"
 echo "  Debug  : ${DEBUG:-(off)}"
 echo "======================================================"
 echo ""
 
-salmon run "$RECIPE_FILE" --date "$DATE" $DEBUG
+if [[ -n "$MODEL" ]]; then
+    salmon run "$RECIPE_FILE" --date "$DATE" --model "$MODEL" $DEBUG
+else
+    salmon run "$RECIPE_FILE" --date "$DATE" $DEBUG
+fi

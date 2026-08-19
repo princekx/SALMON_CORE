@@ -30,7 +30,7 @@ gpm:
   plots: $DATADIR/SALMON/processed_SEA_data/gpm
 
 ifs:
-  raw: /data/scratch/julian.heming/GRIB/ECMWF
+  raw: /data/scratch/ppdev/ecmwf-ens-realtime
   temp: $SCRATCH/SALMON/temp
   processed: $SCRATCH/SALMON/processed_SEA_data/ifs
   archive: $DATADIR/SALMON/processed_SEA_data/ifs

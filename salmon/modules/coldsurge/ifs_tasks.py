@@ -5,6 +5,7 @@ import sys
 import re
 import numpy as np
 import iris
+import iris.coord_categorisation 
 import json
 from bokeh.plotting import figure, save, output_file
 from bokeh.models import (
@@ -19,7 +20,6 @@ from bokeh.models import (
 from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
 from salmon.core.task import Task
 from salmon.utils.config import load_global_config
-from salmon.utils.cube import read_ifs_grib_precip, read_ifs_grib_winds_correctly, read_winds_correctly, read_precip_correctly
 from salmon.utils.bokeh_utils import Vector
 import warnings
 
@@ -84,61 +84,32 @@ class RetrieveIFSColdSurgeData(Task):
 
         ifs = load_global_config().get("ifs", {})
         self.config_values = {
-            "ifs_raw_dir": ifs.get("raw", "/tmp/salmon_raw/ifs"),
+            "ifs_raw_dir": ifs.get("raw", "/data/scratch/ppdev/ecmwf-ens-realtime/"),
             "ifs_processed_dir": ifs.get("processed", "/tmp/salmon_processed/ifs"),
         }
         logger.debug("IFS config values: %s", self.config_values)
 
-    def _discover_cycle_files(self, raw_root):
-        """Index available cycle files by (YYYYMMDD, HH) from raw directories."""
-        cycle_index = {}
+    def _find_stream_file(self, raw_root, date_str, suffix):
+        """Locate a stream file like YYYYMMDDT1200Z-<suffix>.grib/.grb2."""
         search_dirs = [raw_root]
-
-        # Also scan immediate date subdirectories if present.
-        try:
-            for child in os.listdir(raw_root):
-                child_path = os.path.join(raw_root, child)
-                if os.path.isdir(child_path) and child.isdigit() and len(child) == 8:
-                    search_dirs.append(child_path)
-        except OSError as exc:
-            logger.debug("Unable to list raw root %s: %s", raw_root, exc)
-
         for search_dir in search_dirs:
-            try:
-                for filename in os.listdir(search_dir):
-                    match = _IFS_CYCLE_RE.match(filename)
-                    if not match:
-                        continue
-                    if filename.endswith(".keep.grib"):
-                        continue
-
-                    date_str, cycle_hour, ext = match.groups()
-                    key = (date_str, cycle_hour)
-                    full_path = os.path.join(search_dir, filename)
-                    if not (os.path.exists(full_path) and os.path.getsize(full_path) > 0):
-                        continue
-
-                    # Prefer .grib over .grb2 when both exist for same key.
-                    prev = cycle_index.get(key)
-                    if prev is None:
-                        cycle_index[key] = full_path
-                    else:
-                        prev_ext = os.path.splitext(prev)[1]
-                        if prev_ext == ".grb2" and ext == "grib":
-                            cycle_index[key] = full_path
-            except OSError as exc:
-                logger.debug("Unable to scan %s: %s", search_dir, exc)
-
-        return cycle_index
+            if not os.path.isdir(search_dir):
+                continue
+            for ext in (".grib", ".grb2"):
+                candidate = os.path.join(search_dir, f"{date_str}T1200Z-{suffix}{ext}")
+                if os.path.exists(candidate) and os.path.getsize(candidate) > 0:
+                    return candidate
+        return None
 
     def stage_ifs_data(self, date):
         """
         Create symlinks from the raw IFS source tree into the SALMON processed
         directory tree so that ``ComputeIFSColdSurgeIndices`` can load them.
 
-        Stages two cycle files as a synthetic single member (000):
-        - previous day 12 UTC: (date - 1 day).eg12.grib
-        - current day  00 UTC: date.eg00.grib
+        Stages three ECMWF ENS stream files as synthetic member directory 000:
+        - YYYYMMDDT1200Z-tp.grib
+        - YYYYMMDDT1200Z-u.grib
+        - YYYYMMDDT1200Z-v.grib
 
         Returns
         -------
@@ -152,33 +123,28 @@ class RetrieveIFSColdSurgeData(Task):
             logger.error("IFS raw source directory not found: %s", raw_root)
             return False
 
-        cycle_index = self._discover_cycle_files(raw_root)
-        if not cycle_index:
-            logger.error("No IFS cycle files found in %s", raw_root)
-            return False
-
         linked = 0
         errors = 0
-
-        cycle_specs = [
-            (date, "12", "ifs_cycle12"),
-            (date, "00", "ifs_cycle00"),
+        date_str = date.strftime("%Y%m%d")
+        file_specs = [
+            ("tp", "ifs_tp"),
+            ("u", "ifs_u"),
+            ("v", "ifs_v"),
         ]
         member_dir = "000"
         dest_dir = os.path.join(
-            processed_base, "coldsurge", date.strftime("%Y%m%d"), member_dir
+            processed_base, "coldsurge", date_str, member_dir
         )
         os.makedirs(dest_dir, exist_ok=True)
 
         chosen = []
-        for cycle_date, cycle_hour, dest_stem in cycle_specs:
-            cycle_date_str = cycle_date.strftime("%Y%m%d")
-            src = cycle_index.get((cycle_date_str, cycle_hour))
+        for suffix, dest_stem in file_specs:
+            src = self._find_stream_file(raw_root, date_str, suffix)
             if src is None:
                 logger.warning(
-                    "IFS raw cycle file not found for %s eg%s",
-                    cycle_date_str,
-                    cycle_hour,
+                    "IFS stream file not found: %sT1200Z-%s.grib",
+                    date_str,
+                    suffix,
                 )
                 continue
 
@@ -198,8 +164,8 @@ class RetrieveIFSColdSurgeData(Task):
 
         if chosen:
             logger.info(
-                "IFS selected cycle files for %s member 000: %s",
-                date.strftime("%Y%m%d"),
+                "IFS selected stream files for %s member 000: %s",
+                date_str,
                 ", ".join(chosen),
             )
 
@@ -225,9 +191,9 @@ class ComputeIFSColdSurgeIndices(Task):
 
     Notes
     -----
-    - Expects input files under:
-        ``<ifs.processed>/coldsurge/<YYYYMMDD>/000/ifs_cycle{12,00}.<ext>``
-    - Averages available cycle files into one synthetic realization ``000``.
+    - Expects staged input files under:
+        ``<ifs.processed>/coldsurge/<YYYYMMDD>/000/ifs_{tp,u,v}.<ext>``
+    - Each file contains all 51 members and 6-hourly time steps.
     """
 
     def run(self):
@@ -255,42 +221,103 @@ class ComputeIFSColdSurgeIndices(Task):
         }
         os.makedirs(cs_processed_dir, exist_ok=True)
 
-    def _find_staged_cycle_file(self, base_dir, member, cycle_stem):
-        """Locate a staged cycle file (ifs_cycle00 / ifs_cycle12) by member."""
+    def _find_staged_stream_file(self, base_dir, member, stem):
+        """Locate a staged stream file (ifs_tp / ifs_u / ifs_v) by member."""
         for ext in (".grib", ".grb2", ".nc"):
-            candidate = os.path.join(base_dir, member, f"{cycle_stem}{ext}")
+            candidate = os.path.join(base_dir, member, f"{stem}{ext}")
             if os.path.exists(candidate) and os.path.getsize(candidate) > 0:
                 return candidate
         return None
 
-    def _select_cycle_files(self, staged_root, member):
-        """Return available staged cycle files for one member."""
-        cycle_files = {
-            "ifs_cycle12": self._find_staged_cycle_file(staged_root, member, "ifs_cycle12"),
-            "ifs_cycle00": self._find_staged_cycle_file(staged_root, member, "ifs_cycle00"),
+    def _select_stream_files(self, staged_root, member):
+        """Return available staged stream files for one member."""
+        stream_files = {
+            "tp": self._find_staged_stream_file(staged_root, member, "ifs_tp"),
+            "u": self._find_staged_stream_file(staged_root, member, "ifs_u"),
+            "v": self._find_staged_stream_file(staged_root, member, "ifs_v"),
         }
-        return {k: v for k, v in cycle_files.items() if v is not None}
+        return {k: v for k, v in stream_files.items() if v is not None}
+
+    def _member_from_cube(self, cube, fallback_index=0):
+        """Extract ensemble member number from a cube's coords/attributes."""
+        if cube.coords("realization"):
+            try:
+                return int(np.asarray(cube.coord("realization").points).ravel()[0])
+            except Exception:
+                pass
+
+        attr_keys = (
+            "GRIB_perturbationNumber",
+            "perturbationNumber",
+            "GRIB_number",
+            "number",
+            "ensemble_member",
+        )
+        for key in attr_keys:
+            if key in cube.attributes:
+                try:
+                    return int(cube.attributes[key])
+                except Exception:
+                    continue
+
+        return int(fallback_index)
+
+    def _ensure_realization_coord(self, cube, member_num):
+        """Attach/replace scalar realization coord on a cube."""
+        if cube.coords("realization"):
+            try:
+                cube.remove_coord("realization")
+            except Exception:
+                pass
+        cube.add_aux_coord(
+            iris.coords.AuxCoord(
+                int(member_num),
+                standard_name="realization",
+                var_name="realization",
+            )
+        )
+        return cube
 
     def _as_cube(self, obj, varname, source_file):
-        """Normalise iris.load outputs (Cube/CubeList) into a single Cube."""
+        """Normalise iris.load outputs (Cube/CubeList) into one cube preserving ensemble members."""
         if isinstance(obj, iris.cube.Cube):
-            return obj
+            member = self._member_from_cube(obj, fallback_index=0)
+            return self._ensure_realization_coord(obj, member)
+
         if isinstance(obj, iris.cube.CubeList):
             if len(obj) == 0:
                 logger.warning("Empty CubeList for %s from %s", varname, source_file)
                 return None
-            if len(obj) == 1:
-                return obj[0]
+
+            prepared = iris.cube.CubeList()
+            for i, cube in enumerate(obj):
+                member = self._member_from_cube(cube, fallback_index=i)
+                prepared.append(self._ensure_realization_coord(cube, member))
+
+            iris.util.equalise_attributes(prepared)
+            for cube in prepared:
+                cube.cell_methods = ()
+
             try:
-                return obj.merge_cube()
+                return prepared.merge_cube()
             except Exception as exc:
                 logger.warning(
-                    "Could not merge CubeList for %s from %s (%s). Using first cube.",
+                    "Could not merge CubeList for %s from %s (%s). Trying concatenate.",
                     varname,
                     source_file,
                     exc,
                 )
-                return obj[0]
+                try:
+                    return prepared.concatenate_cube()
+                except Exception as exc2:
+                    logger.warning(
+                        "Could not concatenate CubeList for %s from %s (%s). Using first cube.",
+                        varname,
+                        source_file,
+                        exc2,
+                    )
+                    return prepared[0]
+
         logger.warning(
             "Unexpected object type for %s from %s: %s",
             varname,
@@ -299,53 +326,54 @@ class ComputeIFSColdSurgeIndices(Task):
         )
         return None
 
-    def _build_cube_from_cycles(self, cycle_files, varname, spec, member):
-        """Read one variable from staged cycles and return a single averaged cube."""
-        cycle_00_cube = None
-        cycle_12_cube = None
+    def _build_cube_from_stream(self, stream_files, varname, spec):
+        """Read one variable from staged stream files and return one cube with all members."""
+        if varname == "precip":
+            src = stream_files.get("tp")
+            if src is None:
+                return None
+            try:
+                loaded = iris.load(src, spec["iris_var"])
+            except Exception:
+                loaded = iris.load(src, "precipitation_amount")
+            return self._as_cube(loaded, varname, src)
+
+        if varname == "u850":
+            src = stream_files.get("u")
+            loaded = iris.load(src, spec["iris_var"])
+            loaded = loaded.extract(iris.Constraint(pressure=spec.get("pressure")))
+            return self._as_cube(loaded, varname, src)
+        
+        elif varname == "v850":
+            src = stream_files.get("v")
+            loaded = iris.load(src, spec["iris_var"])
+            loaded = loaded.extract(iris.Constraint(pressure=spec.get("pressure")))
+            return self._as_cube(loaded, varname, src)
+        else:
+            src = None
+
+        if src is None:
+            return None
+
+    def _aggregate_to_daily(self, cube, varname):
+
+        """Collapse 6-hourly time steps into one value per calendar day.
+
+        Groups steps by ``floor(forecast_period_hours / 24)``.
+        For precipitation, compute 24 h totals and scale partial days using
+        available 6-hourly coverage.
+        """
+        # add days as auxiliary coordinate
+        iris.coord_categorisation.add_day_of_month(cube, 'time', name='day')
+        iris.coord_categorisation.add_month(cube, 'time', name='month')
+        iris.coord_categorisation.add_year(cube, 'time', name='year')
+
+        daily = cube.aggregated_by('day', iris.analysis.MEAN)
 
         if varname == "precip":
-            if cycle_files.get("ifs_cycle00") is not None:
-                loaded = read_ifs_grib_precip(
-                    cycle_files["ifs_cycle00"], spec["iris_var"], deaccumulate=True
-                )
-                cycle_00_cube = self._as_cube(loaded, varname, cycle_files["ifs_cycle00"])
-            if cycle_files.get("ifs_cycle12") is not None:
-                loaded = read_ifs_grib_precip(
-                    cycle_files["ifs_cycle12"], spec["iris_var"], deaccumulate=True
-                )
-                cycle_12_cube = self._as_cube(loaded, varname, cycle_files["ifs_cycle12"])
-
-        if varname in ("u850", "v850"):
-            if cycle_files.get("ifs_cycle00") is not None:
-                loaded = read_ifs_grib_winds_correctly(
-                    cycle_files["ifs_cycle00"], spec["iris_var"], pressure_level=spec.get("pressure")
-                )
-                cycle_00_cube = self._as_cube(loaded, varname, cycle_files["ifs_cycle00"])
-            if cycle_files.get("ifs_cycle12") is not None:
-                loaded = read_ifs_grib_winds_correctly(
-                    cycle_files["ifs_cycle12"], spec["iris_var"], pressure_level=spec.get("pressure")
-                )
-                cycle_12_cube = self._as_cube(loaded, varname, cycle_files["ifs_cycle12"])
-
-        if cycle_00_cube is not None and cycle_12_cube is not None:
-            if cycle_00_cube.shape != cycle_12_cube.shape:
-                logger.warning(
-                    "Cycle shape mismatch for member %s var %s (00=%s, 12=%s). Using eg00 only.",
-                    member,
-                    varname,
-                    cycle_00_cube.shape,
-                    cycle_12_cube.shape,
-                )
-                return cycle_00_cube
-            cycle_00_cube.data = (cycle_00_cube.data + cycle_12_cube.data) / 2.0
-            return cycle_00_cube
-
-        if cycle_00_cube is not None:
-            return cycle_00_cube
-        if cycle_12_cube is not None:
-            return cycle_12_cube
-        return None
+            daily.data = daily.data * 1000.0  # convert to daily total precipitation (mm/day)
+        
+        return daily
 
     def load_base_cube(self):   
         """Load observational target grid used for optional regridding."""
@@ -405,51 +433,34 @@ class ComputeIFSColdSurgeIndices(Task):
                 logger.info("%s already exists. Skipping.", out_file)
                 continue
 
-            cubes = []
-            for mem in available_members:
-                cycle_files = self._select_cycle_files(staged_root, mem)
-                if not cycle_files:
-                    logger.warning(
-                        "No cycle files found for member %s var %s under %s",
-                        mem,
-                        varname,
-                        staged_root,
-                    )
-                    continue
-
-                logger.info(
-                    "Processing member %s var %s with cycles: %s",
-                    mem,
+            mem = "000"
+            stream_files = self._select_stream_files(staged_root, mem)
+            if not stream_files:
+                logger.error(
+                    "No staged stream files found for %s under %s",
                     varname,
-                    sorted(cycle_files.keys()),
+                    staged_root,
                 )
-                merged = self._build_cube_from_cycles(cycle_files, varname, spec, mem)
-                if merged is None:
-                    logger.warning(
-                        "No merged cube produced for member %s var %s",
-                        mem,
-                        varname,
-                    )
-                    continue
-
-                if regrid_to_obs:
-                    merged = self.regrid2obs(merged)
-
-                merged.add_aux_coord(
-                    iris.coords.AuxCoord(
-                        int(mem),
-                        standard_name="realization",
-                        var_name="realization",
-                    )
-                )
-                cubes.append(merged)
-
-            if not cubes:
-                logger.error("No cubes to save for %s on %s", varname, date_str)
                 continue
 
-            save_cube = cubes[0] if len(cubes) == 1 else iris.cube.CubeList(cubes).merge_cube()
-            iris.save(save_cube, out_file, netcdf_format="NETCDF4_CLASSIC")
+            logger.info(
+                "Processing var %s from stream files: %s",
+                varname,
+                sorted(stream_files.keys()),
+            )
+            cube = self._build_cube_from_stream(stream_files, varname, spec)
+            if cube is None:
+                logger.error("No cube produced for %s on %s", varname, date_str)
+                continue
+
+            # Aggregate 6-hourly steps to daily values
+            cube = self._aggregate_to_daily(cube, varname)
+            logger.info("Aggregated %s to %d daily steps for %s", varname, cube.shape[cube.coord_dims(cube.coord("forecast_period"))[0]], date_str)
+
+            if regrid_to_obs:
+                cube = self.regrid2obs(cube)
+
+            iris.save(cube, out_file, netcdf_format="NETCDF4_CLASSIC")
             logger.info("Saved IFS merged members to %s", out_file)
 
 
@@ -506,7 +517,7 @@ class DisplayIFSColdSurgeMaps(Task):
             ),
         }
         os.makedirs(cs_plot_ens_dir, exist_ok=True)
-        self.xSkip, self.ySkip = 5, 5
+        self.xSkip, self.ySkip = 2, 2
 
     # ------------------------------------------------------------------
     # Shared helpers
@@ -533,6 +544,9 @@ class DisplayIFSColdSurgeMaps(Task):
         v850_cube = v850_cube.intersection(
             latitude=DISPLAY_LAT_BOUNDS, longitude=DISPLAY_LON_BOUNDS
         )
+
+        logger.debug("Max precip (native units): %.3f", float(np.nanmax(np.asarray(precip_cube.data))))
+
         speed_cube = (u850_cube ** 2 + v850_cube ** 2) ** 0.5
         return precip_cube, u850_cube, v850_cube, speed_cube
 
@@ -560,14 +574,20 @@ class DisplayIFSColdSurgeMaps(Task):
         )
         mask_ces = mask_cs & (v850_hattori.data <= hattori_threshold)
 
-        cs_prob = [
-            round(p, 1)
-            for p in 100.0 * np.sum(mask_cs, axis=0) / float(len(mask_cs))
-        ]
-        ces_prob = [
-            round(p, 1)
-            for p in 100.0 * np.sum(mask_ces, axis=0) / float(len(mask_ces))
-        ]
+        # Support both shapes:
+        # - ensemble case: (realization, lead_time)
+        # - single-member case: (lead_time,)
+        mask_cs = np.asarray(mask_cs)
+        mask_ces = np.asarray(mask_ces)
+        if mask_cs.ndim == 1:
+            mask_cs = mask_cs[np.newaxis, :]
+        if mask_ces.ndim == 1:
+            mask_ces = mask_ces[np.newaxis, :]
+
+        cs_prob_vals = 100.0 * np.sum(mask_cs, axis=0) / float(mask_cs.shape[0])
+        ces_prob_vals = 100.0 * np.sum(mask_ces, axis=0) / float(mask_ces.shape[0])
+        cs_prob = [round(float(p), 1) for p in np.asarray(cs_prob_vals).ravel()]
+        ces_prob = [round(float(p), 1) for p in np.asarray(ces_prob_vals).ravel()]
         return cs_prob, ces_prob
 
     def write_dates_json(self, date, json_file):
@@ -688,9 +708,8 @@ class DisplayIFSColdSurgeMaps(Task):
     # ------------------------------------------------------------------
     # Plot methods
     # ------------------------------------------------------------------
-
     def bokeh_plot_forecast_ensemble_mean(self, date, plot_width=700):
-        """Generate ensemble-mean precip + wind HTML maps for all lead times."""
+        """Generate ensemble-mean precip+wind HTML maps for all lead times."""
         precip_cube, u850_cube, v850_cube, speed_cube = self._load_required_cubes(date)
         cs_prob, ces_prob = self.cold_surge_probabilities(u850_cube, v850_cube, speed_cube)
 
@@ -700,51 +719,55 @@ class DisplayIFSColdSurgeMaps(Task):
 
         lons = precip_mean[0].coord("longitude").points
         lats = precip_mean[0].coord("latitude").points
-        height = int(
-            plot_width / (((max(lons) - min(lons)) / (max(lats) - min(lats))) * 1.0)
-        )
+        
+        height = int(plot_width / (((max(lons) - min(lons)) / (max(lats) - min(lats))) * 1.0))
         date_label = date.strftime("%Y%m%d")
         ntimes = len(precip_cube.coord("forecast_period").points)
 
-        html_dir = os.path.join(self.config_values["ifs_cs_plot_ens"], date_label)
+        html_root = self.config_values["ifs_cs_plot_ens"]
+        html_dir = os.path.join(html_root, date_label)
         os.makedirs(html_dir, exist_ok=True)
 
         for t in np.arange(ntimes):
             valid_date = date + datetime.timedelta(days=int(t))
-            title = f"IFS Ensemble mean P, UV850 [CS:{cs_prob[t]}%, CES:{ces_prob[t]}%]"
+            title = f"Ensemble mean P, UV850 [CS:{cs_prob[t]}%, CES:{ces_prob[t]}%]"
             subtitle = (
                 f"Forecast start: {date_label}, Lead: T+{t}d "
                 f"Valid for 24H up to {valid_date:%Y%m%d}"
             )
-            plot = figure(
-                height=height, width=plot_width,
-                title=None,
-                tools="pan,reset,save,box_zoom,wheel_zoom",
-            )
+
+            plot = figure(height=height, width=plot_width, title=None, tools="pan,reset,save,box_zoom,wheel_zoom")
             plot = self.plot_image_map(
-                plot, precip_mean[t],
-                palette=GnBu9, palette_reverse=True,
-                low=5, high=30, cbar_title="Precipitation (mm/day)",
+                plot,
+                precip_mean[t],
+                palette=GnBu9,
+                palette_reverse=True,
+                low=5,
+                high=30,
+                cbar_title="Precipitation (mm/day)",
             )
             plot = self.plot_vectors(
-                plot, u850_mean[t], v850_mean[t],
-                palette=RdPu9, palette_reverse=True,
-                maxSpeed=5, arrowHeadScale=0.2, arrowType="barbed",
+                plot,
+                u850_mean[t],
+                v850_mean[t],
+                palette=RdPu9,
+                palette_reverse=True,
+                maxSpeed=5,
+                arrowHeadScale=0.2,
+                arrowType="barbed",
             )
             plot = self._add_map_outline(plot)
             plot.add_layout(Title(text=subtitle, text_font_style="italic"), "above")
             plot.add_layout(Title(text=title, text_font_size="12pt"), "above")
 
-            out_html = os.path.join(
-                html_dir, f"Cold_surge_IFS_EnsMean_{date_label}_T{t * 24}h.html"
-            )
+            out_html = os.path.join(html_dir, f"Cold_surge_EnsMean_{date_label}_T{t * 24}h.html")
             output_file(out_html)
             save(plot)
             logger.info("Plotted %s", out_html)
 
         self.write_dates_json(
             date,
-            os.path.join(self.config_values["ifs_cs_plot_ens"], "ifs_ensmean_plot_dates.json"),
+            os.path.join(html_root, "ifs_ensmean_plot_dates.json"),
         )
 
     def bokeh_plot_forecast_probability_precip(

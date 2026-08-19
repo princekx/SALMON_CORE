@@ -14,7 +14,7 @@ from bokeh.palettes import GnBu9, RdPu9, TolRainbow12
 from salmon.core.task import Task
 from salmon.utils.moose import MooseClient
 from salmon.utils.config import load_global_config
-from salmon.utils.cube import read_winds_correctly, read_precip_correctly
+from salmon.utils.cube import read_winds_correctly
 from salmon.utils.bokeh_utils import Vector
 import sys
 import warnings
@@ -327,6 +327,38 @@ class ComputeMogrepsColdSurgeIndices(Task):
                     coord.bounds = [[p - 1.0, p + 1.0]]
         return cube
 
+    def read_mogreps_precip_correctly(self, files: List[str], var_name: str = 'precipitation_amount') -> iris.cube.Cube:
+        """Load and de-accumulate precipitation to 24-hourly interval totals.
+
+        Loads all forecast files as a single cube, selects timesteps whose
+        forecast_period upper bounds fall on daily lead-time boundaries, and
+        de-accumulates consecutive accumulations to give the 24-hour total for
+        each interval.
+        """
+        files = sorted(files)
+        cube = iris.load_cube(files, var_name)
+
+        lead_times = list(FC_TIMES)  # [0, 24, 48, ..., 168]
+        upper_bounds = [float(b2) for b1, b2 in cube.coord('forecast_period').bounds]
+        daily_indices = [i for i, b in enumerate(upper_bounds) if b in lead_times]
+
+        # De-accumulate: for each daily boundary, subtract the previous day's
+        # accumulated total so we get the precipitation for that 24-hour window.
+        daily_slices = []
+        for i, idx in enumerate(daily_indices):
+            slc = cube[idx].copy()
+            if i > 0:
+                slc.data = cube[idx].data - cube[daily_indices[i - 1]].data
+            daily_slices.append(slc)
+
+        # Remove coords that vary per-member or cause merge conflicts
+        for slc in daily_slices:
+            for coord in ('forecast_reference_time', 'realization', 'time'):
+                if slc.coords(coord):
+                    slc.remove_coord(coord)
+
+        return iris.cube.CubeList(daily_slices).merge_cube()
+
     def process_forecast_data(self, date, members):
         """
         Build and save all-member Cold Surge files for precip, u850, and v850.
@@ -371,9 +403,8 @@ class ComputeMogrepsColdSurgeIndices(Task):
 
                 try:
                     if varname == "precip":
-                        cube = read_precip_correctly(existing_files, spec["iris_var"])
-                        if cube.shape[0] > 1:
-                            cube.data[1:] -= cube.data[:-1]
+                        cube = self.read_mogreps_precip_correctly(existing_files, spec["iris_var"])
+                        print(f"Read precipitation cube for member {mem}: shape {cube.shape}, coords {[c.name() for c in cube.coords()]}")
                     else:
                         # Try to read wind data; if unavailable, create synthetic zeros
                         try:
@@ -387,7 +418,7 @@ class ComputeMogrepsColdSurgeIndices(Task):
                             # Load a reference cube (precipitation) to get grid structure
                             precip_files = [f for f in existing_files]
                             try:
-                                ref_cube = read_precip_correctly(precip_files, "precipitation_amount")
+                                ref_cube = self.read_mogreps_precip_correctly(precip_files, "precipitation_amount")
                                 # Create a zero-valued copy with the wind variable name
                                 cube = ref_cube.copy()
                                 cube.data = np.zeros_like(cube.data)
